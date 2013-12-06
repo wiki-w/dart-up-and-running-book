@@ -97,50 +97,40 @@
   </sect1>
 
   <sect1 id="preface-safari">
-    <title>Safari® Books Online</title>
+    <title>Safari® 网上书店</title>
 
     <note role="safarienabled">
-      <para>Safari Books Online (<ulink role="orm:hideurl:ital"
-      url="http://my.safaribooksonline.com/?portal=oreilly">www.safaribooksonline.com</ulink>)
-      is an on-demand digital library that delivers expert <ulink
+      <para>Safari 网上书店 (<ulink role="orm:hideurl:ital" url="http://my.safaribooksonline.com/?portal=oreilly">www.safaribooksonline.com</ulink>)是一个数字图书馆，
+      用户可以点播专业的<ulink
       role="orm:hideurl"
-      url="http://www.safaribooksonline.com/content">content</ulink> in both
-      book and video form from the world’s leading authors in technology and
-      business.</para>
+      url="http://www.safaribooksonline.com/content">内容</ulink> 包括全球科技商业领域最顶尖作者的图书、视频。</para>
     </note>
 
-    <para>Technology professionals, software developers, web designers, and
-    business and creative professionals use Safari Books Online as their
-    primary resource for research, problem solving, learning, and
-    certification training.</para>
+    <para>科技专业人事，软件开发者，网站设计者，商业和创新人事使用Safari 网上书店作为他们主要的资源获取来源，用于研究，解决问题，学习，认证培
+    训等。</para>
 
-    <para>Safari Books Online offers a range of <ulink role="orm:hideurl"
-    url="http://www.safaribooksonline.com/subscriptions">product mixes</ulink>
-    and pricing programs for <ulink role="orm:hideurl"
-    url="http://www.safaribooksonline.com/organizations-teams">organizations</ulink>,
-    <ulink role="orm:hideurl"
-    url="http://www.safaribooksonline.com/government">government
-    agencies</ulink>, and <ulink role="orm:hideurl"
-    url="http://www.safaribooksonline.com/individuals">individuals</ulink>.
-    Subscribers have access to thousands of books, training videos, and
-    prepublication manuscripts in one fully searchable database from
-    publishers like O’Reilly Media, Prentice Hall Professional, Addison-Wesley
-    Professional, Microsoft Press, Sams, Que, Peachpit Press, Focal Press,
-    Cisco Press, John Wiley &amp; Sons, Syngress, Morgan Kaufmann, IBM
-    Redbooks, Packt, Adobe Press, FT Press, Apress, Manning, New Riders,
-    McGraw-Hill, Jones &amp; Bartlett, Course Technology, and dozens <ulink
+    <para>Safari 网上书店为<ulink role="orm:hideurl"
+    url="http://www.safaribooksonline.com/organizations-teams">组织</ulink>、<ulink role="orm:hideurl"
+    url="http://www.safaribooksonline.com/government">政府机构</ulink>、 <ulink role="orm:hideurl"
+    url="http://www.safaribooksonline.com/individuals">个人</ulink>提供了一系列的 <ulink role="orm:hideurl"
+    url="http://www.safaribooksonline.com/subscriptions">产品组合</ulink>
+    产品组合和定价。用户可以获得成千上万的书籍及培训视频或正式出版前的手稿，
+    并可在一个可搜索的数据库中查找包括O'Reilly媒体，Prentice Hall Professional，
+    Addison-Wesley Professional，微软出版社，Sams，Que，Peachpit Press，
+    Focal Press，Cisco Press，John Wiley &amp; Son，Syngress，摩根考夫曼，
+    IBM红皮书，Packt，Adobe Press，金融时报出版社，Apress，Manning，New Riders，
+    McGraw-Hill，Jones &amp; Bartlett，Course Technology等等<ulink
     role="orm:hideurl"
-    url="http://www.safaribooksonline.com/publishers">more</ulink>. For more
-    information about Safari Books Online, please visit us <ulink
+    url="http://www.safaribooksonline.com/publishers">更多</ulink>。有关Safari
+    网上书店的详细信息，请访问我们的<ulink
     role="orm:hideurl"
-    url="http://www.safaribooksonline.com/">online</ulink>.</para>
+    url="http://www.safaribooksonline.com/">网站</ulink>。</para>
   </sect1>
 
   <sect1 id="preface-contact">
-    <title>How to Contact Us</title>
+    <title>如何联系我们</title>
 
-    <para>Please address comments and questions concerning this book to the
-    publisher:</para>
+    <para>请将与这本书有关的评论或问题发送至如下出版商地址：</para>
 
     <simplelist type="vert">
       <member>O’Reilly Media, Inc.</member>
@@ -156,32 +146,30 @@
       <member>707-829-0104 (fax)</member>
     </simplelist>
 
-    <para>We have a web page for this book, where we list errata, examples,
-    and any additional information. You can access this page at <ulink
+    <para>我们为这本书建立了一个网页，包含错误信息、例子、和其他的额外的信息。
+    网址 <ulink
     url="http://oreil.ly/Dart_Up_and_Running"></ulink>.</para>
 
-    <para>To comment or ask technical questions about this book, send email to
+    <para>评论或者提问技术问题（关于这本书的），请发送电子邮件：
     <email>bookquestions@oreilly.com</email>.</para>
 
-    <para>For more information about our books, courses, conferences, and
-    news, see our website at <ulink
-    url="http://www.oreilly.com"></ulink>.</para>
+    <para>寻找更多的图书、课程、大会、新闻方面的信息，访问我们的网站 <ulink
+    url="http://www.oreilly.com"></ulink>。</para>
 
-    <para>Find us on Facebook: <ulink
+    <para>我们的 Facebook: <ulink
     url="http://facebook.com/oreilly"></ulink></para>
 
-    <para>Follow us on Twitter: <ulink
+    <para>我们的 Twitter: <ulink
     url="http://twitter.com/oreillymedia"></ulink></para>
 
-    <para>Watch us on YouTube: <ulink
+    <para>我们的 YouTube: <ulink
     url="http://www.youtube.com/oreillymedia"></ulink></para>
   </sect1>
 
   <sect1 id="preface-updates">
-    <title>Content Updates</title>
+    <title>内容更新</title>
 
-    <para>This section gives details about how the book has changed since its
-    first and second printings.</para>
+    <para>这部分详细显示了第二版后的所有修改。</para>
 
     <sect2 id="preface-updates-v3">
       <title>Changes After the Second Printing</title>
