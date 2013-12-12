@@ -4,29 +4,28 @@
 <chapter id="ch03">
   <?dbhtml stop-chunking?>
 
-  <title>A Tour of the Dart Libraries</title>
+  <title>Dart 库概览</title>
 
-  <para>This chapter shows you how to use the major features in Dart’s
-  libraries. It’s just an overview, and by no means comprehensive. Whenever
-  you need more details about a class, consult the <ulink
-  url="http://api.dartlang.org/">Dart API reference.</ulink></para>
+  <para>本章介绍如何使用 Dart 库中的主要功能。
+  这里只是一个概要介绍，并不全面。当你想查看一个类的
+  详细信息的时候，请参考 <ulink
+  url="http://api.dartlang.org/">Dart API 文档。</ulink></para>
 
   <sect1 id="ch03-dartcore---strings-collections-and-more">
-    <title>dart:core - Numbers, Collections, Strings, and More</title>
+    <title>dart:core - 数字、集合、 String、以及更多</title>
 
-    <para>The Dart core library provides a small but critical set of built-in
-    functionality. This library is automatically imported into every Dart
-    program.</para>
+    <para>Dart 核心库提供了少量关键的功能。
+    该库自动导入到每个 Dart 程序中。</para>
 
     <sect2 id="ch03-numbers">
       <title>Numbers</title>
 
-      <para>The dart:core library defines the num, int, and double classes,
-      which have some basic utilities for working with numbers.</para>
+      <para>dart:core 库定义了 num、 int、 和 double 类，
+      这些类提供了一些基本的数字操作功能。</para>
 
-      <para>You can convert a string into an integer or double with the
-      <literal>parse()</literal> methods of int and double,
-      respectively:</para>
+      <para>通过 int 或者 double 的
+      <literal>parse()</literal> 函数可以把字符串转化为 int 或者 double：
+       </para>
 
       <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/number-tests.dart
@@ -34,21 +33,21 @@
 assert(int.parse('0x42') == 66);
 assert(double.parse('0.50') == 0.5);</screen>
 
-      <para>To specify the base, add a <literal>radix</literal>
-      parameter:</para>
+      <para>要指定是几进制数，用可选的 <literal>radix</literal>
+      参数：</para>
 
       <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/number-tests.dart
 </remark>assert(int.parse('42', radix: 16) == 66);</screen>
 
-      <para>Use the <literal>toString()</literal> method (defined by <ulink
-      url="http://api.dartlang.org/dart_core/Object.html">Object</ulink>) to
-      convert an int or double to a string. To specify the number of digits to
-      the right of the decimal, use <literal>toStringAsFixed()</literal>
-      (defined by num). To specify the number of significant digits in the
-      string, use <phrase
+      <para>用 <literal>toString()</literal> 函数 (<ulink
+      url="http://api.dartlang.org/dart_core/Object.html">Object</ulink> 类定义
+      的函数) 可以把 int 或者 double 转化为 string。
+      通过 <literal>toStringAsFixed()</literal>
+      (num 类定义的函数) 可以指定保留几位小数。
+      通过 <phrase
       role="keep-together"><literal>toStringAsPrecision()</literal>
-      </phrase>(also in num):</para>
+      </phrase>(也是 num 类定义) 可以指定几位有效数字：</para>
 
       <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/number-tests.dart
@@ -65,11 +64,11 @@ assert(123.456.toStringAsFixed(2) == '123.46');
 assert(123.456.toStringAsPrecision(2) == '1.2e+2');
 assert(double.parse('1.2e+2') == 120.0);</screen>
 
-      <para>For more information, see the API documentation for <ulink
+      <para>详细信息参考 <ulink
       url="http://api.dartlang.org/dart_core/int.html">int,</ulink> <ulink
-      url="http://api.dartlang.org/dart_core/double.html">double,</ulink> and
-      <ulink url="http://api.dartlang.org/dart_core/num.html">num.</ulink>
-      Also see <xref lang="" linkend="ch03-dart-math" />.</para>
+      url="http://api.dartlang.org/dart_core/double.html">double,</ulink> 和
+      <ulink url="http://api.dartlang.org/dart_core/num.html">num 的 API 文档。</ulink>
+      也可以参考下 <xref lang="" linkend="ch03-dart-math" />。</para>
     </sect2>
 
     <sect2 id="ch03-strings-and-regular-expressions">
