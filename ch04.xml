@@ -1180,36 +1180,35 @@ if (navigator.userAgent.indexOf('(Dart)') == -1) {
   <sect1 id="ch04-tools-dart-vm">
     <title>dart: 独立的虚拟机(VM)</title>
 
-    <para>You can use the <emphasis>dart</emphasis> tool (<literal
-    moreinfo="none">bin/dart</literal>) to run Dart command-line apps such as
-    server-side scripts, programs, and servers. During development, you also
-    have the option to run command-line apps using <link
-    linkend="ch04-editor-run">Dart Editor</link>.</para>
+    <para>你可以用 <emphasis>dart</emphasis> 工具 (<literal
+    moreinfo="none">bin/dart</literal>) 来运行 Dart 命令行应用，
+    例如 服务器端脚本、代码或者服务器等。
+	在开发的时候，你也可以在 <link
+    linkend="ch04-editor-run">Dart 编辑器</link> 中运行命令行应用。</para>
 
     <sect2 id="ch04-tools-dart-vm-basic-usage">
-      <title>Basic Usage</title>
+      <title>基本用法</title>
 
-      <para>Here’s an example of running a Dart file on the command
-      line:</para>
+      <para>下面是在命令行运行 Dart 代码的一个示例：</para>
 
       <screen format="linespecific"><remark>lang-sh
 </remark>dart <replaceable>test.dart</replaceable></screen>
     </sect2>
 
     <sect2 id="ch04-tools-dart-vm-options">
-      <title>Options</title>
+      <title>支持的参数</title>
 
-      <para>Common command-line options for dart include:</para>
+      <para>dart 支持如下一些常用的参数：</para>
 
       <variablelist>
 
         <varlistentry>
           <term role="plain"><literal moreinfo="none">
-          --enable-checked-mode</literal><emphasis> or
+          --enable-checked-mode</literal><emphasis> 或者
           </emphasis><literal>--checked</literal></term>
 
           <listitem>
-            <para>Enable <emphasis>both</emphasis> assertions and type checks
+            <para>启用 <emphasis>断言和类型检测</emphasis> 
             (checked mode).</para>
           </listitem>
         </varlistentry>
@@ -1219,7 +1218,7 @@ if (navigator.userAgent.indexOf('(Dart)') == -1) {
           </literal><literal>--package-root=</literal><replaceable>&lt;path&gt;</replaceable></term>
 
           <listitem>
-            <para>Specify where to find imported libraries.</para>
+            <para>指定查找导入包的目录</para>
           </listitem>
         </varlistentry>
 
@@ -1228,30 +1227,31 @@ if (navigator.userAgent.indexOf('(Dart)') == -1) {
           --print-flags</literal></term>
 
           <listitem>
-            <para>Print all the command-line options.</para>
+            <para>打印出所有参数列表</para>
           </listitem>
         </varlistentry>
       </variablelist>
     </sect2>
 
     <sect2 id="ch04-tools-dart-vm-type-checks">
-      <title>Enabling Checked Mode</title>
+      <title>启用检测模式</title>
 
-      <para>Dart programs run in one of two modes: checked or production. By
-      default, the Dart VM runs in production mode. We recommend that you
-      enable checked mode for development and testing.</para>
+      <para>Dart 程序有两种运行模式： checked 或者 production （检测模式或者生产模式）。
+	 默认情况下，Dart VM 使用的是生产模式。
+	 我们推荐你用 检测模式 来开发和测试应用。</para>
 
-      <para>In checked mode, assignments are dynamically checked, and certain
-      violations of the type system raise exceptions at runtime. In
-      production mode, static type annotations have no effect.</para>
+      <para>在检测模式下，赋值操作会进行类型检测，如果类型不匹配则会抛出
+          一个异常。而在生产模式下，类型定义没有任何效果。</para>
 
-      <para>Assert statements are also enabled in checked mode. An <link
-      linkend="assert">assert statement</link> checks a boolean condition,
-      raising an exception if the condition is false. Assertions do not run in
-      production mode.</para>
+      <para>
+          断言也在检测模式下有用。一个
+            <link
+      linkend="assert">assert statement（断言语句）</link> 检测一个布尔值，
+      如果该值为 false 则抛出一个异常。
+      同样，在生产模式下，断言也没任何效果。</para>
 
-      <para>You can run the VM in checked mode with the
-      <literal>--checked</literal> command-line flag:</para>
+      <para>使用
+      <literal>--checked</literal> 命令行参数可以启用 VM 的检测模式：</para>
 
       <screen format="linespecific"><remark>lang-sh
 </remark>dart --checked <replaceable>test.dart</replaceable></screen>
@@ -1259,41 +1259,39 @@ if (navigator.userAgent.indexOf('(Dart)') == -1) {
   </sect1>
 
   <sect1 id="ch04-tools-dart_analyzer">
-    <title>dartanalyzer: The Static Analyzer</title>
+    <title>dartanalyzer: 静态分析工具</title>
 
-    <para>You can use the <emphasis>dartanalyzer</emphasis> tool (<literal
-    moreinfo="none">bin/dartanalyzer</literal>) to statically analyze your
-    code at the command line, checking for errors and warnings that are
-    specified in the <ulink url="http://www.dartlang.cc/docs/spec/">Dart
-    Language Specification.</ulink></para>
+    <para>你可以用 <emphasis>dartanalyzer</emphasis> 工具 (<literal
+    moreinfo="none">bin/dartanalyzer</literal>) 通过命令行来静态的分析
+    代码，检测 <ulink url="http://www.dartlang.cc/docs/spec/">Dart
+    语言规范</ulink> 中的一些错误和警告情况。</para>
 
     <note>
-      <para>Dart Editor performs the same analysis that dartanalyzer does, but
-      with additional checks for common mistakes. A previous static analyzer,
-      called <emphasis>dart_analyzer</emphasis>, is no longer
-      supported.</para>
+      <para>Dart 编辑器 除了执行 dartanalyzer 功能外还有其他
+          一些常见错误检测。
+     之前版本的 <emphasis>dart_analyzer</emphasis>已经被淘汰了。</para>
     </note>
 
     <sect2 id="ch04-tools-dart_analyzer-basic-usage">
-      <title>Basic Usage</title>
+      <title>基础用法</title>
 
-      <para>Here’s an example of testing a Dart file:</para>
+      <para>下面是测试一个 Dart 代码的示例：</para>
 
       <screen format="linespecific"><remark>lang-sh
 </remark>dartanalyzer --package-root <replaceable>code/packages</replaceable> <replaceable>test.dart</replaceable></screen>
 
-      <para>As <xref linkend="ch04-dartanalyzer-exit" /> shows, the exit code
-      of dartanalyzer tells you whether the code passed analysis.</para>
+      <para>如 <xref linkend="ch04-dartanalyzer-exit" /> 所示，dartanalyzer 的退出码
+          代表分析的结果。</para>
 
       <table id="ch04-dartanalyzer-exit">
-        <title>Exit codes for dartanalyzer</title>
+        <title>dartanalyzer 的退出码</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Exit code</entry>
+              <entry>退出码</entry>
 
-              <entry>Description</entry>
+              <entry>描述</entry>
             </row>
           </thead>
 
@@ -1301,19 +1299,19 @@ if (navigator.userAgent.indexOf('(Dart)') == -1) {
             <row>
               <entry>0</entry>
 
-              <entry>No issues found</entry>
+              <entry>没有发现问题</entry>
             </row>
 
             <row>
               <entry>1</entry>
 
-              <entry>Warnings found (but no errors)</entry>
+              <entry>发现警告(但是没错误)</entry>
             </row>
 
             <row>
               <entry>2</entry>
 
-              <entry>Errors found</entry>
+              <entry>发现错误</entry>
             </row>
           </tbody>
         </tgroup>
@@ -1321,10 +1319,9 @@ if (navigator.userAgent.indexOf('(Dart)') == -1) {
     </sect2>
 
     <sect2 id="ch04-tools-dart_analyzer-options">
-      <title>Options</title>
+      <title>支持的参数</title>
 
-      <para>You can use the following command-line options with
-      dartanalyzer:</para>
+      <para>dartanalyzer 支持如下命令行参数：</para>
 
       <variablelist>
 
@@ -1334,7 +1331,7 @@ if (navigator.userAgent.indexOf('(Dart)') == -1) {
           <replaceable>&lt;path&gt;</replaceable></literal></term>
 
           <listitem>
-            <para>Specify the directory that contains the Dart SDK.</para>
+            <para>设置 Dart SDK 的目录。</para>
           </listitem>
 
         </varlistentry>
@@ -1345,8 +1342,7 @@ if (navigator.userAgent.indexOf('(Dart)') == -1) {
           <replaceable>&lt;path&gt;</replaceable></literal></term>
 
           <listitem>
-            <para>Specify the directory to search for any libraries that are
-            imported using <literal>package:</literal>.</para>
+            <para>设置使用  <literal>package:</literal> 导入的包的目录。</para>
           </listitem>
         </varlistentry>
 
@@ -1355,9 +1351,8 @@ if (navigator.userAgent.indexOf('(Dart)') == -1) {
           </literal><literal>--show-package-warnings</literal></term>
 
           <listitem>
-            <para>Show warnings not only for code in the specified .dart file
-            and others in its library, but also for libraries imported with
-            <literal>package:</literal>.</para>
+            <para>不仅仅显示你应用中的  .dart 代码警告，同时还显示
+                所使用库（<literal>package:</literal> 导入的库）的警告信息。 </para>
           </listitem>
         </varlistentry>
 
@@ -1366,7 +1361,7 @@ if (navigator.userAgent.indexOf('(Dart)') == -1) {
           </literal><literal>--machine</literal></term>
 
           <listitem>
-            <para>Produce output in a format suitable for parsing.</para>
+            <para>生成可以分析的结果文件。</para>
           </listitem>
         </varlistentry>
 
@@ -1375,7 +1370,7 @@ if (navigator.userAgent.indexOf('(Dart)') == -1) {
           </literal><literal>--version</literal></term>
 
           <listitem>
-            <para>Show the analyzer version.</para>
+            <para>显示分析器的版本。</para>
           </listitem>
         </varlistentry>
 
@@ -1384,7 +1379,7 @@ if (navigator.userAgent.indexOf('(Dart)') == -1) {
           </literal><literal>--help</literal></term>
 
           <listitem>
-            <para>Show all the command-line options.</para>
+            <para>显示所有命令行参数。</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -1392,36 +1387,33 @@ if (navigator.userAgent.indexOf('(Dart)') == -1) {
   </sect1>
 
   <sect1 id="ch04-tools-dartdoc">
-    <title>dartdoc: The API Documentation Generator</title>
+    <title>dartdoc: API 文档生成器</title>
 
-    <para>You can use the <emphasis>dartdoc</emphasis> tool (<literal
-    moreinfo="none">bin/dartdoc</literal>) to generate documentation from your
-    Dart code. By default, dartdoc parses and creates documentation for the
-    .dart files that you pass to it, plus the libraries they import.</para>
+    <para>可以用 <emphasis>dartdoc</emphasis> 工具 (<literal
+    moreinfo="none">bin/dartdoc</literal>) 来生成 Dart 代码的 文档。
+    默认情况下，dartdoc 生成你指定的 .dart 代码和这些代码所导入的库的文档。
+    </para>
 
-    <para>To improve dartdoc’s output, provide documentation comments as
-    described in <xref linkend="comments-doc" />. Also see the article <ulink
-    url="http://www.dartlang.cc/articles/doc-comment-guidelines/">Guidelines
-    for Dart Doc <phrase
-    role="keep-together">Comments</phrase>.</ulink></para>
+    <para>按照 <xref linkend="comments-doc" /> 文章中推荐的方式写注释，可以
+        改进生成的 文档。同时也参考下 <ulink
+    url="http://www.dartlang.cc/articles/doc-comment-guidelines/"> Dart 文档<phrase
+    role="keep-together">注释指南 </phrase></ulink></para>
 
     <sect2 id="ch04-tools-dartdoc-basic-usage">
-      <title>Basic Usage</title>
+      <title>基本用法</title>
 
-      <para>Here’s an example of generating documentation from a Dart
-      file.</para>
+      <para>下面是从 Dart 代码中生成文档的方法：</para>
 
       <screen format="linespecific"><remark>lang-sh
 </remark>dartdoc --out=/docs/mylib <replaceable>mylib.dart</replaceable></screen>
 
-      <para>By default, the generated documentation appears in a directory
-      named <literal>docs/</literal>.</para>
+      <para>默认情况下，生成的文档位于 <literal>docs/</literal> 目录中。</para>
     </sect2>
 
     <sect2 id="ch04-tools-dartdoc-options">
-      <title>Options</title>
+      <title>支持的参数</title>
 
-      <para>Common command-line options for dartdoc include:</para>
+      <para>dartdoc 支持如下参数：上</para>
 
       <variablelist>
         <varlistentry>
@@ -1429,8 +1421,7 @@ if (navigator.userAgent.indexOf('(Dart)') == -1) {
           </literal><literal>--out=<replaceable>&lt;absolute_path&gt;</replaceable></literal></term>
 
           <listitem>
-            <para>Put the documentation in the specified directory. If the
-            directory doesn’t already exist, it’s created.</para>
+            <para>设置生成的文档目录，如果目录不存在，则会创建该目录。</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -1441,8 +1432,7 @@ if (navigator.userAgent.indexOf('(Dart)') == -1) {
           </literal><literal>--no-code</literal></term>
 
           <listitem>
-            <para>Don’t include source code in the generated
-            documentation.</para>
+            <para>在生成的文档中不要包含代码。</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -1453,10 +1443,9 @@ if (navigator.userAgent.indexOf('(Dart)') == -1) {
           </literal><literal>--exclude-lib=<replaceable>&lt;identifier&gt;</replaceable></literal></term>
 
           <listitem>
-            <para>Don’t generate documentation for the specified
-            library.</para>
+            <para>设置不生成文档的库。</para>
 
-            <para><phrase role="keep-together"><emphasis>Example:</emphasis>
+            <para><phrase role="keep-together"><emphasis>示例:</emphasis>
             <literal>--exclude-lib=metadata</literal></phrase></para>
           </listitem>
         </varlistentry>
@@ -1468,7 +1457,7 @@ if (navigator.userAgent.indexOf('(Dart)') == -1) {
           </literal><literal>--omit-generation-time</literal></term>
 
           <listitem>
-            <para>Don’t put a timestamp at the bottom of every page.</para>
+            <para>在每个文档页面底部不要包含生成的日期。</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -1479,9 +1468,8 @@ if (navigator.userAgent.indexOf('(Dart)') == -1) {
           </literal><literal>--mode=static</literal></term>
 
           <listitem>
-            <para>Use static HTML navigation. The resulting files can be much
-            larger than the default, but previewing docs locally is
-            easier.</para>
+            <para>使用静态 HTML 导航，生成的文档文件会占用更多的存储空间，但是
+                本地浏览会比较方便。</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -1492,11 +1480,10 @@ if (navigator.userAgent.indexOf('(Dart)') == -1) {
           </literal><literal>--package-root=<replaceable>&lt;path&gt;</replaceable></literal></term>
 
           <listitem>
-            <para>Specify where to find imported libraries. You might need to
-            use this option if dartdoc can’t find a library because your
-            directory structure doesn’t match <ulink
-            url="http://pub.dartlang.org/doc/package-layout.html">pub’s
-            package layout conventions.</ulink> <emphasis>Example:</emphasis>
+            <para>设置查找导入库的目录。
+                如果你的文件目录和  <ulink
+            url="http://pub.dartlang.org/doc/package-layout.html">pub 包
+            目录布局约定</ulink> 中介绍的不一样，则需要设置该选项。<emphasis>例如:</emphasis>
             <literal>--package-root=foo/packages/</literal></para>
           </listitem>
         </varlistentry>
@@ -1508,7 +1495,7 @@ if (navigator.userAgent.indexOf('(Dart)') == -1) {
           </literal><literal>--help</literal></term>
 
           <listitem>
-            <para>Print all the command-line options.</para>
+            <para>打印所有参数信息。</para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -1516,10 +1503,10 @@ if (navigator.userAgent.indexOf('(Dart)') == -1) {
   </sect1>
 
   <sect1 id="ch04-summary">
-    <title>Summary</title>
+    <title>总结</title>
 
-    <para>This chapter covered the most commonly used Dart tools. All of them
-    are available in the Dart Editor download, but you can also download
-    Dartium or the SDK separately.</para>
+    <para>本章介绍了常用的 Dart 工具。
+        所有工具都包含在下载的 Dart 编辑器包中，但是你也可以单独
+        下载 Dartium 和 SDK。</para>
   </sect1>
 </chapter>
