@@ -72,126 +72,124 @@ assert(double.parse('1.2e+2') == 120.0);</screen>
     </sect2>
 
     <sect2 id="ch03-strings-and-regular-expressions">
-      <title>Strings and Regular Expressions</title>
+      <title>字符串（String）和正则表达式</title>
 
-      <para>A string in Dart is an immutable sequence of UTF-16 code units.
-      The language tour has more information about <link
-      linkend="strings">strings</link>. You can use regular expressions
-      (RegExp objects) to search within strings and to replace parts of
-      strings.</para>
+      <para>Dart 中的字符串是一个不可变的 UTF-16 编码单元（code units） 序列。
+          在语言概览中详细介绍了 <link
+      linkend="strings">strings</link>。还可以用正则表达式
+      (RegExp 对象) 来在字符串内搜索和替换部分
+      字符串
+      。</para>
 
-      <para>The String class defines such methods as
-      <literal>split()</literal>, <literal>contains()</literal>,
-      <literal>startsWith()</literal>, <phrase
-      role="keep-together"><literal>endsWith()</literal></phrase>, and
-      more.</para>
+      <para>String 类有一些函数：
+      <literal>split()</literal>、 <literal>contains()</literal>、
+      <literal>startsWith()</literal>、 <phrase
+      role="keep-together"><literal>endsWith()</literal></phrase>、 等等。</para>
 
       <sect3 id="ch03-searching-inside-a-string">
-        <title>Searching inside a string</title>
+        <title>在字符串内搜索</title>
 
-        <para>You can find particular locations within a string, as well as
-        check whether a string begins with or ends with a particular pattern.
-        For example:</para>
+        <para>你可以查找字符串内匹配字符的开始位置，也可以
+            检查字符串是否以某个特定的模式开始和结束。
+            例如：</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/string-tests.dart
-</remark>// Check whether a string contains another string.
+</remark>// 检测一个字符串是否包含另外一个字符串
 assert('Never odd or even'.contains('odd'));
 
-// Does a string start with another string?
+// 一个字符串是否以另外一个字符串开始？
 assert('Never odd or even'.startsWith('Never'));
 
-// Does a string end with another string?
+// 一个字符串是否以另外一个字符串结束？
 assert('Never odd or even'.endsWith('even'));
 
-// Find the location of a string inside a string.
+// 查找一个字符串在另外一个字符串中出现的位置。
 assert('Never odd or even'.indexOf('odd') == 6);</screen>
       </sect3>
 
       <sect3 id="ch03-extracting-data-from-a-string">
-        <title>Extracting data from a string</title>
+        <title>从字符串中提取数据</title>
 
-        <para>You can get the individual characters or UTF-16 code units from
-        a string as Strings or ints, respectively.</para>
+        <para>可以从字符串中获取每个独立的字符或者 UTF-16 编码单元。
+            </para>
 
-        <para>You can also extract a substring or split a string into a list
-        of substrings:</para>
+        <para>还可以从字符串中截取一个子字符串或者把一个
+            字符串分割为一个字符串数组：</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/string-tests.dart
-</remark>// Grab a substring.
+</remark>// 截取一个子字符串
 assert('Never odd or even'.substring(6, 9) == 'odd');
 
-// Split a string using a string pattern.
+// 使用一个模式来分割字符串
 var parts = 'structured web apps'.split(' ');
 assert(parts.length == 3);
 assert(parts[0] == 'structured');
 
-// Get a character (as a string) by index.
+// 通过下标索引获取一个字符（String 对象）
 assert('Never odd or even'[0] == 'N');
 
-// Use split() with an empty string parameter to get a list of
-// all characters (as Strings); good for iterating.
+// 使用 空字符串作为参数调用 split() 函数可以获取字符串中的
+// 所有单个字符，结果为一个内容为 String 的 list
 for (var char in 'hello'.split('')) {
   print(char);
 }
 
-// Get all the characters in the string as a list of UTF-16 code units.
-// Some characters might require two code units.
+// 获取一个字符串所有字符的 UTF-16 编码单元
+// 有些字符可能需要用两个编码单元来表达
 var codeUnitList = 'Never odd or even'.codeUnits.toList();
 assert(codeUnitList[0] == 78);</screen>
       </sect3>
 
       <sect3 id="ch03-converting-to-uppercase-or-lowercase">
-        <title>Converting to uppercase or lowercase</title>
+        <title>大小写转换</title>
 
-        <para>You can easily convert strings to their uppercase and lowercase
-        variants:</para>
+        <para>字符串大小写转换非常简单：</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/string-tests.dart
-</remark>// Convert to uppercase.
+</remark>// 转换为大小
 assert('structured web apps'.toUpperCase() == 'STRUCTURED WEB APPS');
 
-// Convert to lowercase.
+// 转换为小写
 assert('STRUCTURED WEB APPS'.toLowerCase() == 'structured web apps');</screen>
 
         <note>
-          <para>These methods don't work for every language. For example, the
-          Turkish alphabet's dotless <emphasis>I</emphasis> is converted
-          incorrectly.</para>
+          <para>注意：上面的函数并不适用于所有的语言。
+              例如  ，土耳其语言中的   <emphasis>I</emphasis> 用上面的函数转换会得到错误的结果。</para>
         </note>
       </sect3>
 
       <sect3 id="ch03-trimming-and-empty-strings">
-        <title>Trimming and empty strings</title>
+        <title>删除字符串首尾空白字符和检测空字符串</title>
 
-        <para>Remove all leading and trailing white space with
-        <literal>trim()</literal>. To check whether a string is empty (length
-        is zero), use <literal>isEmpty</literal>.</para>
+        <para>用
+        <literal>trim()</literal> 函数删除字符串首尾的空白字符。
+        用 <literal>isEmpty</literal> 来检测字符串是否为空（长度为 0 ）。</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/string-tests.dart
-</remark>// Trim a string.
+</remark>// 删除字符串首尾空白字符
 assert('  hello  '.trim() == 'hello');
 
-// Check whether a string is empty.
+// 检测字符串是否为空
 assert(''.isEmpty);
 
-// Strings with only white space are not empty.
+// 只有空白字符的字符串并不为空
 assert(!'  '.isEmpty);</screen>
       </sect3>
 
       <sect3 id="_replacing_part_of_a_string">
-        <title>Replacing part of a string</title>
+        <title>替代部分字符</title>
 
-        <para>Strings are immutable objects, which means you can create them
-        but you can’t change them. If you look closely at the <ulink
+        <para>String 是不可变对象，所以你只能创建 String 对象而无法修改他们。
+            如果你仔细的查看  <ulink
         url="http://api.dartlang.org/dart_core/String.html">String API
-        docs,</ulink> you’ll notice that none of the methods actually changes
-        the state of a String. For example, the method
-        <literal>replaceAll()</literal> returns a new String without changing
-        the original String:</para>
+        文档</ulink>，你会发现所有的函数都没有修改 String 的状态。例如，
+        函数
+        <literal>replaceAll()</literal> 返回一个
+        新的 String 对象而不是修改原来的对象：</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/string-tests.dart
@@ -202,11 +200,12 @@ assert(greeting != greetingTemplate); // greetingTemplate didn't change.</screen
       </sect3>
 
       <sect3 id="_building_a_string">
-        <title>Building a string</title>
+        <title>创建一个 string</title>
 
-        <para>To programmatically generate a string, you can use StringBuffer.
-        A StringBuffer doesn’t generate a new String object until
-        <literal>toString()</literal> is called.</para>
+        <para>要在代码中生成一个 string， 你可以用 StringBuffer。
+        只有调用 
+        <literal>toString()</literal> 函数的时候 StringBuffer 才生成
+        String 。</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/string-tests.dart
@@ -223,51 +222,50 @@ assert(fullString ==
       </sect3>
 
       <sect3 id="ch03-regular-expressions">
-        <title>Regular expressions</title>
+        <title>正则表达式</title>
 
-        <para>The RegExp class provides the same capabilities as JavaScript
-        regular expressions. Use regular expressions for efficient searching
-        and pattern matching of strings.</para>
+        <para>RegExp 类提供了 JavaScript 正则表达式的功能。
+            用正则表达式搜索字符串和匹配符合某个规则的字符串更加高效。</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/string-tests.dart
-</remark>// Here's a regular expression for one or more digits.
+</remark>// 匹配一个或者多个数字的规则
 var numbers = new RegExp(r'\d+');
 
 var allCharacters = 'llamas live fifteen to twenty years';
 var someDigits = 'llamas live 15 to 20 years';
 
-// contains() can use a regular expression.
+// contains() 可以用正则表达式作为参数
 assert(!allCharacters.contains(numbers));
 assert(someDigits.contains(numbers));
 
-// Replace every match with another string.
+// 用一个字符串替换所有匹配的字符
 var exedOut = someDigits.replaceAll(numbers, 'XX');
 assert(exedOut == 'llamas live XX to XX years');</screen>
 
-        <para>You can work directly with the RegExp class, too. The Match
-        class provides access to a regular expression match.</para>
+        <para>你也可以直接操作 RegExp 对象。
+            Match 类提供了访问匹配一个表达式的结果：</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/string-tests.dart
 </remark>var numbers = new RegExp(r'\d+');
 var someDigits = 'llamas live 15 to 20 years';
 
-// Check whether the reg exp has a match in a string.
+// 检测字符串中是否有匹配的项
 assert(numbers.hasMatch(someDigits));
 
-// Loop through all matches.
+// 遍历所有匹配的项
 for (var match in numbers.allMatches(someDigits)) {
   print(match.group(0)); // 15, then 20
 }</screen>
       </sect3>
 
       <sect3 id="ch03-more-information-8">
-        <title>More information</title>
+        <title>更多信息</title>
 
-        <para>Refer to the <ulink
+        <para>参考  <ulink
         url="http://api.dartlang.org/dart_core/String.html">String API
-        docs</ulink> for a full list of methods. Also see the API docs for
+        文档</ulink> 来查看 String 的所有函数。同时参考
         <ulink
         url="http://api.dartlang.org/dart_core/StringBuffer.html">StringBuffer,</ulink>
         <ulink
@@ -275,106 +273,104 @@ for (var match in numbers.allMatches(someDigits)) {
         <ulink
         url="http://api.dartlang.org/dart_core/RegExp.html">RegExp,</ulink>
         and <ulink
-        url="http://api.dartlang.org/dart_core/Match.html">Match.</ulink></para>
+        url="http://api.dartlang.org/dart_core/Match.html">Match</ulink> 类的 API 文档来了解这些类的更多功能。</para>
       </sect3>
     </sect2>
 
     <sect2 id="ch03-collections">
-      <title>Collections</title>
+      <title>集合</title>
 
-      <para>Dart ships with a core collections API, which includes classes for
-      lists, sets, and maps.</para>
+      <para>Dart 包含了一个核心的集合 API，这些 API 包含
+      lists、 sets、和  maps。</para>
 
       <sect3 id="ch03-lists">
         <title>Lists</title>
 
-        <para>As the language tour shows, you can use literals to create and
-        initialize <link linkend="lists">lists</link>. Alternatively, use one
-        of the List constructors. The List class also defines several methods
-        for adding items to and removing items from lists.</para>
+        <para>在语言概览中已经介绍过用 字符字面量来创建 <link linkend="lists">lists</link> 的方法。
+            另外也可以用 List 的构造函数。 List 还定义了一些函数可以添加或者删除 List 中的内容。
+        </para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/list-tests.dart
-</remark>// Use a List constructor.
+</remark>// 使用 List 构造函数
 var vegetables = new List();
 
-// Or simply use a list literal.
+// 使用 list 字符字面量 创建 List
 var fruits = ['apples', 'oranges'];
 
-// Add to a list.
+// 添加到 list 中
 fruits.add('kiwis');
 
-// Add multiple items to a list.
+// 一次添加多个项到 list 中
 fruits.addAll(['grapes', 'bananas']);
 
-// Get the list length.
+// 查询 list 的长度
 assert(fruits.length == 5);
 
-// Remove a single item.
+// 删除一个项
 var appleIndex = fruits.indexOf('apples');
 fruits.removeAt(appleIndex);
 assert(fruits.length == 4);
 
-// Remove all elements from a list.
+// 删除 list 中的所有项
 fruits.clear();
 assert(fruits.length == 0);</screen>
 
-        <para>Use <literal>indexOf()</literal> to find the index of an object
-        in a list:</para>
+        <para>用 <literal>indexOf()</literal> 函数来查找 list 中
+            某个位置的对象：</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/list-tests.dart
 </remark>var fruits = ['apples', 'oranges'];
 
-// Access a list item by index.
+// 通过索引访问 list 中的对象
 assert(fruits[0] == 'apples');
 
-// Find an item in a list.
+// 查找 list 中是否包含该对象
 assert(fruits.indexOf('apples') == 0);</screen>
 
-        <para>Sort a list using the <literal>sort()</literal> method. You must
-        provide a sorting function that compares two objects. This sorting
-        function must return &lt; 0 for <emphasis>smaller</emphasis>, 0 for
-        the <emphasis>same</emphasis>, and &gt; 0 for
-        <emphasis>bigger</emphasis>. The following example uses
-        <literal>compareTo()</literal>, which is defined by <ulink
+        <para>用 <literal>sort()</literal> 函数可以排序 list 中的内容。
+            该函数的参数为一个用来比较两个对象的方法。该方法的返回值需要满足如下要求：
+            比较的结果为 <emphasis>小于</emphasis>的话，则返回值必需  &lt; 0，
+            如果<emphasis>相等</emphasis>的话，则必需返回 0，如果结果为
+            <emphasis>大于</emphasis>的话，则返回值必需为  &gt; 0 。
+           下面的示例使用了  <ulink
         url="http://api.dartlang.org/dart_core/Comparable.html">Comparable</ulink>
-        and implemented by String.</para>
+        接口定义的函数 <literal>compareTo()</literal>， String 类实现了该函数。</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/list-tests.dart
 </remark>var fruits = ['bananas', 'apples', 'oranges'];
 
-// Sort a list.
+// 排序 list 中的对象
 fruits.sort((a, b) =&gt; a.compareTo(b));
 assert(fruits[0] == 'apples');</screen>
 
-        <para>Lists are parameterized types, so you can specify the type that
-        a list should contain:</para>
+        <para>List 支持泛型，所以你可以设置一个 List 中对象的类型：</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/list-tests.dart
-</remark>// This list should contain only strings.
+</remark>// 这个 list 应该只包含 String 对象
 var fruits = new List&lt;String&gt;();
 
 fruits.add('apples');
 var fruit = fruits[0];
 assert(fruit is String);
 
-// Generates static analysis warning, num is not a string.
-fruits.add(5);  // BAD: Throws exception in checked mode.</screen>
+// 将有一个静态分析警告， num 不是一个 String
+fruits.add(5);  // BAD: 在检测模式（Checked mode）下会抛出异常。</screen>
 
-        <para>Refer to the <ulink
+        <para>参考 <ulink
         url="http://api.dartlang.org/dart_core/List.html">List API
-        docs</ulink> for a full list of methods.</para>
+        文档</ulink> 来了解 List 对象的所有函数，</para>
       </sect3>
 
       <sect3 id="ch03-sets">
         <title>Sets</title>
 
-        <para>A set in Dart is an unordered collection of unique items.
-        Because a set is unordered, you can’t get a set’s items by index
-        (position).</para>
+        <para>Dart 中的 Set 是包含唯一对象的无序集合。
+            由于 set 中的对象都是没有顺序的，所以无法用位置索引来
+            访问里面的对象。</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/set-tests.dart
@@ -382,97 +378,92 @@ fruits.add(5);  // BAD: Throws exception in checked mode.</screen>
 ingredients.addAll(['gold', 'titanium', 'xenon']);
 assert(ingredients.length == 3);
 
-// Adding a duplicate item has no effect.
+// 添加一个重复的对象不起作用
 ingredients.add('gold');
 assert(ingredients.length == 3);
 
-// Remove an item from a set.
+// 从 set 中删除一个对象
 ingredients.remove('gold');
 assert(ingredients.length == 2);</screen>
 
-        <para>Use <literal>contains()</literal> and
-        <literal>containsAll()</literal> to check whether one or more objects
-        are in a set:</para>
+        <para>用 <literal>contains()</literal> 和
+        <literal>containsAll()</literal> 来检测 set 中是否包含一个或者多个对象：</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/set-tests.dart
 </remark>var ingredients = new Set();
 ingredients.addAll(['gold', 'titanium', 'xenon']);
 
-// Check whether an item is in the set.
+// 检测一个对象是否在 set 中
 assert(ingredients.contains('titanium'));
 
-// Check whether all the items are in the set.
+// 检测是否 set 包含多个对象
 assert(ingredients.containsAll(['titanium', 'xenon']));</screen>
 
-        <para>An intersection is a set whose items are in two other
-        sets.</para>
+        <para>交集是两个 set 中都包含的对象集合。</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/set-tests.dart
 </remark>var ingredients = new Set();
 ingredients.addAll(['gold', 'titanium', 'xenon']);
 
-// Create the intersection of two sets.
+// 创建两个 set 的交集
 var nobleGases = new Set.from(['xenon', 'argon']);
 var intersection = ingredients.intersection(nobleGases);
 assert(intersection.length == 1);
 assert(intersection.contains('xenon'));</screen>
 
-        <para>Refer to the <ulink
-        url="http://api.dartlang.org/dart_core/Set.html">Set API docs</ulink>
-        for a full list of methods.</para>
+        <para>参考 <ulink
+        url="http://api.dartlang.org/dart_core/Set.html">Set API 文档</ulink>
+        了解 set 的更多功能。</para>
       </sect3>
 
       <sect3 id="ch03-maps-aka-dictionaries-or-hashes">
         <title>Maps</title>
 
-        <para>A map, commonly known as a <emphasis>dictionary</emphasis> or
-        <emphasis>hash</emphasis>, is an unordered collection of key-value
-        pairs. Maps associate a key to some value for easy retrieval. Unlike
-        in JavaScript, Dart objects are not maps.</para>
+        <para>map 通常被称之为 <emphasis>dictionary</emphasis> 或者
+        <emphasis>hash</emphasis>， map 是一个无序的 key-value（键-值） 对。
+        map 中每个值都有一个对应的键便于访问。和 JavaScript 不同， Dart 对象不是 map。
+        </para>
 
-        <para><phrase role="keep-together">You can declare a map using a terse
-        literal syntax, or you can use a traditional
-        constructor:</phrase></para>
+        <para><phrase role="keep-together">
+            可以通过字符字面量定义 map 也可以通过 map 构造函数来定义 map：
+        </phrase></para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/map-1.dart
-</remark>// Maps often use strings as keys.
+</remark>// map 通常都是用 String 做为 key
 var hawaiianBeaches = {
   'oahu'       : ['waikiki', 'kailua', 'waimanalo'],
   'big island' : ['wailea bay', 'pololu beach'],
   'kauai'      : ['hanalei', 'poipu']
 };
 
-// Maps can be built from a constructor.
+// 用构造函数创建 map
 var searchTerms = new Map();
 
-// Maps are parameterized types; you can specify what types
-// the key and value should be.
+// map 支持泛型，所以可以指定 map 的 key 和 value 的类型：
 var nobleGases = new Map&lt;int, String&gt;();</screen>
 
-        <para>You add, get, and set map items using the bracket syntax. Use
-        <literal>remove()</literal> to remove a key and its value from a
-        map.<remark> [PENDING: It’s questionable that this example uses
-        containsKey before containsKey is discussed.]</remark></para>
+        <para>使用方括号来添加、设置和访问 map 中的值。用
+        <literal>remove()</literal> 函数从 map 中删除
+        对应的 key 和 value。<remark> [注意 下面的示例中使用了 尚未见到过的 containsKey 函数]</remark></para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/map-1.dart
 </remark>var nobleGases = { 54: 'xenon' };
 
-// Retrieve a value with a key.
+// 通过 key 获取对应的 value
 assert(nobleGases[54] == 'xenon');
 
-// Check whether a map contains a key.
+// 检测 map 中是否包含一个 key
 assert(nobleGases.containsKey(54));
 
-// Remove a key and its value.
+// 删除一个 key 和对应的 value
 nobleGases.remove(54);
 assert(!nobleGases.containsKey(54));</screen>
 
-        <para>You can retrieve all the values or all the keys from a
-        map:</para>
+        <para>可以获取 map 的所有 key 或者所有 value：</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/map-1.dart
@@ -482,21 +473,22 @@ assert(!nobleGases.containsKey(54));</screen>
   'kauai' : ['hanalei', 'poipu']
 };
 
-// Get all the keys as an unordered collection (an Iterable).
+// 获取所有的 key，结果为一个无序集合 ( 一个 Iterable).
 var keys = hawaiianBeaches.keys;
 
 assert(keys.length == 3);
 assert(new Set.from(keys).contains('oahu'));
 
-// Get all the values as an unordered collection (an Iterable of Iterables).
+// 获取 map 所有 value 的集合 (an Iterable of Iterables).
 var values = hawaiianBeaches.values;
 assert(values.length == 3);
 assert(values.any((v) =&gt; v.indexOf('waikiki') != -1));</screen>
 
-        <para>To check whether a map contains a key, use
-        <literal>containsKey()</literal>. Because map values can be null, you
-        cannot rely on simply getting the value for the key and checking for
-        null to determine the existence of a key.</para>
+        <para>用
+        <literal>containsKey()</literal> 函数检测
+        map 中是否包含一个 key。由于 map 的 value 可以为 null，
+        所以你不能通过判断 key 来判断是否包含一个 value。
+        </para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/map-1.dart
@@ -509,7 +501,7 @@ assert(values.any((v) =&gt; v.indexOf('waikiki') != -1));</screen>
 assert(hawaiianBeaches.containsKey('oahu'));
 assert(!hawaiianBeaches.containsKey('florida'));</screen>
 
-        <para>Use the <literal>putIfAbsent()</literal> method when you want to
+        <para>如果你想 <literal>putIfAbsent()</literal> method when you want to
         assign a value to a key if and only if the key does not already exist
         in a map. You must provide a function that returns the value.</para>
 
