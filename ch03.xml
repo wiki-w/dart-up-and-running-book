@@ -501,9 +501,9 @@ assert(values.any((v) =&gt; v.indexOf('waikiki') != -1));</screen>
 assert(hawaiianBeaches.containsKey('oahu'));
 assert(!hawaiianBeaches.containsKey('florida'));</screen>
 
-        <para>如果你想 <literal>putIfAbsent()</literal> method when you want to
-        assign a value to a key if and only if the key does not already exist
-        in a map. You must provide a function that returns the value.</para>
+        <para>如果你想在 key 不存在的时候
+            才设置该值，则可以用  <literal>putIfAbsent()</literal> 函数。该函数
+            的参数为返回设置的值的方法：</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/map-1.dart
@@ -511,34 +511,33 @@ assert(!hawaiianBeaches.containsKey('florida'));</screen>
 teamAssignments.putIfAbsent('Catcher', () =&gt; pickToughestKid());
 assert(teamAssignments['Catcher'] != null);</screen>
 
-        <para>Refer to the <ulink
-        url="http://api.dartlang.org/dart_core/Map.html">Map API docs</ulink>
-        for a full list of methods.</para>
+        <para>参考 <ulink
+        url="http://api.dartlang.org/dart_core/Map.html">Map API 文档</ulink>
+        查看 Map 的所有函数。</para>
       </sect3>
 
       <sect3 id="ch03-common-collection-methods">
-        <title>Common collection methods</title>
+        <title>常用的集合方法</title>
 
-        <para>List, Set, and Map share common functionality found in many
-        collections. Some of this common functionality is defined by the
-        Iterable class, which List and Set implement.</para>
+        <para>List、 Set、 和 Map 公用一些常用的
+            集合操作。有些函数定义在 Iterable 类中， List 和 Set 实现了该类。</para>
 
         <note>
-          <para>Although Map doesn’t implement Iterable, you can get Iterables
-          from it using the Map <literal>keys</literal> and
-          <literal>values</literal> properties.</para>
+          <para>虽然  Map 没有实现 Iterable，但是通过 Map 的
+              <literal>keys</literal> 和
+          <literal>values</literal> 属性可以得到一个 Iterable 对象。 </para>
         </note>
 
-        <para>Use <literal>isEmpty</literal> to check whether a list, set, or
-        map has no items:</para>
+        <para>用 <literal>isEmpty</literal> 函数来检查
+            集合是否为空：</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/collection-isEmpty.dart
 </remark>var teas = ['green', 'black', 'chamomile', 'earl grey'];
 assert(!teas.isEmpty);</screen>
 
-        <para>To apply a function to each item in a list, set, or map, you can
-        use <literal>forEach()</literal>:</para>
+        <para>要在 list、 set、 或者 map 中的每个元素上使用一个方法，则可以用
+         <literal>forEach()</literal> 函数：</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/collection-apply-function.dart
@@ -546,19 +545,19 @@ assert(!teas.isEmpty);</screen>
 
 teas.forEach((tea) =&gt; print('I drink $tea'));</screen>
 
-        <para>When you invoke <literal>forEach()</literal> on a map, your
-        function must take two arguments (the key and value):</para>
+        <para>当调用 Map 的 <literal>forEach()</literal> 函数的时候，
+            方法参数必须有两个参数（分别为 key 和 value）：</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/map-1.dart
-</remark>// NOTE: Do not depend on iteration order.
+</remark>// 注意：遍历集合是无序的
 hawaiianBeaches.forEach((k,v) {
   print('I want to visit $k and swim at $v');
   // I want to visit oahu and swim at [waikiki, kailua, waimanalo], etc.
 });</screen>
 
-        <para>An alternative for Iterables is the <literal>map()</literal>
-        method, which gives you all the results in a single object:</para>
+        <para>还有一个用来遍历集合的方法：<literal>map()</literal>
+        ，该函数把所有的结果放到一个对象中：</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/collection-apply-function.dart
@@ -568,23 +567,24 @@ var loudTeas = teas.map((tea) =&gt; tea.toUpperCase());
 loudTeas.forEach(print);</screen>
 
         <note>
-          <para>The object returned by <literal>map()</literal> is an Iterable
-          that’s <emphasis>lazily evaluated</emphasis>: your function isn’t
-          called until you ask for an item from the returned object.</para>
+          <para>注意： <literal>map()</literal> 函数返回的 Iterable 对象是
+           <emphasis>lazily evaluated（懒惰加载的）</emphasis>：
+           只有当你使用返回对象的时候，你的方法才被调用。</para>
         </note>
 
-        <para>To force your function to be called immediately on each item,
-        use <literal>map().toList()</literal> or
-        <literal>map().toSet()</literal>:</para>
+        <para>要强制立刻在每个对象上调用你的方法，则可以用 <literal>map().toList()</literal> 
+或者
+        <literal>map().toSet()</literal> 函数：</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/collection-apply-function.dart
 </remark>var loudTeaList = teas.map((tea) =&gt; tea.toUpperCase()).toList();</screen>
 
-        <para>Use Iterable’s <literal>where()</literal> method to get all the
-        items that match a condition. Use Iterable’s <literal>any()</literal>
-        and <literal>every()</literal> methods to check whether some or all
-        items match a condition.</para>
+        <para>Iterable 的 <literal>where()</literal> 函数用户过滤集合中的对象，
+            返回符合条件的所有对象。
+            Iterable 的 <literal>any()</literal>
+        和 <literal>every()</literal> 函数用来检查是否一些对象或者所有对象都满足
+        一个条件。</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/collection-any-every.dart
@@ -606,35 +606,36 @@ assert(teas.any(isDecaffeinated));
 // satisfy a condition.
 assert(!teas.every(isDecaffeinated));</screen>
 
-        <para>For a full list of methods, refer to the <ulink
+        <para>参考 <ulink
         url="http://api.dartlang.org/dart_core/Iterable.html">Iterable API
-        docs,</ulink> as well as those for List, Set, and Map.</para>
+        文档</ulink> 和 List、 Set、 以及 Map 的文档来了解集合的所有函数。</para>
       </sect3>
     </sect2>
 
     <sect2 id="ch03-uri">
       <title>URIs</title>
 
-      <para>The <ulink url="http://api.dartlang.org/dart_core/Uri.html">Uri
-      class</ulink> provides functions to encode and decode strings for use in
-      URIs (which you might know as <emphasis>URLs</emphasis>). These
-      functions handle characters that are special for URIs, such as <literal
-      moreinfo="none">&amp;</literal> and <literal
-      moreinfo="none">=</literal>. The Uri class also parses and exposes the
-      components of a URI—host, port, scheme, and so on.</para>
+      <para><ulink url="http://api.dartlang.org/dart_core/Uri.html">Uri
+      类</ulink> 提供了用来编码和解码 URI 字符串的函数。
+      这些函数处理 URI 中的特殊字符，例如 <literal
+      moreinfo="none">&amp;</literal> 和 <literal
+      moreinfo="none">=</literal>。 Uri 类还提供了获取 URI 组件的函数，
+      例如 URI 的 主机地址、端口号、协议 等等。
+      </para>
 
       <sect3 id="ch03-uri-fully-qualified">
-        <title>Encoding and Decoding Fully Qualified URIs</title>
+        <title>编码和解码完整的 URI</title>
 
-        <para>To encode and decode characters <emphasis>except</emphasis>
-        those with special meaning in a URI (such as <literal
+        <para>使用 <literal>encodeFull()</literal>
+        和 <literal>decodeFull()</literal> 函数来编码和解码
+        <emphasis>除了</emphasis> 特殊字符的 URI（例如这些特殊字符：<literal
         moreinfo="none">/</literal>, <literal moreinfo="none">:</literal>,
         <literal moreinfo="none">&amp;</literal>, <literal
-        moreinfo="none">#</literal>), use the <literal>encodeFull()</literal>
-        and <literal>decodeFull()</literal> methods. These <phrase
-        role="keep-together">methods are good</phrase> for encoding or
-        decoding a fully qualified URI, leaving intact <phrase
-        role="keep-together">special URI characters.</phrase></para>
+        moreinfo="none">#</literal>）。
+        这些函数<phrase
+        role="keep-together">特别擅长</phrase> 
+        用来编码和解码一个完整的 URI，保留 <phrase
+        role="keep-together">特殊的 URI 字符。</phrase></para>
 
         <screen format="linespecific"><remark>lang-dart
 code/ch03/encodeUri.dart
@@ -647,13 +648,13 @@ code/ch03/encodeUri.dart
   assert(uri == decoded);
 }</screen>
 
-        <para>Notice how only the space between <literal
-        moreinfo="none">some</literal> and <literal
-        moreinfo="none">message</literal> was encoded.</para>
+        <para>注意，上面的代码中，只有位于 <literal
+        moreinfo="none">some</literal> 和 <literal
+        moreinfo="none">message</literal> 之间的空格给编码了。</para>
       </sect3>
 
       <sect3 id="ch03-uri-components">
-        <title>Encoding and Decoding URI Components</title>
+        <title>编码和解码 URI 组件</title>
 
         <para>To encode and decode all of a string’s characters that have
         special meaning in a URI, including (but not limited to) <literal
