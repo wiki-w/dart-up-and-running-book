@@ -656,13 +656,12 @@ code/ch03/encodeUri.dart
       <sect3 id="ch03-uri-components">
         <title>编码和解码 URI 组件</title>
 
-        <para>To encode and decode all of a string’s characters that have
-        special meaning in a URI, including (but not limited to) <literal
+        <para>使用<literal>encodeComponent()</literal> 和
+        <literal>decodeComponent()</literal> 函数来编码和解码 URI 组件，
+        URI 组件中的特殊字符（例如 <literal
         moreinfo="none">/</literal>, <literal moreinfo="none">&amp;</literal>,
-        and <literal moreinfo="none">:</literal>, use the
-        <literal>encodeComponent()</literal> and
-        <literal>decodeComponent()</literal> methods.</para>
-
+        and <literal moreinfo="none">:</literal>）会被
+        正确的编码。
         <screen format="linespecific"><remark>lang-dart
 code/ch03/encodeUriComponents.dart
 </remark>main() {
@@ -674,17 +673,17 @@ code/ch03/encodeUriComponents.dart
   assert(uri == decoded);
 }</screen>
 
-        <para>Notice how every special character is encoded. For example,
-        <literal moreinfo="none">/</literal> is encoded to <literal
-        moreinfo="none">%2F</literal>.</para>
+        <para>注意上面特殊的字符是如何编码的。例如
+        <literal moreinfo="none">/</literal> 被编码为 <literal
+        moreinfo="none">%2F</literal>。</para>
       </sect3>
 
       <sect3 id="ch03-uri-parsing">
-        <title>Parsing URIs</title>
+        <title>解析 URI</title>
 
-        <para>If you have a Uri object or a URI string, you can get its parts
-        using Uri fields such as <literal>path</literal>. To create a Uri from
-        a string, use the <literal>parse()</literal> static method:</para>
+        <para>如果你有一个 Uri 对象或者一个 URI 字符串，使用 Uri 的变量可以
+            获取 Uri 的组成部分，例如 <literal>path（路径）</literal>。
+            使用 <literal>parse()</literal> 静态函数把 URI 字符串解析为 Uri 对象。</para>
 
         <screen format="linespecific"><remark>lang-dart
 code/ch03/parseUri.dart
@@ -698,17 +697,17 @@ code/ch03/parseUri.dart
   assert(uri.origin   == 'http://example.org:8080');
 }</screen>
 
-        <para>See the <ulink
-        url="http://api.dartlang.org/dart_core/Uri.html">Uri API docs</ulink>
-        for more URI components that you can get.</para>
+        <para>参考 <ulink
+        url="http://api.dartlang.org/dart_core/Uri.html">Uri API 文档</ulink>
+       了解 Uri 的所有函数。</para>
       </sect3>
 
       <sect3 id="ch03-uri-building">
-        <title>Building URIs</title>
+        <title>创建 URI</title>
 
-        <para>You can build up a URI from individual parts using the
+        <para>可以用
         <literal>Uri()</literal> <phrase role="keep-together"
-        security="">constructor</phrase>:</para>
+        security="">构造函数</phrase>来创建一个 URI：</para>
 
         <programlisting role="keep-together"><remark>lang-dart
 code/ch03/uriFromComponents.dart
@@ -721,36 +720,35 @@ code/ch03/uriFromComponents.dart
     </sect2>
 
     <sect2 id="ch03-dates-and-times">
-      <title>Dates and Times</title>
+      <title>日期和时间</title>
 
-      <para>A DateTime object is a point in time. The time zone is either UTC
-      or the local time zone.</para>
+      <para>DateTime 对象代表某个时间。时区不是 UTC 就是 本地时区。</para>
 
-      <para>You can create DateTime objects using several constructors:</para>
+      <para>可以用如下构造函数创建 DateTime 对象：</para>
 
       <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/date.dart
-</remark>// Get the current date and time.
+</remark>// 获取当前的日期和时间
 var now = new DateTime.now();
 
-// Create a new DateTime with the local time zone.
+// 使用本地时区创建一个 DateTime 对象
 var y2k = new DateTime(2000);   // January 1, 2000
 
-// Specify the month and day.
+// 设置年月日
 y2k = new DateTime(2000, 1, 2); // January 2, 2000
 
-// Specify the date as a UTC time.
+// 创建一个 UTC 时间
 y2k = new DateTime.utc(2000);   // January 1, 2000, UTC
 
-// Specify a date and time in milliseconds since the Unix epoch.
+// 用从 Unix epoch 开始的毫秒数来设置时间
 y2k = new DateTime.fromMillisecondsSinceEpoch(946684800000, isUtc: true);
 
-// Parse an ISO 8601 date.
+// 解析 ISO 8601 格式日期
 y2k = DateTime.parse('2000-01-01T00:00:00Z');</screen>
 
-      <para>The <literal moreinfo="none">millisecondsSinceEpoch</literal>
-      property of a date returns the number of milliseconds since the “Unix
-      epoch”—January 1, 1970, UTC:</para>
+      <para> <literal moreinfo="none">millisecondsSinceEpoch</literal>
+      的值为 从 “Unix
+      epoch”—1970年1月1号 UTC 时区 开始的毫秒数值：</para>
 
       <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/date.dart
@@ -759,50 +757,46 @@ assert(y2k.millisecondsSinceEpoch == 946684800000);
 var unixEpoch = new DateTime.utc(1970); // 1/1/1970, UTC
 assert(unixEpoch.millisecondsSinceEpoch == 0);</screen>
 
-      <para>Use the Duration class to calculate the difference between two
-      dates and to shift a date forward or backwards:</para>
+      <para>用 Duration 类来计算两个日期之间的间隔，或者在当前时间上加减时间：</para>
 
       <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/date.dart
 </remark>var y2k = new DateTime.utc(2000);
 
-// Add one year.
+// 在当前时间上加一年
 var y2001 = y2k.add(const Duration(days: 366));
 assert(y2001.year == 2001);
 
-// Subtract 30 days.
+// 减去30天
 var december2000 = y2001.subtract(const Duration(days: 30));
 assert(december2000.year == 2000);
 assert(december2000.month == 12);
 
-// Calculate the difference between two dates.
-// Returns a Duration object.
+// 计算两个日期之间的间隔
+// 返回一个 Duration 对象
 var duration = y2001.difference(y2k);
-assert(duration.inDays == 366); // y2k was a leap year.</screen>
+assert(duration.inDays == 366); // y2k 是闰年</screen>
 
-      <para>Refer to the API docs for <ulink
+      <para>参考  <ulink
       url="http://api.dartlang.org/dart_core/DateTime.html">DateTime</ulink>
-      and <ulink
+      和 <ulink
       url="http://api.dartlang.org/dart_core/Duration.html">Duration</ulink>
-      for a full list of methods.</para>
+      的 API 文档来了解这些类的所有函数。</para>
     </sect2>
 
     <sect2 id="ch03-utility-interfaces">
-      <title>Utility Classes</title>
+      <title>常用工具类</title>
 
-      <para>The core library contains various utility classes, useful for
-      sorting, mapping values, and iterating.</para>
+      <para>核心库还包含用来拍下、map 的 key 和遍历对象的各种工具类。</para>
 
       <sect3 id="ch03-comparing-objects">
-        <title>Comparing objects</title>
+        <title>比较对象</title>
 
-        <para>Implement the <ulink
+        <para>实现 <ulink
         url="http://api.dartlang.org/dart_core/Comparable.html">Comparable</ulink>
-        interface to indicate that an object can be compared to another
-        object, usually for sorting. The <literal>compareTo()</literal> method
-        returns &lt; 0 for <emphasis>smaller</emphasis>, 0 for the
-        <emphasis>same</emphasis>, and &gt; 0 for
-        <emphasis>bigger</emphasis>.</para>
+        接口的对象可以和另外一个对象比较，通常用来排序。 <literal>compareTo()</literal> 函数
+        的返回结果如下：<emphasis>小于</emphasis> 的返回值为 &lt; 0；<emphasis>相等</emphasis>
+        的返回值为 0；<emphasis>大于</emphasis> 的返回值为 &gt; 0。</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/comparable.dart
@@ -820,20 +814,18 @@ main() {
       </sect3>
 
       <sect3 id="ch03-implementing-map-keys">
-        <title>Implementing map keys</title>
+        <title>实现 map 的 key</title>
 
-        <para>Each object in Dart automatically provides an integer hash code,
-        and thus can be used as a key in a map. However, you can override the
-        <literal>hashCode</literal> getter to generate a custom hash code. If
-        you do, be sure to override the <literal moreinfo="none">==</literal>
-        operator, as well. Objects that are equal (via <literal
-        moreinfo="none">==</literal>) must have identical hash codes. A hash
-        code doesn’t have to be unique, but it should be well
-        distributed.</para>
+        <para>Dart 中的每个对象都自动带有一个整数的 哈希值，所有可以用作 map 中的 key。
+            你还可以重写（override）
+        <literal>hashCode</literal> getter 函数来生成一个自定义
+        的哈希值。如果你自定义了哈希值，记得同时还要重写 <literal moreinfo="none">==</literal>
+        操作符。相等的对象 (用 <literal
+        moreinfo="none">==</literal> 来比较) 必须具有同样的哈希值。
+        一个哈希值不一定是唯一的，但是应该具有合理的分布。</para>
 
-        <remark>Note: There’s disagreement over whether to include identical()
-        in the == implementation. It might improve speed. They don’t do
-        identical() automatically because, by convention, NaN != NaN.</remark>
+        <remark>注意： 在 == 实现中包含 identical() 是有争议的。虽然这样可以
+            提高速度。但是通常 NaN != NaN ，所以 对象默认并不是 identical() 的。</remark>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/map-keys.dart
@@ -842,7 +834,7 @@ main() {
 
   Person(this.firstName, this.lastName);
 
-  // Override hashCode using strategy from Effective Java, Chapter 11.
+  // 使用 Effective Java 第 11 章 中的方法来重写 hashCode 函数
   int get hashCode {
     int result = 17;
     result = 37 * result + firstName.hashCode;
@@ -850,7 +842,7 @@ main() {
     return result;
   }
 
-  // Always implement operator== if you override hashCode.
+  // 如果重写了 hashCode 则需要同时重写 operator== 
   bool operator==(other) {
     if (identical(other, this)) return true;
     return (other.firstName == firstName &amp;&amp; other.lastName == lastName);
@@ -865,16 +857,15 @@ main() {
       </sect3>
 
       <sect3 id="ch03-iteration">
-        <title>Iteration</title>
+        <title>Iteration（遍历）</title>
 
-        <para>The <ulink
+        <para> <ulink
         url="http://api.dartlang.org/dart_core/Iterable.html">Iterable</ulink>
-        and <ulink
+        和 <ulink
         url="http://api.dartlang.org/dart_core/Iterator.html">Iterator</ulink>
-        classes support for-in loops. Extend (if possible) or implement
-        Iterable whenever you create a class that can provide Iterators for
-        use in for-in loops. Implement Iterator to define the actual iteration
-        ability.</para>
+        类支持 for-in 循环。
+        如果你创建的对象需要支持 for-in 循环，则可以继承（Extends）或者实现（Implements） Iterable 接口。
+        实现 Iterator 来定义遍历的功能。</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/iterator.dart
@@ -889,14 +880,14 @@ class ProcessIterator implements Iterator&lt;Process&gt; {
   }
 }
 
-// A mythical class that lets you iterate through all processes.
-// Extends an Iterable subclass.
+// 一个可以遍历所有 Process 的虚构类
+// 继承 Iterable 类。
 class Processes extends DoubleLinkedQueue&lt;Process&gt; {
   final Iterator&lt;Process&gt; iterator = new ProcessIterator();
 }
 
 main() {
-  // Iterable objects can be used with for-in.
+  // Iterable 对象可以在 for-in 循环中使用
   for (var process in new Processes()) {
     // Do something with the process.
   }
@@ -905,13 +896,12 @@ main() {
     </sect2>
 
     <sect2 id="ch03-exceptions">
-      <title>Exceptions</title>
+      <title>异常（Exceptions）</title>
 
-      <para>The Dart core library defines many common exceptions and errors.
-      Exceptions are considered conditions that you can plan ahead for and
-      catch. Errors are conditions that you don’t expect or plan for.</para>
+      <para>Dart 核心库定义了很多常用的异常（exception）和错误（error）。
+          异常是一些你可以提前预料和处理的错误情况。而错误则是你没有料到或者没有处理的情况。</para>
 
-      <para>A couple of the most common errors are:</para>
+      <para>一些常见的错误如下：</para>
 
       <variablelist>
         <varlistentry>
@@ -919,9 +909,9 @@ main() {
           url="http://api.dartlang.org/dart_core/NoSuchMethodError.html">NoSuchMethodError</ulink></term>
 
           <listitem>
-            <para>Thrown when a receiving object (which might be null) does
-            not implement a <phrase
-            role="keep-together">method</phrase>.</para>
+            <para>当一个对象(可能为 null) 没有实现一个
+            <phrase
+            role="keep-together">被调用的函数</phrase> 时抛出该错误。</para>
           </listitem>
         </varlistentry>
 
@@ -930,16 +920,14 @@ main() {
           url="http://api.dartlang.org/dart_core/ArgumentError.html">ArgumentError</ulink></term>
 
           <listitem>
-            <para>Can be thrown by a method that encounters an unexpected
-            argument.</para>
+            <para>当用错误的参数调用一个函数的时候，由该函数抛出。</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
-      <para>Throwing an application-specific exception is a common way to
-      indicate that an error has occurred. You can define a custom exception
-      by implementing the Exception <phrase
-      role="keep-together">interface</phrase>:</para>
+      <para>抛出一个应用相关的异常是表明发生错误的常见做法。
+          你可以通过实现 Exception  <phrase
+      role="keep-together">接口</phrase> 来定义自己的异常：</para>
 
       <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/exceptions.dart
@@ -949,14 +937,14 @@ main() {
   String toString() =&gt; msg == null ? 'FooException' : msg;
 }</screen>
 
-      <para>For more information, see <xref linkend="exceptions" /> and the
+      <para>更多信息请参考 <xref linkend="exceptions" /> 和
       <ulink url="http://api.dartlang.org/dart_core/Exception.html">Exception
-      API docs.</ulink></para>
+      API 文档.</ulink></para>
     </sect2>
   </sect1>
 
   <sect1 id="ch03-asynchronous-programming">
-    <title>dart:async - Asynchronous Programming</title>
+    <title>dart:async - 异步编程</title>
 
     <para>Asynchronous programming often uses callback functions, but Dart
     provides alternatives: <ulink
