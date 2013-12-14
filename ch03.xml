@@ -946,18 +946,18 @@ main() {
   <sect1 id="ch03-asynchronous-programming">
     <title>dart:async - 异步编程</title>
 
-    <para>Asynchronous programming often uses callback functions, but Dart
-    provides alternatives: <ulink
-    url="http://api.dartlang.org/dart_async/Future.html">Future</ulink> and
+    <para>异步编程通常使用回调函数，而 Dart 
+        提供了另外一种选择：<ulink
+    url="http://api.dartlang.org/dart_async/Future.html">Future</ulink> 和
     <ulink url="http://api.dartlang.org/dart_async/Stream.html">Stream</ulink>
-    objects. A Future is like a promise for a result to be provided sometime
-    in the future. A Stream is a way to get a sequence of values, such as
-    events. Future, Stream, and more are in the <ulink
+    对象。一个 Future 对象保证在未来的某个时间返回一个结果。
+    Stream 对象是获取一系列值的方法，例如 输入事件序列。
+     <ulink
     url="http://api.dartlang.org/dart_async.html">dart:async</ulink>
-    library.</para>
+    库提供了 Future、 Stream、和其他更多异步编程支持。</para>
 
-    <para>The dart:async library works in both web apps and command-line apps.
-    To use it, import dart:async:</para>
+    <para>在命令行应用和 web 应用中都可以使用 dart:async 库。
+    要使用该库，只需要导入 dart:async：</para>
 
     <screen format="linespecific"><remark>lang-dart</remark><remark>
 </remark>import 'dart:async';</screen>
@@ -965,58 +965,60 @@ main() {
     <sect2 id="ch03-futures">
       <title>Future</title>
 
-      <para>Future objects appear throughout the Dart libraries, often as the
-      object returned by an asynchronous method. When a future
-      <emphasis>completes</emphasis>, its value is ready to use.</para>
+      <para>在 Dart 库中到处都可以看到 Future 对象，
+          通常都是作为异步函数的返回值出现。
+      当一个 future
+      <emphasis>完成的时候</emphasis>，返回的值就可以使用了。</para>
 
       <sect3 id="ch03-future-example">
-        <title>Basic Usage</title>
+        <title>基础用法</title>
 
-        <para><phrase role="keep-together">Use <literal>then()</literal> to
-        schedule code that runs when the future completes. For example,
-        <literal>HttpRequest.getString()</literal> returns a Future, since
-        HTTP requests can take a while. Using <literal>then()</literal> lets
-        you run some code when that Future has completed and the promised
-        string value is available:</phrase></para>
+        <para><phrase role="keep-together">使用 <literal>then()</literal>
+            来设置当 future 完成时执行的代码。
+            例如，由于 HTTP 请求可以消耗一些时间，所以
+        <literal>HttpRequest.getString()</literal> 返回一个 Future。
+       使用 <literal>then()</literal> 你可以在 Future 完成的时候来执行一些代码：
+        </phrase></para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/ch03_4_async/web/ch03_4_async.dart
 </remark>HttpRequest.getString(url)
   .then((String result) {
     print(result); });
-  // Should handle errors here</screen>
+  // 在这里处理错误情况</screen>
 
-        <para>Use <literal>catchError()</literal> to handle any errors or
-        exceptions that a Future object might throw. Be sure to invoke
-        <literal>catchError()</literal> on the result of
-        <literal>then()</literal>—not on the result of the original Future.
-        <remark>{PENDING: What are the symptoms when you do it
-        wrong?}</remark></para>
+        <para>用 <literal>catchError()</literal> 来处理 Future 对象
+            抛出的异常。
+            注意：要在 <literal>then()</literal> 函数的返回值对象上调用
+        <literal>catchError()</literal> 才能处理 Future 的异常；
+        如果在 原来的 Future 对象上调用 <literal>catchError()</literal> 则不能处理 Future 抛出
+        的异常。
+        <remark>{待定：当你调用错了的时候会发生何种现象？}</remark></para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/ch03_4_async/web/ch03_4_async.dart
 </remark>HttpRequest.getString(url)
-  .then((String result) {  // callback function
+  .then((String result) {  // 回调函数
     print(result); })
   .catchError((e) {
-    // Handle or ignore the error.
+    // 处理或者忽略错误情况
   });</screen>
 
-        <para>The <literal>then().catchError()</literal> pattern is the
-        asynchronous version of
-        <literal>try</literal>-<literal>catch</literal>.</para>
+        <para>这里的 <literal>then().catchError()</literal> 模式是
+            异步版本的
+        <literal>try</literal>-<literal>catch</literal> 模式。</para>
       </sect3>
 
       <sect3 id="ch03-chaining-multiple-async-methods">
-        <title>Chaining Multiple Asynchronous Methods</title>
+        <title>串联多个异步函数</title>
 
-        <para>The <literal>then()</literal> method returns a Future, providing
-        a useful way to run multiple asynchronous functions in a certain
-        order. If the callback registered with <literal>then()</literal>
-        returns a Future, then it is simply returned as-is by
-        <literal>then()</literal>. If the callback returns a value of any
-        other type, a new Future instance is created and is completed with the
-        value.</para>
+        <para>由于 <literal>then()</literal> 函数返回一个 Future ，
+            所以提供了一种按照顺序执行多个异步方法的方式。
+            如果 <literal>then()</literal> 的回调函数返回一个 Future，
+            则 <literal>then()</literal> 直接返回该对象。
+            如果回调函数返回其他类型的值，则 返回一个新的 Future 对象，该 Future 对象完成时候
+            返回回调函数返回的值。
+        </para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/futures.dart
@@ -1027,8 +1029,7 @@ return result.then((value) =&gt; expensiveWork())
              .then((value) =&gt; print('done!'))
              .catchError((exception) =&gt; print('DOH!'));</screen>
 
-        <para>In the above example, the methods run in the following
-        order:</para>
+        <para>上面的示例代码中，按照如下顺序执行：</para>
 
         <orderedlist continuation="restarts" inheritnum="ignore"
                      numeration="arabic">
@@ -1047,14 +1048,13 @@ return result.then((value) =&gt; expensiveWork())
       </sect3>
 
       <sect3 id="ch03-waiting-for-multiple-futures">
-        <title>Waiting for Multiple Futures</title>
+        <title>等待多个 Futures 完成</title>
 
-        <para>Sometimes your algorithm needs to invoke many asynchronous
-        functions and wait for them all to complete before continuing. Use the
+        <para>有时，你的算法要求调用多个异步
+            方法并且等待所有的方法都完成。使用
         <ulink
         url="http://api.dartlang.org/dart_async/Future.html#wait"><literal>Future.wait()</literal></ulink>
-        static method to manage multiple Futures and wait for them to
-        complete:</para>
+        静态函数来管理多个 Future 并等待所有 Future 一起完成：</para>
 
         <screen format="linespecific"><remark>lang-dart
 <remark>ch03/futures.dart</remark>
@@ -1071,46 +1071,46 @@ Future.wait([deleteDone, copyDone, checksumDone]).then((List values) {
     <sect2 id="ch03-streams">
       <title>Stream</title>
 
-      <para>Stream objects appear throughout Dart APIs, representing sequences
-      of data. For example, HTML events such as button clicks are delivered
-      using streams. You can also read a file as a stream.</para>
+      <para>Stream 对象代表数据序列，也经常在 Dart API 中出现。
+          例如， HTML 的按钮点击事件就是用 stream 来传输的。
+          你也可以用 stream 来读取文件。</para>
 
       <sect3 id="ch03-streams-listen">
-        <title>Listening for Stream Data</title>
+        <title>监听 Stream 数据流</title>
 
-        <para>To get each value as it arrives, subscribe to the stream using
-        the <code>listen()</code> method:</para>
+        <para>要获取每个 Stream 中的数据，则可以用 <code>listen()</code> 函数：</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03_html/ch03_html.dart
-</remark>// Find a button by ID and add an event handler.
+</remark>// 通过 ID 查找按钮并注册事件
 querySelector('#submitInfo').onClick.listen((e) {
-  // When the button is clicked, it runs this code.
+  // 当按钮点击的时候，执行下面代码
   submitData();
 });</screen>
 
-        <para>In this example, the <literal>onClick</literal> property is a
-        Stream object provided by the 'submitInfo' button.</para>
+        <para>上面的例子中，'submitInfo' 按钮的 <literal>onClick</literal> 
+           属性为一个 Stream 对象。</para>
 
-        <para>If you care about only one event, you can get it using a
-        property such as <literal>first</literal>, <literal>last</literal>, or
-        <literal>single</literal>. To test the event before handling it, use a
-        method such as <literal>firstWhere()</literal>,
-        <literal>lastWhere()</literal>, or <literal>singleWhere()</literal>.
-        <remark>{PENDING: example}</remark></para>
+        <para>如果你只关心第一个事件，则可以用 <literal>first</literal>、
+             <literal>last</literal> 或者
+        <literal>single</literal> 属性。
+        用 <literal>firstWhere()</literal>、
+        <literal>lastWhere()</literal>、或者 <literal>singleWhere()</literal>
+        函数在处理数据之前测试事件发生的位置。
+        <remark>{待定：示例。}</remark></para>
 
-        <para>If you care about a subset of events, you can use methods such
-        as <literal>skip()</literal>, <literal>skipWhile()</literal>,
-        <literal>take()</literal>, <literal>takeWhile()</literal>, and
-        <literal>where()</literal>. <remark>{PENDING: example}</remark></para>
+        <para>如果你关心一段数据，则可以用
+         <literal>skip()</literal>、 <literal>skipWhile()</literal>、
+        <literal>take()</literal>、 <literal>takeWhile()</literal>、 和
+        <literal>where()</literal> 函数。 <remark>{PENDING: example}</remark></para>
       </sect3>
 
       <sect3 id="ch03-streams-transform">
-        <title>Transforming Stream Data</title>
+        <title>转换 Stream 数据</title>
 
-        <para>Often, you need to change the format of a stream's data before
-        you can use it. Use the <literal>transform()</literal> method to
-        produce a stream with a different type of data:</para>
+        <para>通常，在使用 Stream 数据之前都需要先转换为可用形式。
+             用 <literal>transform()</literal> 函数来把 Stream 数据转换为其他
+             形式：</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/readFile.dart
@@ -1123,53 +1123,55 @@ inputStream
   .listen(
     (String line) {...} ...);</screen>
 
-        <para>This example uses two transformers. First it uses UTF8.decoder
-        to transform the <literal>Stream&lt;List&lt;int&gt;&gt;</literal> into
-        a <literal>Stream&lt;String&gt;</literal>. Then it uses a LineSplitter
-        to transform the <literal>Stream&lt;String&gt;</literal> into a
-        <literal>Stream&lt;List&lt;String&gt;&gt;</literal>. These
-        transformers are from the dart:convert library (see <xref
-        linkend="ch03-dart-convert" />).<remark> PENDING: add onDone and
+        <para>这里用了两个转换器。 第一个转换器 UTF8.decoder
+        把 <literal>Stream&lt;List&lt;int&gt;&gt;</literal> 转换为
+        一个 <literal>Stream&lt;String&gt;</literal>。然后用
+       一个 LineSplitter
+        把 <literal>Stream&lt;String&gt;</literal> 转换为 
+        <literal>Stream&lt;List&lt;String&gt;&gt;</literal> 对象。
+    这些转换器来自于 dart:convert 库。        
+(参考 <xref
+        linkend="ch03-dart-convert" />)。<remark> PENDING: add onDone and
         onError. (See "Streaming file contents".)</remark></para>
       </sect3>
     </sect2>
 
     <sect2 id="ch03-more-information-9">
-      <title>More Information</title>
+      <title>更多信息</title>
 
-      <para>For some examples of using Future and Stream in command-line apps,
-      see <xref
-      linkend="ch03-dartio---file-and-socket-io-for-command-line-apps" />.
-      Also see these articles:</para>
+      <para>在命令行应用中使用 Future 和 Stream 的例子请参考
+        <xref
+      linkend="ch03-dartio---file-and-socket-io-for-command-line-apps" />。
+      下面还有一些可以参考的文章：</para>
 
       <itemizedlist>
         <listitem>
           <para><ulink
-          url="http://www.dartlang.org/articles/using-future-based-apis/">Using
-          Future Based APIs</ulink></para>
+          url="http://www.dartlang.cc/articles/using-future-based-apis/">使用
+          Future APIs</ulink></para>
         </listitem>
 
         <listitem>
           <para><ulink
-          url="http://www.dartlang.org/articles/futures-and-error-handling/">Futures
-          and Error Handling</ulink></para>
+          url="http://www.dartlang.cc/articles/futures-and-error-handling/">Futures
+          和 错误处理</ulink></para>
         </listitem>
 
         <listitem>
-          <para><ulink url="http://www.dartlang.org/articles/event-loop/">The
-          Event Loop and Dart</ulink></para>
-        </listitem>
-
-        <listitem>
-          <para><ulink
-          url="http://www.dartlang.org/articles/feet-wet-streams/">Getting
-          Your Feet Wet with Streams</ulink></para>
+          <para><ulink url="http://www.dartlang.cc/articles/event-loop/">Dart
+              中的事件循环</ulink></para>
         </listitem>
 
         <listitem>
           <para><ulink
-          url="http://www.dartlang.org/articles/creating-streams/">Creating
-          Streams in Dart</ulink></para>
+          url="http://www.dartlang.cc/articles/feet-wet-streams/">使用
+          Stream </ulink></para>
+        </listitem>
+
+        <listitem>
+          <para><ulink
+          url="http://www.dartlang.cc/articles/creating-streams/">
+          在 Dart 中创建 Stream</ulink></para>
         </listitem>
       </itemizedlist>
     </sect2>
@@ -1296,7 +1298,7 @@ random.nextBool();  // true or false</screen>
 
     <note>
       <para>For scalable, higher level approaches to web app UIs, see <ulink
-      url="http://www.dartlang.org/polymer-dart/">Polymer.dart</ulink> and
+      url="http://www.dartlang.cc/polymer-dart/">Polymer.dart</ulink> and
       <ulink
       url="http://pub.dartlang.org/packages/angular">AngularDart</ulink>.</para>
     </note>
@@ -1916,7 +1918,7 @@ github.com/dart-lang/dart-samples/.../web/html5/websockets/basics/websocket_samp
 }</screen>
 
         <para>For more information and examples of using WebSockets, see the
-        <ulink url="http://www.dartlang.org/samples/">Dart Code
+        <ulink url="http://www.dartlang.cc/samples/">Dart Code
         Samples.</ulink></para>
       </sect3>
     </sect2>
@@ -1928,7 +1930,7 @@ github.com/dart-lang/dart-samples/.../web/html5/websockets/basics/websocket_samp
       library. For more information, see the documentation for <ulink
       url="http://api.dartlang.org/dart_html.html">dart:html</ulink> and the
       code and explanations in the <ulink
-      url="http://www.dartlang.org/samples/">Dart Code Samples.</ulink> Dart
+      url="http://www.dartlang.cc/samples/">Dart Code Samples.</ulink> Dart
       has additional libraries for more specialized web APIs, such as <ulink
       url="http://api.dartlang.org/dart_web_audio.html">web audio,</ulink>
       <ulink
@@ -2222,7 +2224,7 @@ main() {
         and <ulink
         url="http://pub.dartlang.org/packages/route">route</ulink>.<remark>
         {PENDING: point to the <ulink
-        url="http://www.dartlang.org/samples/">Dart Code Samples</ulink>
+        url="http://www.dartlang.cc/samples/">Dart Code Samples</ulink>
         instead? Need to come up with a good way of pointing to
         samples.}</remark></para>
       </sect3>
@@ -2275,7 +2277,7 @@ main() {
       sockets.</ulink></para>
 
       <para>For more examples of using dart:io, see the <ulink
-      url="http://www.dartlang.org/samples/">Dart Code Samples.</ulink></para>
+      url="http://www.dartlang.cc/samples/">Dart Code Samples.</ulink></para>
     </sect2>
   </sect1>
 
@@ -2642,7 +2644,7 @@ assert(p.firstName == 'Mary');</screen>
       <title>More Information</title>
 
       <para>The article <ulink
-      url="https://www.dartlang.org/articles/reflection-with-mirrors/">Reflection
+      url="https://www.dartlang.cc/articles/reflection-with-mirrors/">Reflection
       in Dart with Mirrors</ulink> has more information and examples. Also see
       the API docs for <ulink
       url="http://api.dartlang.org/dart_mirrors.html">dart:mirror,</ulink>
