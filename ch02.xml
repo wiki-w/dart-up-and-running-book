@@ -4,50 +4,49 @@
 <chapter id="ch02">
   <?dbhtml stop-chunking?>
 
-  <title>A Tour of the Dart Language</title>
+  <title>Dart 语言概览</title>
 
-  <para>This chapter shows you how to use each major Dart feature, from
-  variables and operators to classes and libraries, with the assumption that
-  you already know how to program in another language.</para>
+  <para>本章介绍 Dart 语言的主要特性 -- 变量、操作符、类和库 等。
+      本章假设你具有其他编程语言的背景知识。</para>
 
   <note>
-    <para>To play with each feature, create a command-line application project
-    in Dart Editor, as described in <xref linkend="ch01-editor" />.</para>
+    <para>你可以按照 <xref linkend="ch01-editor" /> 中介绍的方法创建个命令行应用来
+        动手演示这些特性。</para>
   </note>
 
-  <para>Consult the <ulink url="http://www.dartlang.org/docs/spec/">Dart
-  Language Specification</ulink> whenever you want more details about a
-  language feature.</para>
+  <para>如果你想了解某个特性的详细信息，可以参考
+       <ulink url="http://www.dartlang.cc/docs/spec/">Dart
+  语言规范</ulink> 。</para>
 
   <sect1 id="main-print">
-    <title>A Basic Dart Program</title>
+    <title>一个基本的 Dart 程序</title>
 
-    <para>The following code uses many of Dart’s most basic features:</para>
+    <para>下面的代码使用很多 Dart 语言的基本特性：</para>
 
     <programlisting format="linespecific"><remark>lang-dart
-</remark>// Define a function.
+</remark>// 定义一个方法
 printNumber(num aNumber) {
-  print('The number is $aNumber.'); // Print to the console.
+  print('The number is $aNumber.'); // 在控制台打印信息
 }
 
-// This is where the app starts executing.
+// 应用开始执行的入口
 main() {
-  var number = 42;           // Declare and initialize a variable.
-  printNumber(number);       // Call a function.
+  var number = 42;           // 定义并初始化一个变量
+  printNumber(number);       // 调用一个方法
 }</programlisting>
 
-    <para>Here’s what this program uses that applies to all (or almost all)
-    Dart apps:</para>
+    <para>下面是上面的代码使用到的可以应用其他（几乎）所有 Dart 应用的
+        特性：</para>
 
     <variablelist>
       <varlistentry>
-        <term><literal moreinfo="none">// <replaceable>This is a
-        comment.</replaceable></literal></term>
+        <term><literal moreinfo="none">// <replaceable>这是一个注释。
+            </replaceable></literal></term>
 
         <listitem>
-          <para>Use // to indicate that the rest of the line is a comment.
-          Alternatively, use /* ... */. For details, see <xref
-          linkend="comments" />.</para>
+          <para>使用 // 表明后面的文字为注释。
+          另外还可以用 /* ... */。详细信息，参考 <xref
+          linkend="comments" />。</para>
         </listitem>
       </varlistentry>
 
@@ -55,8 +54,8 @@ main() {
         <term><literal moreinfo="none">num</literal></term>
 
         <listitem>
-          <para>A type. Some of the other built-in types are String, int, and
-          bool.</para>
+          <para>一种类型。其他内建的类型有 String、int、和 bool。
+          </para>
         </listitem>
       </varlistentry>
 
@@ -64,8 +63,8 @@ main() {
         <term><literal moreinfo="none">42</literal></term>
 
         <listitem>
-          <para>A number <firstterm>literal</firstterm>. Literals are a kind
-          of compile-time constant.</para>
+          <para>一个数字 <firstterm>literal（字面量）</firstterm>。
+              字面量是一种编译期常量。</para>
         </listitem>
       </varlistentry>
 
@@ -73,16 +72,16 @@ main() {
         <term><literal moreinfo="none">print()</literal></term>
 
         <listitem>
-          <para>A handy way to display output.</para>
+          <para>一种打印结果的助手方法。</para>
         </listitem>
       </varlistentry>
 
       <varlistentry>
-        <term><literal moreinfo="none">'...'</literal> (or <literal
+        <term><literal moreinfo="none">'...'</literal> (或者 <literal
         moreinfo="none">"..."</literal>)</term>
 
         <listitem>
-          <para>A string literal.</para>
+          <para>声明 String 的 字面量。</para>
         </listitem>
       </varlistentry>
 
