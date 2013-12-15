@@ -1948,40 +1948,35 @@ github.com/dart-lang/dart-samples/.../web/html5/websockets/basics/websocket_samp
     库</ulink> 提供了访问文件、目录、进程、socket 和 HTTP 通信的功能。
     只有命令行应用才能使用 dart:io 库。</para>
 
-    <para>In general, the dart:io library implements and promotes an
-    asynchronous API. Synchronous methods can easily block the event loop,
-    making it difficult to scale server applications. Therefore, most
-    operations return results via callbacks or Future objects, a pattern
-    common with modern server platforms such as Node.js.</para>
+    <para>
+        一般来说，dart:io 库的实现都是异步的。 同步操作可以很容易阻塞事件循环，只有开发可扩展
+        服务器应用非常困难。
+        因此，大多数的函数都是通过回调函数或者 Future 对象返回。</para>
 
-    <para>The few synchronous methods in the dart:io library are clearly
-    marked with a Sync suffix on the method name. We don’t cover them
-    here.</para>
+    <para>
+        在 dart:io 库中也有少数几个以 Sync 开头的同步函数。 这里不介绍这些同步函数。</para>
 
     <note>
-      <para>Only command-line apps can import and use <literal
-      moreinfo="none">dart:io</literal>.</para>
+      <para>只有命令行应用可以使用 <literal
+      moreinfo="none">dart:io</literal>。</para>
     </note>
 
     <sect2 id="ch03-files-and-directories">
-      <title>Files and Directories</title>
+      <title>文件和目录</title>
 
-      <para>The I/O library enables command-line apps to read and write files
-      and browse directories. You have two choices for reading the contents of
-      a file: all at once, or streaming. Reading a file all at once requires
-      enough memory to store all the contents of the file. If the file is very
-      large or you want to process it while reading it, you should use a
-      Stream, as described in <xref
-      linkend="ch03-streaming-file-contents" />.</para>
+      <para>I/O 库可以让命令行应用读写文件和浏览目录。
+          有两种读取文件的方式：一次读完，或者用 stream 流读取。
+          一次读完一个文件需要消耗一些内存。如果文件非常大，或者你想边读取边
+          处理，则可以用 Stream ，在 <xref
+      linkend="ch03-streaming-file-contents" /> 介绍了 Stream。</para>
 
       <sect3 id="ch03-reading-a-file-as-text">
-        <title>Reading a file as text</title>
+        <title>读取文件文本内容</title>
 
-        <para>When reading a text file, you can read the entire file contents
-        with <literal>readAsString()</literal>. When the individual lines are
-        important, you can use <literal>readAsLines()</literal>. In both
-        cases, a Future object is returned that provides the contents of the
-        file as one or more strings.</para>
+        <para>当读文本文件的时候，通过函数
+          <literal>readAsString()</literal> 可以一次读完。
+          如果需要按行处理文本，则可以用 <literal>readAsLines()</literal>
+          函数。这两个函数都返回一个 Future 对象。</para>
 
         <screen format="linespecific"><remark>lang-dart
 ch03/textRead.dart
@@ -1990,12 +1985,12 @@ ch03/textRead.dart
 main() {
   var config = new File('config.txt');
 
-  // Put the whole file in a single string.
+  // 用一个字符串保存文件内容
   config.readAsString().then((String contents) {
     print('The entire file is ${contents.length} characters long');
   });
 
-  // Put each line of the file into its own string.
+  // 每行文字都放到一个字符串中
   config.readAsLines().then((List&lt;String&gt; lines) {
     print('The entire file is ${lines.length} lines long');
   });
@@ -2003,12 +1998,12 @@ main() {
       </sect3>
 
       <sect3 id="ch03-reading-a-file-as-binary">
-        <title>Reading a file as binary</title>
+        <title>读取二进制文件</title>
 
-        <para>The following code reads an entire file as bytes into a list of
-        ints. The call to <phrase
-        role="keep-together"><literal>readAsBytes()</literal></phrase> returns
-        a Future, which provides the result when it’s available.</para>
+        <para>下面的代码把文件读取到一个数字 list 中。
+            函数 <phrase
+        role="keep-together"><literal>readAsBytes()</literal></phrase> 返回一个
+         Future。</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/binaryRead.dart
@@ -2024,11 +2019,11 @@ main() {
       </sect3>
 
       <sect3 id="ch03-handling-errors">
-        <title>Handling errors</title>
+        <title>错误处理</title>
 
-        <para>To capture errors so they don't result in exceptions, you can
-        register a <literal moreinfo="none">catchError</literal>
-        handler:</para>
+        <para>
+            通过  <literal moreinfo="none">catchError</literal> 可以处理
+            错误情况：</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/fileErrors.dart
@@ -2045,13 +2040,12 @@ main() {
       </sect3>
 
       <sect3 id="ch03-streaming-file-contents">
-        <title>Streaming file contents</title>
+        <title>用流的方式读取文件</title>
 
-        <para>Use a Stream to read a file, a little at a time. The <literal
-        moreinfo="none">listen()</literal> method specifies a handler to be
-        called when data is available. When the Stream is finished reading the
-        file, the <literal moreinfo="none">onDone</literal> callback
-        executes.</para>
+        <para>用 Stream 来一次读取一点文件内容。 <literal
+        moreinfo="none">listen()</literal> 函数设置一个处理函数，当有
+        数据可用的时候调用该函数。当 Stream 完成读取文件操作会调用
+         <literal moreinfo="none">onDone</literal> 回调函数。</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/readFile.dart
@@ -2076,14 +2070,14 @@ main() {
       </sect3>
 
       <sect3 id="ch03-writing-file-contents">
-        <title>Writing file contents</title>
+        <title>写文件</title>
 
-        <para>You can use an <ulink
-        url="http://api.dartlang.org/dart_io/IOSink.html">IOSink</ulink> to
-        write data to a file. Use the File <literal>openWrite()</literal>
-        method to declare a mode and get an IOSink that you can write to. The
-        default mode, <literal moreinfo="none">FileMode.WRITE</literal>,
-        completely overwrites existing data in the file.</para>
+        <para>可以用 <ulink
+        url="http://api.dartlang.org/dart_io/IOSink.html">IOSink</ulink> 来写
+        文件。 用 File 的 <literal>openWrite()</literal>
+        函数来设置读写模式和获取一个 IOSink 对象。
+        默认模式为  <literal moreinfo="none">FileMode.WRITE</literal>，
+        该模式会覆盖文件原来的内容。</para>
 
         <programlisting role="keep-together"><remark>lang-dart
 </remark><remark>ch03/writeFile.dart
@@ -2092,26 +2086,26 @@ var sink = logFile.openWrite();
 sink.write('FILE ACCESSED ${new DateTime.now()}\n');
 sink.close();</programlisting>
 
-        <para>To add to the end of the file, use the optional
-        <literal>mode</literal> parameter to specify
-        <literal>FileMode.APPEND</literal>:</para>
+        <para>如果要在文件末尾继续写入数据，则可以设置
+        <literal>mode</literal> 参数为
+        <literal>FileMode.APPEND</literal>：</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/writeFile.dart
 </remark>var sink = logFile.openWrite(mode: FileMode.APPEND); </screen>
 
-        <para>To write binary data, use <literal
-        moreinfo="none">add(List&lt;int&gt; data)</literal>.</para>
+        <para>用  <literal
+        moreinfo="none">add(List&lt;int&gt; data)</literal> 来写入二进制数据。</para>
       </sect3>
 
       <sect3 id="ch03-listing-files-in-a-directory">
-        <title>Listing files in a directory</title>
+        <title>访问目录中的文件</title>
 
-        <para>Finding all files and subdirectories for a directory is an
-        asynchronous operation. The <literal>list()</literal> method returns a
-        Stream on which you can register handlers (using
-        <literal>listen()</literal>) to be notified when a file or directory
-        is encountered.</para>
+        <para>
+            查找一个目录中的所有文件和子目录是一个异步操作。 <literal>list()</literal> 函数返回
+            一个 
+        Stream 对象，在该对象上用
+        <literal>listen()</literal> 来注册文件或者目录监听器。</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/listFiles.dart
@@ -2135,62 +2129,54 @@ main() {
       </sect3>
 
       <sect3 id="ch03-other-common-functionality">
-        <title>Other common functionality</title>
+        <title>其他常用功能</title>
 
-        <para>The File and Directory classes contain other functionality,
-        including but not limited to:</para>
+        <para> File 和 Directory 类还包含一些常见的功能：</para>
 
         <itemizedlist role="keep-together">
           <listitem>
-            <para>Creating a file or directory: <literal>create()</literal> in
-            File and Directory</para>
+            <para>用 <literal>create()</literal>函数创建文件或者目录。</para>
           </listitem>
 
           <listitem>
-            <para>Deleting a file or directory: <literal>delete()</literal> in
-            File and Directory</para>
+            <para>用 <literal>delete()</literal> 函数删除文件或者目录。</para>
           </listitem>
 
           <listitem>
-            <para>Getting the length of a file: <literal>length()</literal> in
-            File</para>
+            <para>用  <literal>length()</literal> 函数获取文件的长度。</para>
           </listitem>
 
           <listitem>
-            <para>Getting random access to a file: <literal>open()</literal>
-            in File</para>
+            <para>用 <literal>open()</literal> 函数来随机访问文件。</para>
           </listitem>
         </itemizedlist>
 
-        <para>Refer to the API docs for <ulink
-        url="http://api.dartlang.org/io/File.html">File</ulink> and <ulink
-        url="http://api.dartlang.org/io/Directory.html">Directory</ulink> for
-        a full list of methods.</para>
+        <para>参考 <ulink
+        url="http://api.dartlang.org/io/File.html">File</ulink> 和 <ulink
+        url="http://api.dartlang.org/io/Directory.html">Directory</ulink>
+    API 文档了解所有的函数。</para>
       </sect3>
     </sect2>
 
     <sect2 id="ch03-io-http">
-      <title>HTTP Clients and Servers</title>
+      <title>HTTP 客户端和服务器</title>
 
-      <para>The dart:io library provides classes that command-line apps can
-      use for accessing HTTP resources, as well as running HTTP
-      servers.</para>
+      <para>dart:io 库提供了可以访问 HTTP 资源的类。</para>
 
       <sect3 id="_http_server">
-        <title>HTTP server</title>
+        <title>HTTP 服务器</title>
 
-        <para>The <ulink
+        <para> <ulink
         url="http://api.dartlang.org/dart_io/HttpServer.html">HttpServer</ulink>
-        class provides the low-level functionality for building web servers.
-        You can match request handlers, set headers, stream data, and
-        more.</para>
+        类提供了创建 web 服务器的基础功能。
+        你可以匹配请求、设置请求头、返回数据 等等。</para>
 
-        <para>The following sample web server can return only simple text
-        information. This server listens on port 8888 and address 127.0.0.1
-        (localhost), responding to requests for the path <literal
-        moreinfo="none">/languages/dart</literal>. All other requests are
-        handled by the default request handler, which returns a response code
-        of 404 (not found).</para>
+        <para>
+            下面简单的 web 服务器只能返回简单的文本内容。 该服务器监听本地（localhost 或者 127.0.0.1）的 8888 端口，
+            并响应路径为  <literal
+        moreinfo="none">/languages/dart</literal> 的请求。
+        所有其他的请求都是由默认的请求处理器（request handler）处理的，该处理器返回
+        一个 404 代码（没有发现所请求的资源）。</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/httpServer.dart
@@ -2217,12 +2203,12 @@ main() {
   });
 }</screen>
 
-        <para>For a more comprehensive HTTP server, see the <ulink
+        <para>更完善的 HTTP 服务器示例请参考 <ulink
         url="https://code.google.com/p/dart/source/browse/branches/bleeding_edge/dart/samples/dartiverse_search/">dartiverse_search</ulink>
-        example, which uses additional packages such as <ulink
+        应用，该应用使用了<ulink
         url="https://pub.dartlang.org/packages/http_server">http_server</ulink>
-        and <ulink
-        url="http://pub.dartlang.org/packages/route">route</ulink>.<remark>
+        和 <ulink
+        url="http://pub.dartlang.org/packages/route">route</ulink> 包。<remark>
         {PENDING: point to the <ulink
         url="http://www.dartlang.cc/samples/">Dart Code Samples</ulink>
         instead? Need to come up with a good way of pointing to
@@ -2230,16 +2216,16 @@ main() {
       </sect3>
 
       <sect3 id="_http_client">
-        <title>HTTP client</title>
+        <title>HTTP 客户端</title>
 
-        <para>The <ulink
+        <para> <ulink
         url="http://api.dartlang.org/dart_io/HttpClient.html">HttpClient</ulink>
-        class helps you connect to HTTP resources from your Dart command-line
-        or server-side application. You can set headers, use HTTP methods, and
-        read and write data. The HttpClient class does not work in
-        browser-based apps. When programming in the browser, use the <link
-        linkend="ch03-httprequest">HttpRequest class</link>. Here’s an example
-        of using HttpClient:</para>
+        类可以访问 HTTP 资源。你可以设置请求头、使用 HTTP 方法、和 读写数据。
+        HttpClient 类无法在浏览器应用中使用。
+        在浏览器应用中需要用
+        <link
+        linkend="ch03-httprequest">HttpRequest 类</link>。下面是一个使用
+         HttpClient 的示例：</para>
 
         <screen format="linespecific"><remark>lang-dart
 </remark><remark>ch03/httpClient.dart
@@ -2267,47 +2253,43 @@ main() {
     </sect2>
 
     <sect2 id="ch03-more-information-io">
-      <title>More Information</title>
+      <title>更多信息</title>
 
-      <para>Besides the APIs discussed in this section, the dart:io library
-      also provides APIs for <ulink
+      <para>除了上面介绍的功能外，dart:io 还提供了 <ulink
       url="http://api.dartlang.org/io/Process.html">processes,</ulink> <ulink
-      url="http://api.dartlang.org/io/Socket.html">sockets,</ulink> and <ulink
+      url="http://api.dartlang.org/io/Socket.html">sockets,</ulink> 和 <ulink
       url="http://api.dartlang.org/io/WebSocket.html">web
-      sockets.</ulink></para>
+      sockets 等功能。</ulink></para>
 
-      <para>For more examples of using dart:io, see the <ulink
-      url="http://www.dartlang.cc/samples/">Dart Code Samples.</ulink></para>
+      <para>在 <ulink
+      url="http://www.dartlang.cc/samples/">Dart 代码示例</ulink> 中
+      有更多介绍 dart:io 的例子。</para>
     </sect2>
   </sect1>
 
   <sect1 id="ch03-dart-convert">
-    <title>dart:convert - Decoding and Encoding JSON, UTF-8, and more</title>
+    <title>dart:convert - 编码和解码 JSON 数据、 UTF-8 编码以及其他</title>
 
-    <para>The <ulink
+    <para> <ulink
     url="http://api.dartlang.org/dart_convert.html">dart:convert
-    library</ulink> has converters for JSON and UTF-8, as well as support for
-    creating additional converters. JSON is a simple text format for
-    representing structured objects and collections. UTF-8 is a common
-    variable-width encoding that can represent every character in the Unicode
-    character set.</para>
+    库</ulink> 提供了 JSON 和 UTF-8 编码的转换器，还支持创建自定义转换器。
+    JSON 是一个用来表达结构化对象和集合的文本格式。 UTF-8 是一个常用的 Unicode 字符编码。</para>
 
-    <para>The dart:convert library works in both web apps and command-line
-    apps. To use it, import dart:convert.</para>
+    <para>web 应用和命令行应用都可以使用 dart:convert 库。
+        import dart:convert 即可使用。</para>
 
     <sect2 id="ch03-json">
-      <title>Decoding and Encoding JSON</title>
+      <title>编码和解码 JSON</title>
 
-      <para>Decode a JSON-encoded string into a Dart object with
-      <literal>JSON.decode()</literal>:</para>
+      <para>用 
+      <literal>JSON.decode()</literal> 把 JSON 文本转换为 Dart 对象：</para>
 
       <screen format="linespecific"><remark>lang-dart
 ch03/jsonParse.dart
 </remark>import 'dart:convert' show JSON;
 
 main() {
-  // NOTE: Be sure to use double quotes ("), not single quotes ('),
-  // inside the JSON string. This string is JSON, not Dart.
+  // 注意：在 JSON 字符串中需要用 双引号 来定义字符串，而不是单引号。
   var jsonString = '''
   [
     {"score": 40},
@@ -2323,8 +2305,8 @@ main() {
   assert(firstScore['score'] == 40);
 }</screen>
 
-      <para>Encode a supported Dart object into a JSON-formatted string with
-      <literal>JSON.encode()</literal>:</para>
+      <para>使用 
+      <literal>JSON.encode()</literal> 函数把支持 JSON 编码的对象转换为 JSON 字符串：</para>
 
       <programlisting role="keep-together"><remark>lang-dart
 ch03/jsonStringify.dart
@@ -2343,23 +2325,21 @@ main() {
                      '"special_guest":null}]');
 }</programlisting>
 
-      <para>Only objects of type int, double, String, bool, null, List, or Map
-      (with string keys) are directly encodable into JSON. List and Map
-      objects are encoded recursively.</para>
+      <para>默认只有类型为 int、 double、 String、 bool、 null、 List、 或者 Map
+      (key 为 String) 的对象支持编码为 JSON 字符串。
+      List 和 Map 对象递归的编码里面的对象。</para>
 
-      <para>You have two options for encoding objects that aren't directly
-      encodable. The first is to invoke <literal>encode()</literal> with a
-      second argument: a function that returns an object that is directly
-      encodable. Your second option is to omit the second argument, in which
-      case the encoder calls the object's <literal>toJson()</literal>
-      method.</para>
+      <para>对于不支持的编码对象，你可以有两种选择： 第一种选择就是用一个方法当做第二个参数来调用 <literal>encode()</literal> 
+          函数，该方法参数返回一个支持编码的对象；第二个选择就是忽略第二个参数，编码器会调用该对象的
+          <literal>toJson()</literal>
+      函数。</para>
     </sect2>
 
     <sect2 id="ch03-utf">
-      <title>Decoding and Encoding UTF-8 Characters</title>
+      <title>编码和解码 UTF-8 字符</title>
 
-      <para>Use <literal>UTF8.decode()</literal> to decode UTF8-encoded bytes
-      to a Dart string:</para>
+      <para>使用 <literal>UTF8.decode()</literal> 来解析 UTF-8 编码格式的
+          字节流为 Dart string：</para>
 
       <screen format="linespecific"><remark>lang-dart
 ch03/decodeUtf8.dart
@@ -2374,9 +2354,9 @@ main() {
   print(string); // 'Îñţérñåţîöñåļîžåţîờñ'
 }</screen>
 
-      <para>To convert a stream of UTF-8 characters into a Dart string,
-      specify <literal>UTF8.decoder</literal> to the Stream
-      <literal>transform()</literal> method:</para>
+      <para>要把 UTF-8 字符转换为一个 Dart string，则可以用
+    <literal>UTF8.decoder</literal> 作为 Stream 的
+      <literal>transform()</literal> 函数参数：</para>
 
       <screen format="linespecific"><remark>lang-dart
 ch03/readFile.dart
@@ -2388,8 +2368,8 @@ ch03/readFile.dart
       print('Read ${line.length} bytes from stream');
     });</screen>
 
-      <para>Use <literal>UTF8.encode()</literal> to encode a Dart string as a
-      list of UTF8-encoded bytes:</para>
+      <para>用 <literal>UTF8.encode()</literal> 把一个 Dart string 编码为
+          UTF-8 格式的字节流：</para>
 
       <screen format="linespecific"><remark>lang-dart
 ch03/encodeUtf8.dart
@@ -2415,66 +2395,59 @@ main() {
     </sect2>
 
     <sect2 id="ch03-utf-other">
-      <title>Other Functionality</title>
+      <title>其他功能</title>
 
-      <para>The dart:convert library also has converters for ASCII and ISO
-      Latin 1. For details, see the <ulink
-      url="http://api.dartlang.org/dart_convert.html">API docs for the
-      dart:convert library.</ulink></para>
+      <para>dart:convert 库还包含了 ASCII 和 ISO
+      Latin 1 编码格式的转换器。 详情请参考 <ulink
+      url="http://api.dartlang.org/dart_convert.html"> dart:convert 库的 API 文档。</ulink></para>
     </sect2>
   </sect1>
 
   <sect1 id="ch03-mirrors">
-    <title>dart:mirrors - Reflection</title>
+    <title>dart:mirrors - Reflection（反射）</title>
 
-    <para>The dart:mirrors library provides basic reflection abilities to
-    Dart. Use mirrors to query the structure of your program and to
-    dynamically invoke functions or methods at runtime. </para>
+    <para>dart:mirrors 库提供了基础的反射功能。
+        用 mirror 来查询代码的结构和在运行时动态的调用函数和方法。 </para>
 
-    <para>The dart:mirrors library works in both web apps and command-line
-    apps. To use it, import dart:mirrors.</para>
+    <para>web 应用和命令行应用都可以使用 dart:mirrors 库。</para>
 
     <warning>
-      <para>Using dart:mirrors can cause dart2js to generate very large
-      JavaScript files.</para>
+      <para>注意： 使用 dart:mirrors 可能导致 dart2js 生成大量
+          的 JavaScript 文件。</para>
 
-      <para>The current workaround is to add a <literal>@MirrorsUsed</literal>
-      annotation before the import of dart:mirrors. For details, see the
+      <para>当前的解决方式是在导入 dart:mirrors 之前添加一个 <literal>@MirrorsUsed</literal>
+      注解。详细信息请参考
       <ulink
       url="http://api.dartlang.org/dart_mirrors/MirrorsUsed.html">MirrorsUsed</ulink>
-      API documentation. This workaround might change, as the dart:mirrors
-      library is still under development.</para>
+      API 文档。由于 dart:mirrors 库还在开发中，所有该解决方法可能会发生变化。</para>
     </warning>
 
     <sect2 id="ch03-mirrors-symbols">
-      <title>Symbols</title>
+      <title>Symbols（符号）</title>
 
-      <para>The mirror system represents the names of Dart declarations
-      (classes, fields, and so on) by instances of the class <ulink
-      url="http://api.dartlang.org/dart_core/Symbol.html">Symbol</ulink>.
-      Symbols help compilers like dart2js produce efficient output, even when
-      minified.</para>
+      <para>mirror 系统通过 <ulink
+      url="http://api.dartlang.org/dart_core/Symbol.html">Symbol</ulink>
+       类对象来代表 Dart 中的定义（类、变量、等等）。
+      Symbols 帮助编译器（例如 dart2js） 生成高效的代码。</para>
 
-      <para>When you know the name of the symbol ahead of time, use a symbol
-      literal. This way, repeated uses of the same symbol can use the same
-      canonicalized instance. If the name of the symbol is determined
-      dynamically at runtime, use the Symbol constructor.</para>
+      <para>如果在编码的时候已经知道 symbol 的名字，则可以通过
+          字符字面量的方式定义 symbol 对象。如果是运行时确定的名字，则可以通过
+          symbol 的构造函数来定义。</para>
 
       <screen format="linespecific"><remark>lang-dart
 ch03/mirrors.dart
 </remark>import 'dart:mirrors';
 
-// If the symbol name is known at compile time.
+// 在编码的时候 symbol 名字已经知道
 const className = #MyClass;
 
-// If the symbol name is dynamically determined.
+// 如果是动态确定名字的用构造函数
 var userInput = askUserForNameOfFunction();
 var functionName = new Symbol(userInput);</screen>
 
-      <para>During minification, a compiler might replace a symbol name with a
-      different (often smaller) name. To convert from a symbol back to a
-      string, use <literal>MirrorSystem.getName()</literal>. This function
-      returns the correct name, even if the code was minified.</para>
+      <para>在压缩代码的时候，编译器科可能用一个短小的名字来替代一个 symbol 名字。
+          要用 symbol 还原该符号的名字，则调用 <literal>MirrorSystem.getName()</literal>。
+          即使代码被压缩过了，该函数还是会返回正确的名字。</para>
 
       <screen format="linespecific"><remark>lang-dart
 ch03/mirrors.dart
@@ -2486,13 +2459,13 @@ assert('MyClass' == MirrorSystem.getName(className));
     </sect2>
 
     <sect2 id="ch03-mirrors-introspection">
-      <title>Introspection</title>
+      <title>Introspection（审查对象）</title>
 
-      <para>Use mirrors to introspect the running program's structure. You can
-      inspect classes, libraries, instances, and more.</para>
+      <para>使用 mirror 可以审查运行代码的结构。
+          可以审查 类、库、实例对象 等。</para>
 
-      <para>The examples in this section use the following Person
-      class:</para>
+      <para>后面的示例使用下面的 Person
+      类演示：</para>
 
       <screen format="linespecific"><remark>lang-dart
 ch03/mirrors.dart
@@ -2510,13 +2483,14 @@ ch03/mirrors.dart
   }
 }</screen>
 
-      <para>To begin, you need to <emphasis>reflect</emphasis> on a class or
-      object to get its <emphasis>mirror</emphasis>.</para>
+      <para>首先，需要在一个类或者对象上 <emphasis>reflect</emphasis> 
+          一个
+      <emphasis>mirror</emphasis> 对象。</para>
 
       <sect3 id="ch03-mirrors-class-inspect">
         <title>Class Mirrors</title>
 
-        <para>Reflect on a Type to get its ClassMirror.</para>
+        <para>在一个 Type 上反射一个 ClassMirror。</para>
 
         <screen format="linespecific"><remark>lang-dart
 ch03/mirrors.dart
@@ -2524,8 +2498,7 @@ ch03/mirrors.dart
 
 assert('Person' == MirrorSystem.getName(mirror.simpleName));</screen>
 
-        <para>You can also call <literal>runtimeType</literal> to get a Type
-        from an instance.</para>
+        <para>也可以用对象的 <literal>runtimeType</literal> 从对象上获取其 Type：</para>
 
         <screen format="linespecific"><remark>lang-dart
 ch03/mirrors.dart
@@ -2534,9 +2507,9 @@ ClassMirror mirror = reflectClass(person.runtimeType);
 
 assert('Person' == MirrorSystem.getName(mirror.simpleName));</screen>
 
-        <para>Once you have a ClassMirror, you can get a class's constructors,
-        fields, and more. Here is an example of listing the constructors of a
-        class.</para>
+        <para>一旦获取到了 ClassMirror，就可以查询类的 构造函数、变量、等信息。
+        下面是查询一个类的所有构造函数的示例：
+        </para>
 
         <screen format="linespecific"><remark>lang-dart
 ch03/mirrors.dart
@@ -2549,8 +2522,7 @@ ch03/mirrors.dart
   });
 }</screen>
 
-        <para>Here is an example of listing all of the fields declared by a
-        class.</para>
+        <para>下面是查询一个类所有变量的示例：</para>
 
         <screen><remark>lang-dart
 ch03/mirrors.dart
@@ -2567,23 +2539,26 @@ ch03/mirrors.dart
   });
 }</screen>
 
-        <para>For a full list of methods, consult the <ulink
-        url="http://api.dartlang.org/dart_mirrors/ClassMirror.html">API docs
-        for ClassMirror</ulink>.</para>
+        <para>参考 <ulink
+        url="http://api.dartlang.org/dart_mirrors/ClassMirror.html">ClassMirror 的 API 文档
+        </ulink> 了解所有功能。</para>
       </sect3>
 
       <sect3 id="ch03-mirrors-instance-inspect">
         <title>Instance Mirrors</title>
 
-        <para>Reflect on an object to get an InstanceMirror.</para>
+        <para>在对象上使用反射可以得到一个 InstanceMirror。</para>
 
         <screen><remark>lang-dart
 ch03/mirrors.dart
 </remark>var p = new Person('Bob', 'Smith', 42);
 InstanceMirror mirror = reflect(p);</screen>
 
-        <para>If you have an InstanceMirror and you want to get the object
-        that it reflects, use <literal>reflectee</literal>.</para>
+        <para>
+            如果你有个 InstanceMirror 对象，可以通过
+            <literal>reflectee</literal> 来获取该 
+            InstanceMirror 对象的反射对象。
+            </para>
 
         <screen><remark>lang-dart
 ch03/mirrors.dart
@@ -2595,19 +2570,18 @@ assert(identical(p, person));</screen>
     <sect2 id="ch03-mirrors-invocation">
       <title>Invocation</title>
 
-      <para>Once you have an InstanceMirror, you can invoke methods and call
-      getters and setters. For a full list of methods, consult the <ulink
-      url="http://api.dartlang.org/dart_mirrors/InstanceMirror.html">API docs
-      for InstanceMirror</ulink>.</para>
+      <para>
+          一旦有了一个 InstanceMirror 对象，就可以调用其函数或者 getter 和 setter 。参考
+      <ulink
+      url="http://api.dartlang.org/dart_mirrors/InstanceMirror.html">InstanceMirror API 文档
+      </ulink> 查看所有函数。</para>
 
       <sect3 id="ch03-mirrors-invoke">
         <title>Invoke Methods</title>
 
-        <para>Use InstanceMirror's <literal>invoke()</literal> method to
-        invoke a method on an object. The first parameter specifies the method
-        to be invoked, and the second is a list of positional arguments to the
-        method. An optional third parameter lets you specify named
-        arguments.</para>
+        <para>用 InstanceMirror 的 <literal>invoke()</literal> 函数来调用
+            对象上的函数。第一个参数为调用的函数名字，第二个参数为该函数的参数列表，
+            第三个可选参数可以指定命名参数。</para>
 
         <screen><remark>lang-dart
 ch03/mirrors.dart
@@ -2618,11 +2592,11 @@ mirror.invoke(#greet, ['Shailen']);</screen>
       </sect3>
 
       <sect3 id="ch03-mirrors-getset-fields">
-        <title>Get and Set Properties</title>
+        <title>Get 和 Set Properties</title>
 
-        <para>Use InstanceMirror's <literal>getField()</literal> and
-        <literal>setField()</literal> methods to get and set properties of an
-        object.</para>
+        <para>用 InstanceMirror 的 <literal>getField()</literal> 和
+        <literal>setField()</literal> 函数来获取和设置一个对象
+        的变量。</para>
 
         <screen><remark>lang-dart
 ch03/mirrors.dart
@@ -2630,52 +2604,51 @@ ch03/mirrors.dart
 var p = new Person('Bob', 'Smith', 42);
 InstanceMirror mirror = reflect(p);
 
-// Get the value of a property.
+// 获取一个变量的值
 var fullName = mirror.getField(#fullName).reflectee;
 assert(fullName == 'Bob Smith');
   
-// Set the value of a property.
+// 设置变量的值
 mirror.setField(#firstName, 'Mary');
 assert(p.firstName == 'Mary');</screen>
       </sect3>
     </sect2>
 
     <sect2 id="ch03-more-information-mirrors">
-      <title>More Information</title>
+      <title>更多信息</title>
 
-      <para>The article <ulink
+      <para> <ulink
       url="https://www.dartlang.cc/articles/reflection-with-mirrors/">Reflection
-      in Dart with Mirrors</ulink> has more information and examples. Also see
-      the API docs for <ulink
-      url="http://api.dartlang.org/dart_mirrors.html">dart:mirror,</ulink>
-      especially <ulink
-      url="http://api.dartlang.org/dart_mirrors/MirrorsUsed.html">MirrorsUsed</ulink>,
+      in Dart with Mirrors</ulink> 这篇文章介绍了反射的更多信息。
+       另外更详细信息请参考 <ulink
+      url="http://api.dartlang.org/dart_mirrors.html">dart:mirror、</ulink>
+       <ulink
+      url="http://api.dartlang.org/dart_mirrors/MirrorsUsed.html">MirrorsUsed</ulink>、
       <ulink
-      url="http://api.dartlang.org/dart_mirrors/ClassMirror.html">ClassMirror,</ulink>
-      and <ulink
-      url="http://api.dartlang.org/dart_mirrors/InstanceMirror.html">InstanceMirror.</ulink></para>
+      url="http://api.dartlang.org/dart_mirrors/ClassMirror.html">ClassMirror、</ulink>
+      和 <ulink
+      url="http://api.dartlang.org/dart_mirrors/InstanceMirror.html">InstanceMirror</ulink>
+      类的 API 文档。
+      </para>
     </sect2>
   </sect1>
 
   <sect1 id="ch03-summary">
-    <title>Summary</title>
+    <title>总结</title>
 
-    <para>This chapter introduced you to the most commonly used functionality
-    in many of Dart’s built-in libraries. It didn’t cover all the built-in
-    libraries, however. Others that you might want to look into include <ulink
-    url="http://api.dartlang.org/dart_collection.html">dart:collection,</ulink>
+    <para>
+        该章介绍了 Dart 中大部分常用的内置库功能。但是该章并没有覆盖所有的库。下面这些库请参考其 API 文档：<ulink
+    url="http://api.dartlang.org/dart_collection.html">dart:collection、</ulink>
     <ulink
-    url="http://api.dartlang.org/dart_isolate.html">dart:isolate,</ulink>
-    <ulink url="http://api.dartlang.org/dart_js.html">dart:js,</ulink> and
+    url="http://api.dartlang.org/dart_isolate.html">dart:isolate、</ulink>
+    <ulink url="http://api.dartlang.org/dart_js.html">dart:js、</ulink> 和
     <ulink
-    url="http://api.dartlang.org/dart_typed_data.html">dart:typed_data.</ulink>
-    You can get yet more libraries by using the pub tool, discussed in the
-    next chapter. The <ulink
-    url="http://pub.dartlang.org/packages/args">args,</ulink> <ulink
-    url="http://api.dartlang.org/logging.html">logging,</ulink> <ulink
-    url="http://pub.dartlang.org/packages/polymer">polymer,</ulink> and <ulink
+    url="http://api.dartlang.org/dart_typed_data.html">dart:typed_data。</ulink>
+    使用 pub 工具还可以使用其他库。下一章将介绍如何用 pub 工具来引用第三方库。用 pub 来安装  <ulink
+    url="http://pub.dartlang.org/packages/args">args、</ulink> <ulink
+    url="http://api.dartlang.org/logging.html">logging、</ulink> <ulink
+    url="http://pub.dartlang.org/packages/polymer">polymer、</ulink> 和 <ulink
     url="http://api.dartlang.org/unittest.html" wordsize=""><phrase
-    role="keep-together">unittest</phrase></ulink> libraries are just a
-    sampling of what you can install using pub.</para>
+    role="keep-together">unittest</phrase></ulink>  等库是非常简单的。</para>
   </sect1>
 </chapter>
