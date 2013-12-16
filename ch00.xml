@@ -324,207 +324,174 @@
 
       <itemizedlist>
         <listitem>
-          <para>The dart_analyzer tool has been replaced by
-          dartanalyzer.</para>
+          <para>dart_analyzer 工具被
+          dartanalyzer 取代了</para>
         </listitem>
 
         <listitem>
-          <para>Command-line arguments for many tools have changed. For
-          example, the dartdoc <literal>--pkg</literal> command-line option
-          changed to <literal>--package-root</literal>.</para>
+          <para>很多工具的命令行参数调整了。例如 dartdoc <literal>--pkg</literal> 命令行选项
+          变更为 <literal>--package-root</literal>。</para>
         </listitem>
 
         <listitem>
-          <para>The pub tool now has build and serve commands, which work with
-          transformers to convert your source files into their final
-          format.</para>
+          <para>pub 工具现在有 build 和 serve 命令集了, 它们可以让转换器将源代码文件转换成最终格式。</para>
         </listitem>
 
         <listitem>
-          <para>We fleshed out the dart2js docs.</para>
+          <para>我们完善了 dart2js 文档。</para>
         </listitem>
       </itemizedlist>
 
-      <para>We also added new coverage of previously undocumented features and
-      tweaked existing coverage. In the language tour:</para>
+      <para>我们同样增加了以前无正式文件说明的特性的范围,并稍稍调整已有的范围。在语言的简介中：</para>
 
       <itemizedlist>
         <listitem>
-          <para>Added <xref linkend="ch02-mixins" />.</para>
+          <para>添加了 <xref linkend="ch02-mixins" />。</para>
         </listitem>
 
         <listitem>
-          <para>In <xref linkend="ch02-keywords" />, marked which keywords are
-          built-in identifiers and discussed how they differ from reserved
-          words.</para>
+          <para>在 <xref linkend="ch02-keywords" /> 中, 标记出哪些关键字是内建的标识符，并论述了他们与保留标识符的不同。</para>
         </listitem>
 
         <listitem>
-          <para>Added coverage of the + operator for strings.</para>
+          <para>增加了 + 操作符的功能，现在可以作用于字符串了。</para>
         </listitem>
 
         <listitem>
-          <para>Discussed using expressions (such as function calls) as
-          arguments to a non-default constructor.</para>
+          <para>论述了使用表达式（例如 function calls）作为非默认构造器参
+          数的相关问题。</para>
         </listitem>
 
         <listitem>
-          <para>Added examples of using the @override and @proxy
-          annotations.</para>
+          <para>添加了一些关于 @override 和 @proxy 注释相关的例子。</para>
         </listitem>
 
         <listitem>
-          <para>Changed the doc comment example to match the latest
-          guidelines, and pointed to <ulink
-          url="https://www.dartlang.org/articles/doc-comment-guidelines/">Guidelines
-          for Dart Doc Comments.</ulink></para>
+          <para>修改了文档注释的例子，使他们符合最新的规则,并且指向了 <ulink
+          url="https://www.dartlang.org/articles/doc-comment-guidelines/">Dart 文档注释准测。</ulink></para>
         </listitem>
       </itemizedlist>
 
-      <para>In the library tour:</para>
+      <para>在类库的概览中：</para>
 
       <itemizedlist>
         <listitem>
-          <para>Added <xref linkend="ch03-mirrors" />.</para>
+          <para>增加 <xref linkend="ch03-mirrors" />。</para>
         </listitem>
 
         <listitem>
-          <para>Added examples of parsing non-decimal numbers.</para>
+          <para>添加关于解析非十进制数字的例子。</para>
         </listitem>
 
         <listitem>
-          <para>Removed the incorrect <literal>new</literal> from the example
-          of using Future.wait().</para>
+          <para>在使用 Future.wait() 的例子中，错误使用 <literal>new</literal> 的部分移除了。</para>
         </listitem>
 
         <listitem>
-          <para>Removed coverage of Completer, which is no longer
-          recommended.</para>
+          <para>移除完成符的范围，它不再被推荐了。</para>
         </listitem>
 
         <listitem>
-          <para>Added <xref linkend="ch03-streams" />.</para>
+          <para>添加 <xref linkend="ch03-streams" />。</para>
         </listitem>
       </itemizedlist>
 
-      <para>Throughout the book, we updated links to related topics.</para>
+      <para>我们更新了全书中所有相关主题的链接。</para>
     </sect2>
 
     <sect2 id="preface-updates-v2">
-      <title>Changes in the Second Printing: March 29, 2013</title>
+      <title>第二次印刷中的修改： 2013年3月29日</title>
 
-      <para>We’ve updated the content to reflect the following changes since
-      the first printing:</para>
+      <para>我们更新了相关内容以反应出以下第二次印刷中的修改：</para>
 
       <itemizedlist>
         <listitem>
-          <para>Using <literal>part of</literal> in additional library files
-          is now <emphasis>required</emphasis>, not optional.</para>
+          <para>现在必须在附加类库文件中使用 <literal>part of</literal> ，
+          而不再是可选的了。</para>
         </listitem>
 
         <listitem>
-          <para>In M2, several APIs changed:</para>
+          <para>在 M2 中，调整了一些 API ：</para>
 
           <itemizedlist>
             <listitem>
-              <para>In the dart:html library, the <literal>elements</literal>
-              property of Element changed to
-              <literal>children</literal>.</para>
+              <para>在 dart:html 类库中, Element 的 <literal>elements</literal>
+              属性改为了 <literal>children</literal>。</para>
             </listitem>
 
             <listitem>
-              <para>Names in dart:html changed to conform to Dart naming
-              standards. In particular, <literal>innerHTML</literal> became
-              <literal>innerHtml</literal>.</para>
+              <para> dart:html 类库中的名字做了调整，现在更加符合 Dart 命名规范了。 特别的, <literal>innerHTML</literal> 修改为
+              <literal>innerHtml</literal>。</para>
             </listitem>
 
             <listitem>
-              <para>The <literal>charCodes()</literal> method of String became
-              a getter, so we removed the parentheses from all references to
-              <literal>charCodes</literal>.</para>
+              <para>String 的<literal>charCodes()</literal> 方法修改成了一个 getter ，因此我们移除所有引用的圆括号，<literal>charCodes</literal>。</para>
             </listitem>
 
             <listitem>
-              <para>The <literal>readAsText()</literal> method of File became
-              <literal>readAsString()</literal>.</para>
+              <para>File 的 <literal>readAsText()</literal> 方法变成了
+              <literal>readAsString()</literal>。</para>
             </listitem>
 
             <listitem>
-              <para>Constructors for the Date class changed.</para>
+              <para>Date 类的构造器做了调整。</para>
             </listitem>
 
             <listitem>
-              <para>NullPointerException no longer exists.</para>
+              <para>删除了 NullPointerException 。</para>
             </listitem>
 
             <listitem>
-              <para>RegExp no longer has a const constructor.</para>
+              <para>删除了 RegExp 的静态构造器</para>
             </listitem>
 
             <listitem>
-              <para>The return type of StringBuffer’s <literal>add()</literal>
-              method changed to void. Code that used to chain calls to
-              <literal>add()</literal> should now use method cascades
-              instead.</para>
+              <para>StringBuffer 的 <literal>add()</literal> 方法的返回值类型修改为 void。
+              做链式调用的代码现在可以使用 cascades 方法代替。</para>
             </listitem>
           </itemizedlist>
         </listitem>
 
         <listitem>
-          <para>The recommended way for web apps to use
-          <literal>dart.js</literal> is now to have a local copy, preferably
-          one downloaded using the <literal>browser</literal> pub
-          package.</para>
+          <para>现在使用<literal>dart.js</literal>推荐的方式是生成一个本地的副本，更好的方式是下载使用<literal>browser</literal> pub 包。</para>
         </listitem>
 
         <listitem>
-          <para>Metadata support was added to the language. See <xref
-          linkend="ch02-metadata" />.</para>
+          <para>Dart 语言现在支持 Metadata 了。 请查看 <xref
+          linkend="ch02-metadata" />。</para>
         </listitem>
 
         <listitem>
-          <para>We added references to the <ulink
+          <para>我们增加了<ulink
           url="http://www.dartlang.org/articles/web-ui/">Web UI
-          package</ulink>, which provides a higher level, scalable approach to
-          creating UIs for web apps.</para>
+          包</ulink> 的参考，这个包为创建 web 应用的 UI 界面提供
+          了一个高级的，可升级的方法。
+          </para>
         </listitem>
 
         <listitem>
-          <para>In M3, mixins were added to the language, enabling code re-use
-          between classes.</para>
+          <para>在 M3 中，mixins 被添加到了语言中，可以重用不同类中的代码。</para>
         </listitem>
 
         <listitem>
-          <para>The core libraries were greatly revised in M3 or shortly
-          afterward. Changes include:</para>
+          <para>在 M3 中核心库被很大程度的优化了。包括了一下的修改：</para>
 
           <itemizedlist>
             <listitem>
-              <para>Some methods changed to fields or getters. This meant we
-              had to remove the <literal>()</literal> after
-              <literal>hashCode</literal>, <literal>isEmpty</literal>, and
-              <literal>isNan</literal>. We also changed
-              <literal>getKeys()</literal> to <literal>keys</literal>, and
-              <literal>getValues()</literal> to
-              <literal>values</literal>.</para>
+              <para>一些方法被修改为域或者getters。这意味着我们应该在<literal>hashCode</literal>,<literal>isEmpty</literal>, 和
+              <literal>isNan</literal>后面移除<literal>()</literal> 。我们同样将
+              <literal>getKeys()</literal> 改为 <literal>keys</literal>, 将
+              <literal>getValues()</literal> 改为
+              <literal>values</literal>。</para>
             </listitem>
 
             <listitem>
-              <para>The Iterable class was beefed up, affecting all
-              Collections such as Lists and Sets. The former Collection
-              methods <literal>filter()</literal> and <literal>map()</literal>
-              moved to Iterable, and the name of <literal>filter()</literal>
-              changed to <literal>where()</literal>. (<literal>map()</literal>
-              was briefly renamed to <literal>mappedBy()</literal>, but due to
-              public feedback that decision was reversed.) The
-              <literal>some()</literal> method changed to
-              <literal>any()</literal>. Many values returned by Iterables are
-              now lazily-filled Iterables; you can use
-              <literal>toList()</literal> or <literal>toSet()</literal> to
-              force evaluation. We recommend <emphasis>extending</emphasis>
-              Iterable rather than just implementing it, so you can take
-              advantage of added functionality. More details are in the
-              article <ulink
+              <para>Iterable 类得到了增强，所有的Collections 都收到了影响，例如 
+              Lists 和 Sets。Collection以前的方法<literal>filter()</literal> 和 <literal>map()</literal> 移到了 Iterable 中，并且<literal>filter()</literal>的名字改为<literal>where()</literal>.
+                (<literal>map()</literal>
+              暂时改为 <literal>mappedBy()</literal>,是由于社区反馈这个决定是对其是倒退发展。) 
+              <literal>some()</literal> 方法改为
+              <literal>any()</literal>。Iterables 返回的很多值现在是惰性填充Iterables；你可以使用<literal>toList()</literal> 或 <literal>toSet()</literal> 强制赋值。我们推荐<emphasis>继承 </emphasis>Iterable，而不是只是实现它，因此你可以从添加新功能中得益。更多的细节请查看文章  <ulink
               url="http://www.dartlang.org/articles/m3-whats-new/iterables.html">Iterables.</ulink></para>
             </listitem>
 
