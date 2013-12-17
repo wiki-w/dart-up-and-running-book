@@ -87,15 +87,15 @@ main() {
 
       <varlistentry>
         <term><literal
-        moreinfo="none">$<replaceable>variableName</replaceable></literal> (or
+        moreinfo="none">$<replaceable>variableName</replaceable></literal> (或者
         <literal
         moreinfo="none">${<replaceable>expression</replaceable></literal><literal
         moreinfo="none">}</literal>)</term>
 
         <listitem>
-          <para>String interpolation: including a variable or expression’s
-          string equivalent inside of a string literal. For more information,
-          see <xref linkend="strings" />.</para>
+          <para>字符串插值（String interpolation）：在一个字符串字面量中包含
+              一个变量或者表达式，最终该变量或者表达式的值将替换在字符串中。详细信息请参考：
+           <xref linkend="strings" />。</para>
         </listitem>
       </varlistentry>
 
@@ -103,9 +103,9 @@ main() {
         <term><literal moreinfo="none">main()</literal></term>
 
         <listitem>
-          <para>The special, <emphasis>required</emphasis>, top-level function
-          where app execution starts. For more information, see <xref
-          linkend="ch02-main" />.</para>
+          <para>Dart 程序<emphasis>必需的</emphasis>顶级入口函数。
+              Dart 程序从该函数开始执行。 详细信息请参考： <xref
+          linkend="ch02-main" />。</para>
         </listitem>
       </varlistentry>
 
@@ -113,113 +113,105 @@ main() {
         <term><literal moreinfo="none">var</literal></term>
 
         <listitem>
-          <para>A way to declare a variable without specifying its
-          type.</para>
+          <para>一种定义无类型变量的方法。</para>
         </listitem>
       </varlistentry>
     </variablelist>
 
     <note>
-      <para>Our code follows the conventions in the <ulink
-      url="http://www.dartlang.org/articles/style-guide/">Dart Style
-      Guide.</ulink> For example, we use two-space indentation.</para>
+      <para>我们的代码遵守 <ulink
+      url="http://www.dartlang.org/articles/style-guide/">Dart 风格指南
+      </ulink> 中介绍的格式。例如，我们用了两个空格的缩进。</para>
     </note>
   </sect1>
 
   <sect1 id="ch02-concepts">
-    <title>Important Concepts</title>
+    <title>重要的概念</title>
 
-    <para>As you learn about the Dart language, keep these facts and concepts
-    in mind:</para>
+    <para>在学习 Dart 语言的时候，请记住如下概念：</para>
 
     <itemizedlist>
       <listitem>
-        <para>Everything you can place in a variable is an
-        <emphasis>object</emphasis>, and every object is an instance of a
-        <emphasis>class</emphasis>. Even numbers, functions, and <literal
-        moreinfo="none">null</literal> are objects. All objects inherit from
-        the <ulink
+        <para>变量引用的任意内容都是一个
+        <emphasis>对象（object）</emphasis>，任意对象都是一个
+        <emphasis>类（class）</emphasis> 的实例。甚至 数字（ numbers）、方法（ functions）、 和<literal
+        moreinfo="none">null</literal> 都是对象。所有的对象都从
+         <ulink
         url="http://api.dartlang.org/dart_core/Object.html">Object</ulink>
-        class.</para>
+        类继承下来。</para>
       </listitem>
 
       <listitem>
-        <para>Specifying static types (such as <literal
-        moreinfo="none">num</literal> in the preceding example) clarifies your
-        intent and enables static checking by tools, but it’s optional. (You
-        might notice when you’re debugging your code that objects with no
-        specified type get a special type: <literal
-        moreinfo="none">dynamic</literal>.)</para>
+        <para>指定静态类型（例如前面示例的  <literal
+        moreinfo="none">num</literal> ） 明确你的意图，并且可以使用
+        工具的静态分析工具，但是类型是可选的。（在调试代码的时候，你可能已经注意到了，虽然你指定了静态类型，但是在调试的时候
+        该变量并没有指定具体的类型，而是使用了一个特殊的类型： <literal
+        moreinfo="none">dynamic</literal>）。</para>
       </listitem>
 
       <listitem>
-        <para>Dart parses all your code before running it. You can provide
-        tips to Dart—for example, by using types or compile-time constants—to
-        catch errors or help your code run faster.</para>
+        <para>Dart 在运行代码之前先解析代码。 你可以给 Dart 提供
+            一些扑捉错误和帮助提高代码运行效率的建议，例如使用 类型、或者使用编译期常量。</para>
       </listitem>
 
       <listitem>
-        <para>Dart supports top-level functions (such as
-        <literal>main()</literal>), as well as functions tied to a class or
-        object (<emphasis>static</emphasis> and <emphasis>instance
-        methods</emphasis>, respectively). You can also create functions
-        within functions (<emphasis>nested</emphasis> or <emphasis>local
-        functions</emphasis>).</para>
+        <para>Dart 支持顶级方法（例如
+        <literal>main()</literal>），也支持实例函数和类函数（静态函数）。
+        你还可以在一个方法内创建另外一个方法（<emphasis>nested（嵌入方法）</emphasis> 或者 <emphasis>local
+        functions（本地方法）</emphasis>）。 </para>
       </listitem>
 
       <listitem>
-        <para>Similarly, Dart supports top-level
-        <emphasis>variables</emphasis>, as well as variables tied to a class
-        or object (static and instance variables). Instance variables are
-        sometimes known as <firstterm>fields</firstterm> or
-        <firstterm>properties</firstterm>.</para>
+        <para>同样，Dart 也支持顶级
+        <emphasis>变量</emphasis>，也支持实例变量和类变量（静态变量）。
+        实例变量有时候被称之为 值域或者属性（<firstterm>fields</firstterm> 或者
+        <firstterm>properties</firstterm>）。</para>
       </listitem>
 
       <listitem>
-        <para>Unlike Java, Dart doesn’t have the keywords <literal
-        moreinfo="none">public</literal>, <literal
-        moreinfo="none">protected</literal>, and <literal
-        moreinfo="none">private</literal>. If an identifier starts with an
-        underscore (_), it’s private to its library. For details, see <xref
-        linkend="libraries" />.</para>
+        <para>和 Java 不同， Dart 没有 <literal
+        moreinfo="none">public</literal>、 <literal
+        moreinfo="none">protected</literal>、 和 <literal
+        moreinfo="none">private</literal> 关键字。如果名字
+        以下划线（_）开头，则是库私有成员。详细信息请参考： <xref
+        linkend="libraries" />。</para>
       </listitem>
 
       <listitem>
-        <para><firstterm>Identifiers</firstterm> can start with a letter or _,
-        followed by any combination of those characters plus digits.</para>
+        <para><firstterm>标识符（名字）</firstterm> 可以以字母或者 下划线 开头，后面可以跟随
+            任意的字母和数字的组合。</para>
       </listitem>
 
       <listitem>
-        <para>Sometimes it matters whether something is an
-        <emphasis>expression</emphasis> or a <emphasis>statement</emphasis>,
-        so we’ll be precise about those two words.</para>
+        <para>有时候需要区分一个东西是
+        <emphasis>expression（表达式）</emphasis> 还是一个 <emphasis>statement（语句）</emphasis>，
+        所以我们将区分这两个词语。</para>
       </listitem>
 
       <listitem>
-        <para>Dart tools can report two kinds of errors: warnings and errors.
-        Warnings are just hints that your code might not work, but they don’t
-        prevent your program from executing. Errors can be either compile-time
-        or run-time. A compile-time error prevents the code from executing at
-        all; a run-time error results in an <link
-        linkend="exceptions">exception</link> being raised while the code
-        executes.</para>
+        <para>Dart 工具可以报告两种错误信息：警告和错误。
+		警告只是提示你代码可能有潜在的问题，但是并不阻止代码执行。
+		错误可能是编译时错误也可能是运行时错误。一个编译时错误阻止代码运行，而运行时
+		错误在遇到的时候会抛出一个
+        <link
+        linkend="exceptions">exception</link> 。</para>
       </listitem>
 
       <listitem>
-        <para>Dart has two <firstterm>runtime modes</firstterm>: production
-        and checked. Production is faster, but checked is helpful at
-        development.</para>
+        <para>Dart 有两种 <firstterm>运行模式</firstterm>：
+            生产模式和检测模式（ production
+        and checked）。生产模式效率高，但是测试模式可以在开发的时候帮助调试代码。</para>
       </listitem>
     </itemizedlist>
 
     <sect2 id="ch02-keywords">
-      <title>Keywords</title>
+      <title>关键字</title>
 
-      <para><xref linkend="keyword_table" /> lists the words that the Dart
-      language treats specially.</para>
+      <para><xref linkend="keyword_table" /> 列出了  Dart 语言中的
+          关键字。</para>
 
       <para><table class="keywordTable" id="keyword_table">
-          <title>Dart keywords</title>
+          <title>Dart 关键字</title>
 
           <tgroup cols="6">
             <tbody>
@@ -338,135 +330,123 @@ main() {
           </tgroup>
         </table></para>
 
-      <para>In the keyword table, words with an asterisk (*) are
-      <emphasis>built-in identifiers</emphasis>. Although you should generally
-      treat built-in identifiers like reserved words, the only real
-      restriction is that you can't use a built-in identifier as the name of a
-      class or type. Having built-in identifiers enables easier porting from
-      JavaScript to Dart. For example, say some JavaScript code has a variable
-      named <literal>factory</literal>; you don't have to rename it when you
-      port the code to Dart.<remark> NEW for October update: added enum,
-      rethrow. Dart reserved words: Section 16.1.1 of the spec lists reserved
-      words; 12.31 has the identifier reference, which lists the built-in
-      identifiers.</remark></para>
+      <para>
+          在上表中，带有星号（*）的关键字为
+      <emphasis>内置的标识符（built-in identifiers）</emphasis>。
+      虽然你应该把内置的标识符按照关键字对待，其实真正的限制是无法用内置的标识符作为类或者类型的名字。
+	使用内置的标识符可以简化从 JavaScript 移植到 Dart 的过程。
+	例如，有些 JavaScript 代码具有一个名字为 <literal>factory</literal> 的变量；
+	当移植到 Dart 时无需重命名该变量。<remark> 13年十月更新：添加 enum、
+      rethrow。 Dart 保留关键字：语言规范的 Section 16.1.1 列举了保留的关键字；  12.31 
+      介绍了内置标识符的参考索引。</remark></para>
     </sect2>
 
     <sect2 id="ch02-runtime-modes">
-      <title>Runtime Modes</title>
+      <title>运行时模式</title>
 
-      <para>We recommend that you develop and debug in checked mode, and
-      deploy to production mode.</para>
+      <para>我们建议在检测模式开发，在生产模式部署。</para>
 
-      <para><emphasis>Production mode</emphasis> is the default runtime mode
-      of a Dart program, optimized for speed. Production mode ignores <link
-      linkend="assert">assert statements</link> and static types.</para>
+      <para><emphasis>生产模式</emphasis>是 Dart 程序的默认运行模式，优化了运行速度。
+          生产模式忽略
+       <link
+      linkend="assert">assert statements（断言语句）</link> 和静态类型。</para>
 
-      <para><emphasis>Checked mode</emphasis> is a developer-friendly mode
-      that helps you catch some type errors during runtime. For example, if
-      you assign a non-number to a variable declared as a <literal
-      moreinfo="none">num</literal>, then checked mode throws an
-      exception.</para>
+      <para><emphasis>检测模式</emphasis> 是开发友好模式，
+          可以在运行的时候帮助你捕获一些类型错误信息。例如，
+          如果你给一个类型为 <literal
+      moreinfo="none">num</literal> 的变量
+      赋值为一个非数字的值，在检测模式会抛出一个异常。</para>
     </sect2>
   </sect1>
 
   <sect1 id="variables">
-    <title>Variables</title>
+    <title>变量</title>
 
-    <para>Here’s an example of creating a variable and assigning a value to
-    it:</para>
+    <para>下面是创建变量并赋值的示例：</para>
 
     <programlisting format="linespecific"><remark>lang-dart
 </remark>var name = 'Bob';</programlisting>
 
-    <para>Variables are references. The variable called <literal
-    moreinfo="none">name</literal> contains a reference to a String object
-    with a value of <quote>Bob</quote>.</para>
+    <para>变量是引用。名字为 <literal
+    moreinfo="none">name</literal> 的变量包含一个指向内容为
+      <quote>Bob</quote> 的 String 对象。</para>
 
     <sect2 id="variables-default-value">
-      <title>Default Value</title>
+      <title>默认值</title>
 
-      <para>Uninitialized variables have an initial value of <literal
-      moreinfo="none">null</literal>. Even variables with numeric types are
-      initially null, because numbers are objects.</para>
+      <para>没有初始化的变量的值为 <literal
+      moreinfo="none">null</literal>。即使类型为数字的变量其值也是 null，不要忘了 数字在 Dart
+      中也是对象。</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>int lineCount;
 assert(lineCount == null); 
-// Variables (even if they will be numbers) are initially null.</programlisting>
+// 变量的初始值为 null。</programlisting>
 
       <note>
-        <para>The <literal>assert()</literal> call is ignored in production
-        mode. In checked mode, <literal
-        moreinfo="none">assert(<replaceable>condition</replaceable>)</literal>
-        throws an exception unless <replaceable>condition</replaceable> is
-        true. For details, see <xref linkend="assert" />.</para>
+        <para>在生产模式下  <literal>assert()</literal> 方法不会被调用。在检测
+            模式下，如果 <replaceable>判断条件</replaceable> 值为 false ，则 <literal
+        moreinfo="none">assert(<replaceable>判断条件</replaceable>)</literal>
+       抛出一个异常。详细信息请参考： <xref linkend="assert" />。</para>
       </note>
     </sect2>
 
     <sect2 id="variables-optional-types">
-      <title>Optional Types</title>
+      <title>可选类型</title>
 
-      <para>You have the option of adding static types to your variable
-      declarations:</para>
+      <para>在声明变量的时候可以设置一个静态类型：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>String name = 'Bob';</programlisting>
 
-      <para>Adding types is a way to clearly express your intent. Tools such
-      as compilers and editors can use these types to help you, by providing
-      early warnings for bugs and code <phrase
-      role="keep-together">completion</phrase>.</para>
+      <para>添加类型可以明确表达你的意图，可以替代注释。有些工具（例如编译器和编辑器）可以
+          使用类型信息帮助你编写代码。</para>
 
       <note>
-        <para>This chapter follows the <ulink
-        url="http://www.dartlang.org/articles/style-guide/#type-annotations">style
-        guide recommendation</ulink> of using <literal
-        moreinfo="none">var</literal>, rather than type annotations, for local
-        variables.</para>
+        <para>本章内容按照 <ulink
+        url="http://www.dartlang.cc/articles/style-guide/#type-annotations"> Dart 风格指南</ulink>
+        推荐的方式用  <literal
+        moreinfo="none">var</literal> 来定义
+        局部变量。</para>
       </note>
     </sect2>
 
     <sect2 id="ch02-final-const">
-      <title>Final and Const</title>
+      <title>Final 和 Const</title>
 
-      <para>If you never intend to change a variable, use <literal
-      moreinfo="none">final</literal> or <literal
-      moreinfo="none">const</literal>, either instead of <literal
-      moreinfo="none">var</literal> or in addition to a type. A final variable
-      can be set only once; a const variable is a compile-time
-      constant.</para>
+      <para>如果你重来不需要修改变量的值，则可以用  <literal
+      moreinfo="none">final</literal> 或者 <literal
+      moreinfo="none">const</literal> 来修饰该变量，可以替代 <literal
+      moreinfo="none">var</literal> 关键字也可以用在类型声明之前。
+    	一个 final 类型变量只能设置一次值，一个 const 变量是编译期常量。</para>
 
-      <para>A local, top-level, or class variable that’s declared as <literal
-      moreinfo="none">final</literal> is initialized the first time it’s
-      used:</para>
+      <para>定义为 <literal
+      moreinfo="none">final</literal> 的本地变量、顶级变量、或者类变量在第一次
+      使用的时候初始化：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>final name = 'Bob';   // Or: final String name = 'Bob';
-// name = 'Alice';    // Uncommenting this results in an error</programlisting>
+// name = 'Alice';    // 这行代码有错误</programlisting>
 
       <note>
-        <para>Lazy initialization of final variables helps apps start up
-        faster.</para>
+        <para>懒加载 final 变量可以让应用启动速度加快。</para>
       </note>
 
-      <para>Use <literal moreinfo="none">const</literal> for variables that
-      you want to be compile-time constants. If the const variable is at the
-      class level, mark it <literal>static const</literal>. (Instance
-      variables can’t be const.) Where you declare the variable, set the value
-      to a compile-time constant such as a literal, a const variable, or the
-      result of an arithmetic operation on constant numbers:</para>
+      <para>用 <literal moreinfo="none">const</literal> 来定义
+          编译期常量。 如果是类常量则用 <literal>static const</literal> 来定义。
+          实例变量无法用 const 修饰。 在定义变量的时候，可以设置其值为编译期常量，例如：
+          字符字面量、const 变量或者常量数字的数学运算结果：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
-</remark>const bar = 1000000;       // Unit of pressure (in dynes/cm2)
-const atm = 1.01325 * bar; // Standard atmosphere</programlisting>
+</remark>const bar = 1000000;       // 压力单位 (in dynes/cm2)
+const atm = 1.01325 * bar; // 标准大气压</programlisting>
     </sect2>
   </sect1>
 
   <sect1 id="built-in-types">
-    <title>Built-in Types</title>
+    <title>内置类型</title>
 
-    <para>The Dart language has special support for the following
-    types:</para>
+    <para>Dart 语言对如下类型有特殊的支持：</para>
 
     <itemizedlist>
       <listitem>
@@ -482,7 +462,7 @@ const atm = 1.01325 * bar; // Standard atmosphere</programlisting>
       </listitem>
 
       <listitem>
-        <para>lists (also known as <emphasis>arrays</emphasis>)</para>
+        <para>lists (也被称之为 <emphasis>arrays</emphasis>)</para>
       </listitem>
 
       <listitem>
@@ -494,22 +474,21 @@ const atm = 1.01325 * bar; // Standard atmosphere</programlisting>
       </listitem>
     </itemizedlist>
 
-    <para>You can initialize an object of any of these special types using a
-    literal. For example, <literal moreinfo="none">'this is a
-    string'</literal> is a string literal, and <literal
-    moreinfo="none">true</literal> is a boolean literal.</para>
+    <para>你可以用字符字面量来初始化上面这些类型。例如  <literal moreinfo="none">'this is a
+    string'</literal> 是一个定义字符串的 字符字面量，而 <literal
+    moreinfo="none">true</literal> 是一个布尔值字符字面量。</para>
 
-    <para>Because every variable in Dart refers to an object—an instance of a
-    <emphasis>class</emphasis>—you can usually use
-    <emphasis>constructors</emphasis> to initialize variables. Some of the
-    built-in types have their own constructors. For example, you can use the
-    <literal>Map()</literal> constructor to create a map, using code such as
-    <literal moreinfo="none">new Map()</literal>.</para>
+    <para>由于 Dart 总的变量都是引用一个对象，所以可以使用
+    <emphasis>构造函数</emphasis> 来初始化变量。
+    一些内置类型有自己的构造函数。
+    例如，可以用 
+    <literal>Map()</literal> 构造函数来创建一个 map 对象：
+    <literal moreinfo="none">new Map()</literal>。</para>
 
     <sect2 id="numbers">
       <title>Numbers</title>
 
-      <para>Dart numbers come in two flavors:</para>
+      <para>Dart 支持两种类型数字：</para>
 
       <variablelist>
         <varlistentry>
@@ -517,7 +496,7 @@ const atm = 1.01325 * bar; // Standard atmosphere</programlisting>
           <literal moreinfo="none">int</literal> </ulink></term>
 
           <listitem>
-            <para>Integers of arbitrary size</para>
+            <para>整数值</para>
           </listitem>
         </varlistentry>
 
@@ -526,43 +505,41 @@ const atm = 1.01325 * bar; // Standard atmosphere</programlisting>
           <literal moreinfo="none">double</literal> </ulink></term>
 
           <listitem>
-            <para>64-bit (double-precision) floating-point numbers, as
-            specified by the IEEE 754 standard</para>
+            <para>IEEE 754 标准定义的 64-bit (双精度) 浮点数。</para>
           </listitem>
         </varlistentry>
       </variablelist>
 
-      <para>Both <literal moreinfo="none">int</literal> and <literal
-      moreinfo="none">double</literal> are subtypes of <ulink
+      <para> <literal moreinfo="none">int</literal> 和 <literal
+      moreinfo="none">double</literal> 都是  <ulink
       url="http://api.dartlang.org/dart_core/num.html"><literal
-      moreinfo="none">num</literal>.</ulink> The num type includes basic
-      operators such as +, -, /, and *, as well as bitwise operators such as
-      &gt;&gt;. The num type is also where you’ll find
-      <literal>abs()</literal>,<literal> ceil()</literal>, and
-      <literal>floor()</literal>, among other methods. If num and its subtypes
-      don’t have what you’re looking for, the <ulink
-      url="http://api.dartlang.org/dart_math.html">Math</ulink> library might.
-      (In JavaScript produced from Dart code, <ulink
-      url="http://dartbug.com/1533">big integers currently behave
-      differently</ulink> than they do when the same Dart code runs in the
-      Dart VM.)</para>
+      moreinfo="none">num</literal> 的子类。</ulink>
+      num 类定义了基础的操作符，例如 +、 -、 /、 和 *、，以及位操作符，例如 
+      &gt;&gt;。同时还定义了一些常用函数：
+      <literal>abs()</literal>、<literal> ceil()</literal>、 和
+      <literal>floor()</literal> 等。
+      如果 nub 和子类没有你需要的功能，请查找
+      <ulink
+      url="http://api.dartlang.org/dart_math.html">Math</ulink> 库。
+      (在 Dart 代码生成的 JavaScript 中，<ulink
+      url="http://dartbug.com/1533">大整数</ulink> 和在 
+      Dart VM 中执行的  Dart 代码有点区别。)</para>
 
-      <para>Integers are numbers without a decimal point. Here are some
-      examples of defining integer literals:</para>
+      <para>Integer 是没有小数点的整数。下面是定义 integer 的一些示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>var x = 1;
 var hex = 0xDEADBEEF;
 var bigInt = 346534658346524376592384765923749587398457294759347029438709349347;</programlisting>
 
-      <para>If a number includes a decimal, it is a double. Here are some
-      examples of defining double literals:</para>
+      <para>如果包含小数点，则为 double。
+          下面是定义 double 的示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>var y = 1.1;
 var exponents = 1.42e5;</programlisting>
 
-      <para>Here’s how you turn a string into a number, or vice versa:</para>
+      <para>下面是字符串和数字之间的转换示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>// String -&gt; int
@@ -581,8 +558,8 @@ assert(oneAsString == '1');
 String piAsString = 3.14159.toStringAsFixed(2);
 assert(piAsString == '3.14');</programlisting>
 
-      <para>The int type specifies the traditional bitwise shift (&lt;&lt;,
-      &gt;&gt;), AND (&amp;), and OR (|) operators. For example:</para>
+      <para>int 定义了常用的位移操作符 (&lt;&lt;,
+      &gt;&gt;), AND (&amp;), 或者 OR (|) 。示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>assert((3 &lt;&lt; 1) == 6);  // 0011 &lt;&lt; 1 == 0110
@@ -593,8 +570,8 @@ assert((3 | 4)  == 7);  // 0011 | 0100 == 0111</programlisting>
     <sect2 id="strings">
       <title>Strings</title>
 
-      <para>A Dart string is a sequence of UTF-16 code units. You can use
-      either single or double quotes to create a string:</para>
+      <para>Dart 字符串是一个 UTF-16 编码单元序列。 可以用单引号或者双引号定义
+          一个 String：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>var s1 = 'Single quotes work well for string literals.';
@@ -602,11 +579,12 @@ var s2 = "Double quotes work just as well.";
 var s3 = 'It\'s easy to escape the string delimiter.';
 var s4 = "It's even easier to just use the other string delimiter.";</programlisting>
 
-      <para>You can put the value of an expression inside a string by using
-      <literal>${</literal><emphasis><literal>expression</literal></emphasis><literal>}</literal>.
-      If the expression is an identifier, you can skip the {}. To get the
-      string corresponding to an object, Dart calls the object’s
-      <literal>toString()</literal> method.</para>
+      <para>通过使用 
+      <literal>${</literal><emphasis><literal>表达式</literal></emphasis><literal>}</literal>
+      语法可以把表达式放到字符串中间。
+      如果表达式为一个标识符，则可以省略 {}。 Dart 调用
+      对象的
+      <literal>toString()</literal> 函数来获取该对象的字符串值。</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>var s = 'string interpolation';
@@ -617,13 +595,12 @@ assert('That deserves all caps. ${s.toUpperCase()} is very handy!' ==
        'That deserves all caps. STRING INTERPOLATION is very handy!');</programlisting>
 
       <note>
-        <para>The <literal moreinfo="none">==</literal> operator tests whether
-        two objects are equivalent. Two strings are equivalent if they have
-        the same characters.</para>
+        <para> <literal moreinfo="none">==</literal> 操作符测试两个对象是否相等。
+            具有同样字符的字符串是相等的。</para>
       </note>
 
-      <para>You can concatenate strings using adjacent string literals or the
-      <literal><literal>+</literal></literal> operator:</para>
+      <para>可以通过相邻字符串字面量或者 
+      <literal><literal>+</literal></literal> 操作符来连接字符串：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 adjacent_string_literals.dart
@@ -635,8 +612,7 @@ var s2 = 'The addition operator '
          + 'works, as well.';
 assert(s2 == 'The addition operator works, as well.');</programlisting>
 
-      <para>Another way to create a multi-line string: use a triple quote with
-      either single or double quotation marks:</para>
+      <para>使用三个双引号或者单引号可以创建多行字符串：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>var s1 = '''
@@ -647,93 +623,94 @@ multi-line strings like this one.
 var s2 = """This is also a
 multi-line string.""";</programlisting>
 
-      <para>You can create a <quote>raw</quote> string by prefixing it with
-      <literal moreinfo="none">r</literal>:</para>
+      <para>在前面添加一个 
+      <literal moreinfo="none">r</literal> 可以创建  <quote>raw（未转义）</quote> 字符串：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>var s = r"In a raw string, even \n isn't special.";</programlisting>
 
-      <para>You can use Unicode escapes inside of strings:</para>
+      <para>在字符串中也可以使用 Unicode 转义：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/quoting.dart
 </remark>print('Unicode escapes work: \u2665'); // Unicode escapes work: [heart]</programlisting>
 
-      <para>For more information on using strings, see <xref
-      linkend="ch03-strings-and-regular-expressions" />.</para>
+      <para>关于使用 String 的更多信息，请参考  <xref
+      linkend="ch03-strings-and-regular-expressions" />。</para>
     </sect2>
 
     <sect2 id="booleans">
       <title>Booleans</title>
 
-      <para>To represent boolean values, Dart has a type named <literal
-      moreinfo="none">bool</literal>. Only two objects have type bool: the
-      boolean literals, <literal moreinfo="none">true</literal> and <literal
-      moreinfo="none">false</literal>.</para>
+      <para>Dart 用 <literal
+      moreinfo="none">bool</literal> 类型代表布尔值。类型 bool 只有两个对象：
+      布尔字面量 <literal moreinfo="none">true</literal> 和 <literal
+      moreinfo="none">false</literal>。</para>
 
-      <para>When Dart expects a boolean value, only the value <literal
-      moreinfo="none">true</literal> is treated as true. All other values are
-      treated as false. Unlike in JavaScript, values such as <literal
-      moreinfo="none">1</literal>, <literal
-      moreinfo="none">"aString"</literal>, and <literal
-      moreinfo="none">someObject</literal> are all treated as false.</para>
+      <para>当 Dart 需要布尔值的时候， 只有  <literal
+      moreinfo="none">true</literal> 被认为是 true。
+      其他所有的值都认为是 false。和 JavaScript 不同，
+      像  <literal
+      moreinfo="none">1</literal>、 <literal
+      moreinfo="none">"aString"</literal>、和 <literal
+      moreinfo="none">someObject</literal> 在 Dart 中都是 false。</para>
 
-      <para>For example, consider the following code, which is valid both as
-      JavaScript and as Dart code:</para>
+      <para>例如 下面的代码在 JavaScript 和 Dart 中都是合法的：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>var name = 'Bob';
 if (name) {
-  print('You have a name!'); // Prints in JavaScript, not in Dart.
+  print('You have a name!'); // 在 JavaScript 中会执行该语句 ，而 Dart 中不会执行。
 }</programlisting>
 
-      <para>If you run this code as JavaScript, it prints <quote>You have a
-      name!</quote> because <literal moreinfo="none">name</literal> is a
-      non-null object. However, in Dart running in <emphasis>production
-      mode</emphasis>, the above doesn’t print at all because <literal
-      moreinfo="none">name</literal> is converted to <literal
-      moreinfo="none">false</literal> (because <literal moreinfo="none">name
-      != true</literal>). In Dart running in <emphasis>checked
-      mode</emphasis>, the above code throws an exception because the <literal
-      moreinfo="none">name</literal> variable is not a bool.</para>
+      <para>由于 <literal moreinfo="none">name</literal> 不是
+          一个 null 对象，所以在 JavaScript 运行上面代码则会打印出 <quote>You have a
+      name!</quote>。而 在 Dart 的 <emphasis>生产模式
+       </emphasis>下，不会输出任何内容，原因在于，
+        <literal
+      moreinfo="none">name</literal> 被转换成了 <literal
+      moreinfo="none">false</literal> (因为 <literal moreinfo="none">name
+      != true</literal>)。在 Dart 的 <emphasis>检测模式
+       </emphasis>下，由于
+       <literal
+      moreinfo="none">name</literal> 变量不是一个布尔值 会导致抛出异常。
+       </para>
 
-      <para>Here’s another example of code that behaves differently in
-      JavaScript and Dart:</para>
+      <para>下面是另外一个 
+      JavaScript 和 Dart 代码行为不一致的示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>if (1) {
   print('JavaScript prints this line because it thinks 1 is true.');
 } else {
   print('Dart in production mode prints this line.');
-  // However, in checked mode, if (1) throws an exception.
+  // 在 Dart 的检测模式下 if (1) 会抛出异常。
 }</programlisting>
 
       <note>
-        <para>The previous two samples work only in production mode, not
-        checked mode. In checked mode, an exception is thrown if a non-boolean
-        is used when a boolean value is expected.</para>
+        <para>上面的两个示例只有在生产模式下能够运行。在检测模式下，如果把非布尔值当做布尔值用
+            会抛出异常。</para>
       </note>
 
-      <para>Dart’s treatment of booleans is designed to avoid the strange
-      behaviors that can arise when many values can be treated as true. What
-      this means for you is that, instead of using code like <literal
-      moreinfo="none">if&nbsp;(<replaceable>nonbooleanValue</replaceable>)</literal>,
-      you should instead explicitly check for values. For example:</para>
+      <para>Dart 只把 true 当做 true，而不是其他对象，可以避免很多不可预料的问题。你不应该这样用：<literal
+      moreinfo="none">if&nbsp;(<replaceable>nonbooleanValue</replaceable>)</literal>，而
+      应该用你期望的值。例如：
+      </para>
 
       <programlisting format="linespecific"><remark>lang-dart
-</remark>// Check for an empty string.
+</remark>// 检测空字符串
 var fullName = '';
 assert(fullName.isEmpty);
 
-// Check for zero.
+// 检测是否为 0
 var hitPoints = 0;
 assert(hitPoints &lt;= 0);
 
-// Check for null.
+// 检测 null.
 var unicorn;
 assert(unicorn == null);
 
-// Check for NaN.
+// 检测  NaN.
 var iMeantToDoThis = 0/0;
 assert(iMeantToDoThis.isNaN);</programlisting>
     </sect2>
@@ -741,46 +718,42 @@ assert(iMeantToDoThis.isNaN);</programlisting>
     <sect2 id="lists">
       <title>Lists</title>
 
-      <para>Perhaps the most common collection in nearly every programming
-      language is the <emphasis>array</emphasis>, or ordered group of objects.
-      In Dart, arrays are <ulink
-      url="http://api.dartlang.org/dart_core/List.html">List</ulink> objects,
-      so we usually just call them <emphasis>lists</emphasis>.</para>
+      <para> <emphasis>array</emphasis>（数组）也许是大多数编程语言中最常用的集合。
+          在 Dart 中，  数组为 <ulink
+      url="http://api.dartlang.org/dart_core/List.html">List</ulink> 对象，
+      所以一般我们都称之为  <emphasis>lists（列表）</emphasis>。</para>
 
-      <para>Dart list literals look like JavaScript array literals. Here’s a
-      simple Dart list:</para>
+      <para>Dart 列表字面量定义和 JavaScript 中的 数组定义类似。下面
+          是一个定义 Dart 列表的示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>var list = [1,2,3];</programlisting>
 
-      <para>Lists use zero-based indexing, where 0 is the index of the first
-      element and <literal moreinfo="none">list.length - 1</literal> is the
-      index of the last element. You can get a list’s length and refer to list
-      elements just as you would in JavaScript:</para>
+      <para>列表的索引从 0 开始， 0 是第一个元素而
+      <literal moreinfo="none">list.length - 1</literal> 是最后一个元素。
+      获取列表的长度和元素与 JavaScript 中的操作一样：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>var list = [1,2,3];
 assert(list.length == 3);
 assert(list[1] == 2);</programlisting>
 
-      <para>The List type has many handy methods for manipulating lists. For
-      more information about lists, see <xref linkend="generics" /> and <xref
-      linkend="ch03-collections" />.</para>
+      <para>List 类定义了很多操作列表的函数。详细信息请参考  <xref linkend="generics" /> 和 <xref
+      linkend="ch03-collections" />。</para>
     </sect2>
 
     <sect2 id="maps">
       <title>Maps</title>
 
-      <para>In general, a map is an object that associates keys and values.
-      Both keys and values can be any type of object. Each
-      <emphasis>key</emphasis> occurs only once, but you can use the same
-      <emphasis>value</emphasis> multiple times. Dart support for maps is
-      provided by map literals and the <ulink
+      <para>一般来说，一个 map 是一个把键（key）和值（value）关联起来的对象。
+          键和值都可以为任意类型的对象。一个
+      <emphasis>键</emphasis> 只能出现一次，但是一个
+      <emphasis>值</emphasis> 可以设置到多个键上。 Dart 通过
+      map 字面量和  <ulink
       url="http://api.dartlang.org/dart_core/Map.html">Map</ulink>
-      type.</para>
+      类型支持 Map。</para>
 
-      <para>Here are a couple of simple Dart maps, created using map
-      literals:</para>
+      <para>下面是用 map 字面量创建 Map 对象的一些示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>var gifts = {
@@ -798,7 +771,7 @@ var nobleGases = {
 };
 </programlisting>
 
-      <para>You can create the same objects using a Map constructor:</para>
+      <para>也可以用 Map 构造函数创建这些对象：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/map_constructor.dart
@@ -812,109 +785,104 @@ nobleGases[2] = 'helium';
 nobleGases[10] = 'neon';
 nobleGases[18] = 'argon';</programlisting>
 
-      <para>Add a new key-value pair to an existing map just as you would in
-      JavaScript:</para>
+      <para>往 map 对象中添加 键-值 对和 JavaScript 中的操作一样:</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>var gifts = { 'first': 'partridge' };
 gifts['fourth'] = 'calling birds';    // Add a key-value pair</programlisting>
 
-      <para>Retrieve a value from a map the same way you would in
-      JavaScript:</para>
+      <para>从 map 中获取值也和 JavaScript 一样：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>var gifts = { 'first': 'partridge' };
 assert(gifts['first'] == 'partridge');</programlisting>
 
-      <para>If you look for a key that isn’t in a map, you get a null in
-      return:</para>
+      <para>如果一个 键 不在 map 中，则返回的值为 null：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>var gifts = { 'first': 'partridge' };
 assert(gifts['fifth'] == null);</programlisting>
 
-      <para>Use <literal moreinfo="none">.length</literal> to get the number
-      of key-value pairs in the map:</para>
+      <para>用 <literal moreinfo="none">.length</literal> 来获取 map 中
+          键值对的个数：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>var gifts = { 'first': 'partridge' };
 gifts['fourth'] = 'calling birds';
 assert(gifts.length == 2);</programlisting>
 
-      <para>For more information about maps, see <xref linkend="generics" />
-      and <xref linkend="ch03-maps-aka-dictionaries-or-hashes" />.</para>
+      <para>关于 map 的详细信息请参考：<xref linkend="generics" />
+      和 <xref linkend="ch03-maps-aka-dictionaries-or-hashes" />。</para>
     </sect2>
 
     <sect2 id="ch02-symbols">
-      <title>Symbols</title>
+      <title>Symbols（符号）</title>
 
-      <para>A <ulink
+      <para>一个 <ulink
       url="http://api.dartlang.org/dart_core/Symbol.html">Symbol</ulink>
-      object represents an operator or identifier declared in a Dart program.
-      You might never need to use symbols, but they're invaluable for APIs
-      that refer to identifiers by name, because minification changes
-      identifier names but not identifier symbols.</para>
+      对象代表 Dart 代码中的一个操作符或者一个标识符。你可能无需使用 Symbol，但是对于需要访问 标识符 名字的 API 来说，
+      Symbol 是非常有用的，对于混淆过的代码， Symbol 也返回混淆之前的标识符名字。</para>
 
-      <para>To get the symbol for an identifier, use a symbol literal, which
-      is just <literal>#</literal> followed by the identifier:</para>
+      <para>要获取一个标识符的 Symbol，可以 用 symbol 字面量定义：
+      一个 <literal>#</literal>后面跟着标识符的名字 </para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>#radix  // The symbol literal for an identifier named 'radix'.
 #bar    // The symbol literal for an identifier named 'bar'.</programlisting>
 
-      <para>For more information on symbols, see <xref
-      linkend="ch03-mirrors" />.</para>
+      <para>关于 symbol 的详细信息，请参考  <xref
+      linkend="ch03-mirrors" />。</para>
     </sect2>
   </sect1>
 
   <sect1 id="functions">
-    <title>Functions</title>
+    <title>Functions（方法）</title>
 
-    <para>Here’s an example of implementing a function:</para>
+    <para>下面是实现一个方法的示例：</para>
 
     <programlisting format="linespecific"><remark>lang-dart
 </remark>void printNumber(num number) {
   print('The number is $number.');
 }</programlisting>
 
-    <para>Although the style guide recommends specifying the parameter and
-    return types, you don’t have to:</para>
+    <para>虽然风格指南中建议设置参数和返回值的类型，但是你也可以不这么做：</para>
 
     <programlisting format="linespecific"><remark>lang-dart
-</remark>printNumber(number) {          // Omitting types is OK.
+</remark>printNumber(number) {          // 不设置类型也可以
   print('The number is $number.');
 }</programlisting>
 
-    <para>For functions that contain just one expression, you can use a
-    shorthand syntax:</para>
+    <para>对于只有一个表达式的方法，你可以用缩写形式：</para>
 
     <programlisting format="linespecific"><remark>lang-dart
 </remark>printNumber(number) =&gt; print('The number is $number.');</programlisting>
 
-    <para>The <literal moreinfo="none">=&gt;
-    <replaceable>expr</replaceable>;</literal> syntax is a shorthand for
+    <para> <literal moreinfo="none">=&gt;
+    <replaceable>expr</replaceable>;</literal> 语法是
     <literal moreinfo="none">{ return
-    <replaceable>expr</replaceable>;}</literal>. In the
-    <literal>printNumber()</literal> function above, the expression is the
-    call to the top-level <literal>print()</literal> function.</para>
+    <replaceable>expr</replaceable>;}</literal> 的缩写形式。
+    在上面的
+    <literal>printNumber()</literal> 方法中，表达式为
+    顶级方法 <literal>print()</literal>。</para>
 
     <note>
-      <para>Only an <emphasis>expression</emphasis>—not a
-      <emphasis>statement</emphasis>—can appear between the <phrase
-      role="keep-together">arrow (=&gt;)</phrase> and the semicolon (;). For
-      example, you can’t put an <link linkend="if-else"><phrase
-      role="keep-together">if statement</phrase></link> there, but you can use
-      a <link linkend="op-other">conditional (<literal>?:</literal>)
-      expression</link>.</para>
+      <para>
+      在 <phrase
+      role="keep-together">arrow (=&gt;)</phrase> 和 分号 (;) 之间只能是
+      <emphasis>expression（表达式）</emphasis>，不能用 <emphasis>statement（语句）</emphasis> 。
+      例如，不能用
+       <link linkend="if-else"><phrase
+      role="keep-together">if statement</phrase></link>，但是可以用
+      <link linkend="op-other">条件 (<literal>?:</literal>)
+      表达式</link>。</para>
     </note>
 
-    <para>You can use types with =&gt;, although the convention is not to do
-    so:</para>
+    <para> =&gt; 也可以使用参数类型（代码风格指南不建议使用类型）：</para>
 
     <programlisting format="linespecific"><remark>lang-dart
 </remark>printNumber(num number) =&gt; print('The number is $number.'); // Types are OK.</programlisting>
 
-    <para>Here’s an example of calling a function:</para>
+    <para>调用方法的示例：</para>
 
     <programlisting format="linespecific"><remark>lang-dart
 </remark>printNumber(123);</programlisting>
