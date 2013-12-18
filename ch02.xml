@@ -887,35 +887,32 @@ assert(gifts.length == 2);</programlisting>
     <programlisting format="linespecific"><remark>lang-dart
 </remark>printNumber(123);</programlisting>
 
-    <para>A function can have two types of parameters: required and optional.
-    The required parameters are listed first, followed by any optional
-    parameters.</para>
+    <para>方法参数有两种类型：必需的和可选的。
+        必需的参数出现在可选参数前面。</para>
 
     <sect2 id="functions-optional-parameters">
-      <title>Optional Parameters</title>
+      <title>可选参数</title>
 
-      <para>Optional parameters can be either positional or named, but not
-      both.</para>
+      <para>可选参数可以是命名参数或者位置参数。但是不能同时使用这两种类型。</para>
 
-      <para>Both kinds of optional parameter can have default values. The
-      default values must be compile-time constants such as literals. If no
-      default value is provided, the value is <literal
-      moreinfo="none">null</literal>.</para>
+      <para>可选参数可以有默认值。默认值必需为编译期常量，例如 字面量定义。
+          如果没有提供默认值，则默认值为 
+       <literal
+      moreinfo="none">null</literal>。</para>
 
       <sect3 id="functions-optional-named-parameters">
-        <title>Optional named parameters</title>
+        <title>可选命名参数</title>
 
-        <para>When calling a function, you can specify named parameters using
+        <para>使用
         <literal moreinfo="none"><replaceable>paramName</replaceable>:
-        <replaceable>value</replaceable></literal>. For example:</para>
+        <replaceable>value</replaceable></literal> 可以设置方法的命名参数。例如：</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark>enableFlags(bold: true, hidden: false);</programlisting>
 
-        <para>When defining a function, use <literal
+        <para>用  <literal
         moreinfo="none">{<replaceable>param1</replaceable>,
-        <replaceable>param2</replaceable>, …}</literal> to specify named
-        parameters:</para>
+        <replaceable>param2</replaceable>, …}</literal> 来定义方法的 命名参数：</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark>/// Sets the [bold] and [hidden] flags to the values you specify.
@@ -923,8 +920,7 @@ enableFlags({bool bold, bool hidden}) {
   // ...
 }</programlisting>
 
-        <para>Use a colon (<literal moreinfo="none">:</literal>) to specify
-        default values:</para>
+        <para>使用冒号 (<literal moreinfo="none">:</literal>) 来设置默认值：</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark>/**
@@ -935,15 +931,15 @@ enableFlags({bool bold: false, bool hidden: false}) {
   // ...
 }
 
-enableFlags(bold: true); // bold will be true; hidden will be false.</programlisting>
+enableFlags(bold: true); // bold 的值为 true; hidden 没指定则为默认值 false.</programlisting>
       </sect3>
 
       <sect3 id="functions-optional-positional-parameters">
-        <title>Optional positional parameters</title>
+        <title>可选位置参数</title>
 
-        <para>Wrapping a set of function parameters in <literal
-        moreinfo="none">[]</literal> marks them as optional positional <phrase
-        role="keep-together">parameters</phrase>:</para>
+        <para>位于 <literal
+        moreinfo="none">[]</literal> 中间的参数为可选位置  <phrase
+        role="keep-together">参数</phrase>：</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark>String say(String from, String msg, [String device]) {
@@ -954,21 +950,18 @@ enableFlags(bold: true); // bold will be true; hidden will be false.</programlis
   return result;
 }</programlisting>
 
-        <para>Here’s an example of calling this function without the optional
-        parameter:</para>
+        <para>下面是没有设置可选位置参数的调用示例：</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark>assert(say('Bob', 'Howdy') == 'Bob says Howdy');</programlisting>
 
-        <para>And here’s an example of calling this function with the third
-        parameter:</para>
+        <para>下面是设置了可选位置参数的示例：</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark>assert(say('Bob', 'Howdy', 'smoke signal') ==
   'Bob says Howdy with a smoke signal');</programlisting>
 
-        <para>Use <literal moreinfo="none">=</literal> to specify default
-        values:</para>
+        <para>用 <literal moreinfo="none">=</literal> 设置默认值：</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark>String say(String from, String msg,
@@ -988,16 +981,14 @@ assert(say('Bob', 'Howdy') == 'Bob says Howdy with a carrier pigeon');</programl
     </sect2>
 
     <sect2 id="ch02-main">
-      <title>The main() Function</title>
+      <title> main() 方法</title>
 
-      <para>Every app must have a top-level <literal>main()</literal>
-      function, which serves as the entrypoint to the app. The
-      <literal>main()</literal> function returns <literal>void</literal> and
-      has an optional <literal>List&lt;String&gt;</literal> parameter for
-      arguments.</para>
+      <para>每个应用都有一个顶级的 <literal>main()</literal> 方法，
+          该方法为程序的执行入口。
+      <literal>main()</literal> 方法的返回值为 <literal>void</literal> 并有个可选
+       <literal>List&lt;String&gt;</literal> 参数来接收程序参数。</para>
 
-      <para>Here's an example of the <literal>main()</literal> function for a
-      web app:</para>
+      <para>下面是一个 web 应用中的 <literal>main()</literal> 方法示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>main() {
@@ -1006,12 +997,11 @@ assert(say('Bob', 'Howdy') == 'Bob says Howdy with a carrier pigeon');</programl
     ..onClick.listen(reverseText);
 }</programlisting>
 
-      <para>Here's an example of the <literal>main()</literal> function for a
-      command-line app that takes arguments:</para>
+      <para>下面是带有两个参数的命令行程序 <literal>main()</literal> 方法示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 ch02/args.dart
-</remark>// Run the app like this: dart args.dart 1 test
+</remark>// 通过命令运行该程序： dart args.dart 1 test
 void main(List&lt;String&gt; arguments) {
   print(arguments);
 
@@ -1020,16 +1010,15 @@ void main(List&lt;String&gt; arguments) {
   assert(arguments[1] == 'test'); 
 }</programlisting>
 
-      <para>You can use the <ulink
-      url="http://api.dartlang.org/args.html">args library</ulink> to define
-      and parse command-line arguments.</para>
+      <para>可以用 <ulink
+      url="http://api.dartlang.org/args.html">args 库</ulink> 
+      来定义和解析命令行参数。</para>
     </sect2>
 
     <sect2 id="ch02-functions-first-class">
-      <title>Functions as First-Class Objects</title>
+      <title>（方法作为一等对象）Functions as First-Class Objects</title>
 
-      <para>You can pass a function as a parameter to another function. For
-      example:</para>
+      <para>可以把方法作为方法的参数使用：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>printElement(element) {
@@ -1037,9 +1026,9 @@ void main(List&lt;String&gt; arguments) {
 }
   
 var list = [1,2,3];
-list.forEach(printElement); // Pass printElement as a parameter.</programlisting>
+list.forEach(printElement); // 把 printElement 方法当做参数来用</programlisting>
 
-      <para>You can also assign a function to a variable, such as:</para>
+      <para>还可以用一个变量来保存方法引用：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>var loudify = (msg) =&gt; '!!! ${msg.toUpperCase()} !!!';
@@ -1047,15 +1036,14 @@ assert(loudify('hello') == '!!! HELLO !!!');</programlisting>
     </sect2>
 
     <sect2 id="ch02-lexical-scope">
-      <title>Lexical Scope</title>
+      <title>（语法作用域）Lexical Scope</title>
 
-      <para>Dart is a lexically scoped language, which means that the scope of
-      variables is determined statically, simply by the layout of the code.
-      You can “follow the curly braces outwards” to see if a variable is in
-      scope.</para>
+      <para>Dart 是一种语法作用域语言，也就是说 变量的作用域
+          是根据代码布局静态判断的。
+          可以根据“变量位于花括号内外”来判断一个变量是否在作用域中。
+      </para>
 
-      <para>Here is an example of nested functions with variables at each
-      scope level:</para>
+      <para>下面是一个嵌套函数变量作用域示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>var topLevel = true;
@@ -1075,22 +1063,25 @@ main() {
     }
 }</programlisting>
 
-      <para>Notice how <literal>nestedFunction()</literal> can use variables
-      from every level, all the way up to the top level.</para>
+      <para>注意 <literal>nestedFunction()</literal> 可以
+          使用外面所有花括号内的变量。</para>
     </sect2>
 
     <sect2 id="ch02-functions-lexical-closures">
-      <title>Lexical Closures</title>
+      <title>（语法闭包）Lexical Closures</title>
 
-      <para>A <emphasis>closure</emphasis> is a function object that has
-      access to variables in its lexical scope, even when the function is used
-      outside of its original scope.</para>
+      <para>一个 <emphasis>closure（闭包）</emphasis> 是一个可以
+          访问位于其语法作用域内变量的方法对象，即时该方法用在其定义的作用域之外，也可以访问这些变量。
+      </para>
 
-      <para>Functions can close over variables defined in surrounding scopes.
-      In the following example, <literal>adder()</literal> captures the
-      variable <literal moreinfo="none">addBy</literal>. Wherever the returned
-      function goes, it remembers <literal
-      moreinfo="none">addBy</literal>.</para>
+      <para>方法可以覆盖定义在附近作用域的变量
+          （Functions can close over variables defined in surrounding scopes）。
+          在下面的示例中，
+       <literal>adder()</literal> 捕获变量
+        <literal moreinfo="none">addBy</literal>。
+        无论在哪里使用返回的 adder 函数，该函数都记得
+       <literal
+      moreinfo="none">addBy</literal> 参数的值。</para>
 
       <programlisting format="linespecific"><remark>lang-dart</remark><remark>
 ch02/function_closure.dart
@@ -1112,10 +1103,9 @@ main() {
     </sect2>
 
     <sect2 id="ch02-function-equality">
-      <title>Testing Functions for Equality</title>
+      <title>判断函数相等</title>
 
-      <para>Here's an example of testing top-level functions, static methods,
-      and instance methods for equality:</para>
+      <para>下面是测试顶级方法、静态函数、和实例函数相等的示例：</para>
 
       <programlisting><remark>lang-dart
 </remark><remark>ch02/function_equality_2.dart
@@ -1149,36 +1139,35 @@ main() {
     </sect2>
 
     <sect2 id="ch02-functions-return-values">
-      <title>Return Values</title>
+      <title>返回值</title>
 
-      <para>All functions return a value. If no return value is specified, the
-      statement <literal moreinfo="none">return null;</literal> is implicitly
-      appended to the function body.</para>
+      <para>每个方法都有一个返回值。如果没有指定返回值，则默认会在函数最后附加一个
+      <literal moreinfo="none">return null;</literal> 的语句。</para>
     </sect2>
   </sect1>
 
   <sect1 id="operators">
-    <title>Operators</title>
+    <title>操作符</title>
 
-    <para>Dart defines the operators shown in <xref
-    linkend="operator_table" />. You can override many of these operators, as
-    described in <xref linkend="classes-operators" />.</para>
+    <para>Dart 定义了  <xref
+    linkend="operator_table" /> 表中的操作符。 很多操作符都可以重写，在
+     <xref linkend="classes-operators" /> 介绍了如何重写操作符。</para>
 
     <table class="operatorTable" id="operator_table">
-      <title>Operators and their precedence</title>
+      <title>操作符和优先级</title>
 
       <tgroup cols="2">
         <thead>
           <row>
-            <entry>Description</entry>
+            <entry>描述</entry>
 
-            <entry>Operator</entry>
+            <entry>操作符</entry>
           </row>
         </thead>
 
         <tbody>
           <row>
-            <entry>unary postfix</entry>
+            <entry>一元后缀操作符</entry>
 
             <entry class="operatorList"><replaceable>expr</replaceable>++
             &nbsp;&nbsp; <replaceable>expr</replaceable>-- &nbsp;&nbsp; ()
@@ -1186,7 +1175,7 @@ main() {
           </row>
 
           <row>
-            <entry>unary prefix</entry>
+            <entry>一元前缀操作符</entry>
 
             <entry class="operatorList">-<replaceable>expr</replaceable>
             &nbsp;&nbsp; !<replaceable>expr</replaceable> &nbsp;&nbsp;
@@ -1196,44 +1185,44 @@ main() {
           </row>
 
           <row>
-            <entry>multiplicative</entry>
+            <entry>乘除</entry>
 
             <entry class="operatorList">* &nbsp;&nbsp; / &nbsp;&nbsp; %
             &nbsp;&nbsp; ~/</entry>
           </row>
 
           <row>
-            <entry>additive</entry>
+            <entry>加减</entry>
 
             <entry class="operatorList">+ &nbsp;&nbsp; -</entry>
           </row>
 
           <row>
-            <entry>shift</entry>
+            <entry>位移</entry>
 
             <entry class="operatorList">&lt;&lt; &nbsp;&nbsp; &gt;&gt;</entry>
           </row>
 
           <row>
-            <entry>bitwise AND</entry>
+            <entry>位与 AND</entry>
 
             <entry class="operatorList">&amp;</entry>
           </row>
 
           <row>
-            <entry>bitwise XOR</entry>
+            <entry>位异或 XOR</entry>
 
             <entry class="operatorList">^</entry>
           </row>
 
           <row>
-            <entry>bitwise OR</entry>
+            <entry>位或 OR</entry>
 
             <entry class="operatorList">|</entry>
           </row>
 
           <row>
-            <entry>relational and type test</entry>
+            <entry>关系和类型测试</entry>
 
             <entry class="operatorList">&gt;= &nbsp;&nbsp; &gt; &nbsp;&nbsp;
             &lt;= &nbsp;&nbsp; &lt; &nbsp;&nbsp; as &nbsp;&nbsp; is
@@ -1241,26 +1230,26 @@ main() {
           </row>
 
           <row>
-            <entry>equality</entry>
+            <entry>相等</entry>
 
             <entry class="operatorList">== &nbsp;&nbsp; !=
             &nbsp;&nbsp;</entry>
           </row>
 
           <row>
-            <entry>logical AND</entry>
+            <entry>逻辑与 AND</entry>
 
             <entry class="operatorList">&amp;&amp;</entry>
           </row>
 
           <row>
-            <entry>logical OR</entry>
+            <entry>逻辑或 OR</entry>
 
             <entry class="operatorList">||</entry>
           </row>
 
           <row>
-            <entry>conditional</entry>
+            <entry>条件表达式</entry>
 
             <entry class="operatorList"><replaceable>expr1</replaceable> ?
             <replaceable>expr2</replaceable> :
@@ -1268,13 +1257,13 @@ main() {
           </row>
 
           <row>
-            <entry>cascade</entry>
+            <entry>级联操作符</entry>
 
             <entry class="operatorList">..</entry>
           </row>
 
           <row>
-            <entry>assignment</entry>
+            <entry>赋值</entry>
 
             <entry class="operatorList">= &nbsp;&nbsp; *= &nbsp;&nbsp; /=
             &nbsp;&nbsp; ~/= &nbsp;&nbsp; %= &nbsp;&nbsp; += &nbsp;&nbsp; -=
@@ -1285,9 +1274,9 @@ main() {
       </tgroup>
     </table>
 
-    <para>When you use operators, you create
-    <firstterm>expressions</firstterm>. Here are some examples of operator
-    expressions:</para>
+    <para>当使用操作符的时候，就会创建一个
+    <firstterm>表达式</firstterm>。
+    下面是一些操作符表达式的示例：</para>
 
     <programlisting format="linespecific"><remark>lang-dart
 </remark>a++
@@ -1297,43 +1286,41 @@ a == b
 a? b: c
 a is T</programlisting>
 
-    <para>In <xref linkend="operator_table" />, each operator has higher
-    precedence than the operators in the rows below it. For example, the
-    multiplicative operator <literal moreinfo="none">%</literal> has higher
-    precedence than (and thus executes before) the equality operator <literal
-    moreinfo="none">==</literal>, which has higher precedence than the logical
-    AND operator <literal moreinfo="none">&amp;&amp;</literal>. That
-    precedence means that the following two lines of code execute the same
-    way:</para>
+    <para>在 <xref linkend="operator_table" /> 中，每一行操作符都比其下面的操作符优先级要高。
+    例如，除法操作符 <literal moreinfo="none">%</literal> 比  <literal
+    moreinfo="none">==</literal> 操作符优先级高，而  <literal
+    moreinfo="none">==</literal> 又比
+     <literal moreinfo="none">&amp;&amp;</literal> 优先级高。
+     所以下面的两行代码是一样的：</para>
 
     <programlisting format="linespecific"><remark>lang-dart
-</remark>if ((n % i == 0) &amp;&amp; (d % i == 0)) // Parens improve readability.
-if (n % i == 0 &amp;&amp; d % i == 0)     // Harder to read, but equivalent.</programlisting>
+</remark>if ((n % i == 0) &amp;&amp; (d % i == 0)) // 使用括号提高代码可读性
+if (n % i == 0 &amp;&amp; d % i == 0)     // 虽然难读，但是效果一样</programlisting>
 
     <warning>
-      <para>For operators that work on two operands, the leftmost operand
-      determines which version of the operator is used. For example, if you
-      have a Vector object and a Point object, <literal
-      moreinfo="none">aVector + aPoint</literal> uses the Vector version of
-      +.</para>
+      <para>
+          对于连接两个操作数的操作符来说，左边的操作数决定使用那个版本的操作符。例如
+          ，如果你有一个 Vector 对象和一个 Point 对象， <literal
+      moreinfo="none">aVector + aPoint</literal> 则用 Vector 
+  版本的 + 操作符。</para>
     </warning>
 
     <sect2 id="op-arithmetic">
-      <title>Arithmetic Operators</title>
+      <title>算术操作符</title>
 
-      <para>Dart supports the usual arithmetic operators, as shown in <xref
-      linkend="arithmetic_operator_table" />.</para>
+      <para>Dart  支持常规的算术操作符，如  <xref
+      linkend="arithmetic_operator_table" /> 表格所示：</para>
 
       <table class="operatorTable" id="arithmetic_operator_table"
              role="keep-together">
-        <title>Arithmetic operators</title>
+        <title>算术操作符</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Operator</entry>
+              <entry>操作符</entry>
 
-              <entry>Meaning</entry>
+              <entry>描述</entry>
             </row>
           </thead>
 
@@ -1341,50 +1328,49 @@ if (n % i == 0 &amp;&amp; d % i == 0)     // Harder to read, but equivalent.</pr
             <row>
               <entry class="operator">+</entry>
 
-              <entry>Add</entry>
+              <entry>加号</entry>
             </row>
 
             <row>
               <entry class="operator">–</entry>
 
-              <entry>Subtract</entry>
+              <entry>减号</entry>
             </row>
 
             <row>
               <entry class="operator">-<replaceable>expr</replaceable></entry>
 
-              <entry>Unary minus, also known as negation (reverse the sign of
-              the expression)</entry>
+              <entry>负号</entry>
             </row>
 
             <row>
               <entry class="operator">*</entry>
 
-              <entry>Multiply</entry>
+              <entry>乘号</entry>
             </row>
 
             <row>
               <entry class="operator">/</entry>
 
-              <entry>Divide</entry>
+              <entry>除号</entry>
             </row>
 
             <row>
               <entry class="operator">~/</entry>
 
-              <entry>Divide, returning an integer result</entry>
+              <entry>整除号</entry>
             </row>
 
             <row>
               <entry class="operator">%</entry>
 
-              <entry>Get the remainder of an integer division (modulo)</entry>
+              <entry>取余</entry>
             </row>
           </tbody>
         </tgroup>
       </table>
 
-      <para>Example:</para>
+      <para>示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart</remark><remark>
 ch02/arithmetic_operators.dart
@@ -1397,18 +1383,17 @@ assert(5 % 2 == 1);     // Remainder
 
 print('5/2 = ${5~/2} remainder ${5%2}'); // 5/2 = 2 remainder 1</programlisting>
 
-      <para>Dart also supports both prefix and postfix increment and decrement
-      operators.</para>
+      <para>Dart 也支持前缀和后缀 加和减 操作符。</para>
 
       <table class="operatorTable" id="pfix_operator_table">
-        <title>Increment and decrement operators</title>
+        <title>加减操作符</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Operator</entry>
+              <entry>操作符</entry>
 
-              <entry>Meaning</entry>
+              <entry>描述</entry>
             </row>
           </thead>
 
@@ -1448,7 +1433,7 @@ print('5/2 = ${5~/2} remainder ${5%2}'); // 5/2 = 2 remainder 1</programlisting>
         </tgroup>
       </table>
 
-      <para>Example:</para>
+      <para>示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>var a, b;
@@ -1471,17 +1456,17 @@ assert(a != b) ; // -1 != 0</programlisting>
     </sect2>
 
     <sect2 id="op-equality">
-      <title>Equality and Relational Operators</title>
+      <title>关系和相等操作符</title>
 
       <table class="operatorTable" id="equality_operator_table">
-        <title>Equality and relational operators</title>
+        <title>关系和相等操作符</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Operator</entry>
+              <entry>操作符</entry>
 
-              <entry>Meaning</entry>
+              <entry>描述</entry>
             </row>
           </thead>
 
@@ -1489,71 +1474,70 @@ assert(a != b) ; // -1 != 0</programlisting>
             <row>
               <entry class="operator">==</entry>
 
-              <entry>Equal; see discussion below</entry>
+              <entry>相等</entry>
             </row>
 
             <row>
               <entry class="operator">!=</entry>
 
-              <entry>Not equal</entry>
+              <entry>不等</entry>
             </row>
 
             <row>
               <entry class="operator">&gt;</entry>
 
-              <entry>Greater than</entry>
+              <entry>大于</entry>
             </row>
 
             <row>
               <entry class="operator">&lt;</entry>
 
-              <entry>Less than</entry>
+              <entry>小于</entry>
             </row>
 
             <row>
               <entry class="operator">&gt;=</entry>
 
-              <entry>Greater than or equal to</entry>
+              <entry>大于等于</entry>
             </row>
 
             <row>
               <entry class="operator">&lt;=</entry>
 
-              <entry>Less than or equal to</entry>
+              <entry>小于等于</entry>
             </row>
           </tbody>
         </tgroup>
       </table>
 
-      <para>To test whether two objects <replaceable>x</replaceable> and
-      <replaceable>y</replaceable> represent the same thing, use the <literal
-      moreinfo="none">==</literal> operator. (In the rare case where you need
-      to know whether two objects are the exact same object, use the
+      <para>用 <literal
+      moreinfo="none">==</literal> 来测试两个对象 <replaceable>x</replaceable> 和
+      <replaceable>y</replaceable> 是否代表同一个东西。
+      (在极少数情况下，你需要知道两个对象是否是同一个对象，则使用
       <literal><ulink
       url="http://api.dartlang.org/dart_core.html#identical">identical()</ulink></literal>
-      function instead.) Here’s how the <literal moreinfo="none">==</literal>
-      operator works:</para>
+      函数。) 下面是 <literal moreinfo="none">==</literal>
+      操作符工作原理：</para>
 
       <orderedlist continuation="restarts" inheritnum="ignore">
         <listitem>
-          <para>If <replaceable>x</replaceable> or
-          <replaceable>y</replaceable> is null, return true if both are null,
-          and false if only one is null.</para>
+          <para>如果 <replaceable>x</replaceable> 或者
+          <replaceable>y</replaceable> 是 null，只有当另外一个也是 null 的时候才返回 true，
+          否则只有一个为 null 则返回 false。</para>
         </listitem>
 
         <listitem>
-          <para>Return the result of the method invocation <literal
-          moreinfo="none"><replaceable>x</replaceable>.==(<replaceable>y</replaceable>)</literal>.
-          (That’s right, operators such as <literal
-          moreinfo="none">==</literal> are methods that are invoked on their
-          first operand. You can even override many operators, including
-          <literal>==</literal>, as you’ll see in <xref
-          linkend="classes-operators" />.)</para>
+          <para>然后执行 <literal
+          moreinfo="none"><replaceable>x</replaceable>.==(<replaceable>y</replaceable>)</literal> 函数。
+          (没错， <literal
+          moreinfo="none">==</literal> 操作符就是第一个对象的函数。
+          你也可以重写大部分操作符，包括 
+          <literal>==</literal>，在  <xref
+          linkend="classes-operators" /> 介绍如何重写操作符。)</para>
         </listitem>
       </orderedlist>
 
-      <para>Here’s an example of using each of the equality and relational
-      operators:</para>
+      <para>下面是使用关系和等于操作符的示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart</remark><remark>
 ch02/op_equality.dart
@@ -1566,21 +1550,22 @@ assert(2 &lt;= 3);</programlisting>
     </sect2>
 
     <sect2 id="ch02-op-type-test">
-      <title>Type Test Operators</title>
+      <title>类型测试操作符</title>
 
-      <para>The <literal moreinfo="none">as</literal>, <literal
-      moreinfo="none">is</literal>, and <literal moreinfo="none">is!</literal>
-      operators are handy for checking types at runtime.</para>
+      <para> <literal moreinfo="none">as</literal>、 <literal
+      moreinfo="none">is</literal>、和 <literal moreinfo="none">is!</literal>
+      操作符是运行时判断类型的操作符。
+      </para>
 
       <table class="typeTestTable" id="type_test_operator_table">
-        <title>Type test operators</title>
+        <title>类型测试操作符</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Operator</entry>
+              <entry>操作符</entry>
 
-              <entry>Meaning</entry>
+              <entry>描述</entry>
             </row>
           </thead>
 
@@ -1588,65 +1573,62 @@ assert(2 &lt;= 3);</programlisting>
             <row>
               <entry>as</entry>
 
-              <entry>Typecast</entry>
+              <entry>Typecast（类型转换）</entry>
             </row>
 
             <row>
               <entry class="operator">is</entry>
 
-              <entry>True if the object has the specified type</entry>
+              <entry>如果 对象是该类型 则返回 true</entry>
             </row>
 
             <row>
               <entry class="operator">is!</entry>
 
-              <entry>False if the object has the specified type</entry>
+              <entry>如果 对象是该类型 则返回  false</entry>
             </row>
           </tbody>
         </tgroup>
       </table>
 
-      <para>The result of <literal moreinfo="none">obj is T</literal> is true
-      if <literal moreinfo="none">obj</literal> implements the interface
-      specified by <literal moreinfo="none">T</literal>. For example, <literal
-      moreinfo="none">obj is Object</literal> is always true.</para>
+      <para>
+          只有当 <literal moreinfo="none">obj</literal> 实现了 <literal moreinfo="none">T</literal> 接口（类）
+          的时候，  <literal moreinfo="none">obj is T</literal> 的结果才是 true 。 例如 <literal
+      moreinfo="none">obj is Object</literal> 总是返回 true。</para>
 
-      <para>Use the <literal moreinfo="none">as</literal> operator to cast an
-      object to a particular type. In general, you should use it as a
-      shorthand for an <literal moreinfo="none">is</literal> test on an object
-      following by an expression using that object. For example, consider the
-      following code:</para>
+      <para>用 <literal moreinfo="none">as</literal> 操作符把一个对象转换为
+          另外一个类型。
+          通常 用来替换 <literal moreinfo="none">is</literal> 判断后跟一个使用该 对象的表达式。
+          例如，下面的示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>if (person is Person) {               // Type check
   person.firstName = 'Bob';
 }</programlisting>
 
-      <para>You can make the code shorter using the <literal
-      moreinfo="none">as</literal> operator:</para>
+      <para>使用 <literal
+      moreinfo="none">as</literal> 操作符可以简化代码：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>(person as Person).firstName = 'Bob';</programlisting>
 
       <note>
-        <para>The code isn’t equivalent. If <literal>person</literal> is null
-        or not a Person, the first example (with <literal>is</literal>) does
-        nothing; the second (with <literal>as</literal>) throws an <phrase
-        role="keep-together">exception</phrase>.</para>
+        <para>注意：上面的代码并不等同。如果 <literal>person</literal> 是 null
+        或者 不是一个  Person，第一个示例 (使用 <literal>is</literal> 的) 不执行后面的代码；
+        而第二个示例  (使用 <literal>as</literal> 的) 则会抛出一个 <phrase
+        role="keep-together">异常</phrase>。</para>
       </note>
     </sect2>
 
     <sect2 id="op-assign">
-      <title>Assignment Operators</title>
+      <title>赋值操作符</title>
 
-      <para>As you’ve already seen, you assign values using the <literal
-      moreinfo="none">=</literal> operator. You can also use compound
-      assignment operators such as <literal moreinfo="none">+=</literal>,
-      which combine an operation with an <phrase
-      role="keep-together">assignment</phrase>.</para>
+      <para>前面已经见到过了，用 <literal
+      moreinfo="none">=</literal> 来赋值。也可以用复合赋值操作符
+      来赋值，例如 <literal moreinfo="none">+=</literal>。</para>
 
       <table id="assignment_operator_table" role="keep-together">
-        <title>Assignment operators</title>
+        <title>赋值操作符</title>
 
         <tgroup cols="6">
           <tbody>
@@ -1681,7 +1663,7 @@ assert(2 &lt;= 3);</programlisting>
         </tgroup>
       </table>
 
-      <para>Here’s how compound assignment operators work:</para>
+      <para>下面是复合赋值操作符的工作原理</para>
 
       <informaltable id="assignment_operator_concepts_table">
         <tgroup cols="3">
@@ -1689,15 +1671,15 @@ assert(2 &lt;= 3);</programlisting>
             <row>
               <entry></entry>
 
-              <entry>Compound assignment</entry>
+              <entry>复合赋值操作符</entry>
 
-              <entry>Equivalent expression</entry>
+              <entry>等同的表达式</entry>
             </row>
           </thead>
 
           <tbody>
             <row>
-              <entry><emphasis role="bold">For an operator
+              <entry><emphasis role="bold">对于一个操作符
               <replaceable>op</replaceable>:</emphasis></entry>
 
               <entry><literal moreinfo="none">a <replaceable>op</replaceable>=
@@ -1708,7 +1690,7 @@ assert(2 &lt;= 3);</programlisting>
             </row>
 
             <row>
-              <entry><emphasis role="bold">Example: </emphasis></entry>
+              <entry><emphasis role="bold">示例 </emphasis></entry>
 
               <entry><literal moreinfo="none">a += b</literal></entry>
 
@@ -1718,8 +1700,7 @@ assert(2 &lt;= 3);</programlisting>
         </tgroup>
       </informaltable>
 
-      <para>The following example uses both assignment and compound assignment
-      operators:</para>
+      <para>下面示例使用了 赋值和复合赋值操作符：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>var a = 2;           // Assign using =
@@ -1728,21 +1709,20 @@ assert(a == 6);</programlisting>
     </sect2>
 
     <sect2 id="op-logical">
-      <title>Logical Operators</title>
+      <title>逻辑操作符（逻辑运算符）</title>
 
-      <para>You can invert or combine boolean expressions using the logical
-      operators.</para>
+      <para>逻辑操作符可以组合和取反义操作。</para>
 
       <table class="operatorTable" id="logical_operator_table"
              role="keep-together">
-        <title>Logical operators</title>
+        <title>逻辑操作符</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Operator</entry>
+              <entry>操作符</entry>
 
-              <entry>Meaning</entry>
+              <entry>描述</entry>
             </row>
           </thead>
 
@@ -1750,26 +1730,25 @@ assert(a == 6);</programlisting>
             <row>
               <entry class="operator">!<replaceable>expr</replaceable></entry>
 
-              <entry>inverts the following expression (changes false to true,
-              and vice versa)</entry>
+              <entry>取表达式的反义 （如果表达式为 true，则结果为 false，反之亦然。）</entry>
             </row>
 
             <row>
               <entry class="operator">||</entry>
 
-              <entry>logical OR</entry>
+              <entry>逻辑或 OR</entry>
             </row>
 
             <row>
               <entry class="operator">&amp;&amp;</entry>
 
-              <entry>logical AND</entry>
+              <entry>逻辑与 AND</entry>
             </row>
           </tbody>
         </tgroup>
       </table>
 
-      <para>Here’s an example of using the logical operators:</para>
+      <para>下面是使用逻辑操作符的示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>if (!done &amp;&amp; (col == 0 || col == 3)) {
@@ -1778,21 +1757,21 @@ assert(a == 6);</programlisting>
     </sect2>
 
     <sect2 id="op-bit">
-      <title>Bitwise and Shift Operators</title>
+      <title>位和移位操作符</title>
 
-      <para>You can manipulate the individual bits of numbers in Dart.
-      Usually, you’d use these bitwise and shift operators with integers, as
-      shown in <xref linkend="bit_operator_table" />.</para>
+      <para>
+          在 Dart 中可以操作每个数字的字节。
+          通常在整数上使用 位和移位操作符。如下表所示 <xref linkend="bit_operator_table" /> 的操作符：</para>
 
       <table class="operatorTable" id="bit_operator_table">
-        <title>Bitwise and shift operators</title>
+        <title>位和移位操作符</title>
 
         <tgroup cols="2">
           <thead>
             <row>
-              <entry>Operator</entry>
+              <entry>操作符</entry>
 
-              <entry>Meaning</entry>
+              <entry>描述</entry>
             </row>
           </thead>
 
@@ -1818,26 +1797,26 @@ assert(a == 6);</programlisting>
             <row>
               <entry class="operator">~<replaceable>expr</replaceable></entry>
 
-              <entry>Unary bitwise complement (0s become 1s; 1s become
+              <entry>一元位补码操作符 (0s 变为 1s； 1s 变为
               0s)</entry>
             </row>
 
             <row>
               <entry class="operator">&lt;&lt;</entry>
 
-              <entry>Shift left</entry>
+              <entry>左移</entry>
             </row>
 
             <row>
               <entry class="operator">&gt;&gt;</entry>
 
-              <entry>Shift right</entry>
+              <entry>右移</entry>
             </row>
           </tbody>
         </tgroup>
       </table>
 
-      <para>Here’s an example of using bitwise and shift operators:</para>
+      <para>下面是使用位和移位操作符的示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>final value = 0x22;
@@ -1852,7 +1831,7 @@ assert((value &gt;&gt; 4)       == 0x02);  // Shift right</programlisting>
     </sect2>
 
     <sect2 id="op-other">
-      <title>Other Operators</title>
+      <title>其他操作符</title>
 
       <para>A few operators remain, most of which you’ve already seen in other
       examples.</para>
