@@ -1833,21 +1833,20 @@ assert((value &gt;&gt; 4)       == 0x02);  // Shift right</programlisting>
     <sect2 id="op-other">
       <title>其他操作符</title>
 
-      <para>A few operators remain, most of which you’ve already seen in other
-      examples.</para>
+      <para>其他一些没介绍的操作符，但是大部分你应该在其他地方都看到过了。</para>
 
       <table class="operatorTable" id="other_operator_table"
              role="keep-together">
-        <title>Other operators</title>
+        <title>其他操作符</title>
 
         <tgroup cols="3">
           <thead>
             <row>
-              <entry style="text-align:center">Operator</entry>
+              <entry style="text-align:center">操作符</entry>
 
-              <entry>Name</entry>
+              <entry>名字</entry>
 
-              <entry>Meaning</entry>
+              <entry>描述</entry>
             </row>
           </thead>
 
@@ -1855,49 +1854,49 @@ assert((value &gt;&gt; 4)       == 0x02);  // Shift right</programlisting>
             <row>
               <entry class="operator">()</entry>
 
-              <entry>Function application</entry>
+              <entry>方法调用</entry>
 
-              <entry>Represents a function call</entry>
+              <entry>代表调用一个方法</entry>
             </row>
 
             <row>
               <entry class="operator">[]</entry>
 
-              <entry>List access</entry>
+              <entry>List 访问</entry>
 
-              <entry>Refers to the value at the specified index in the
-              list</entry>
+              <entry>获取 list 某个位置的内容</entry>
             </row>
 
             <row>
               <entry
               class="operator"><replaceable>expr1</replaceable>&nbsp;?&nbsp;<replaceable>expr2</replaceable>&nbsp;:&nbsp;<replaceable>expr3</replaceable></entry>
 
-              <entry>Conditional</entry>
+              <entry>条件表达式</entry>
 
-              <entry>If <replaceable>expr1</replaceable> is true, executes
-              <replaceable>expr2</replaceable>; otherwise, executes
+              <entry>如果 <replaceable>expr1</replaceable> 是 true，执行 
+              <replaceable>expr2</replaceable>；否则，执行
               <replaceable>expr3</replaceable></entry>
             </row>
 
             <row>
               <entry class="operator">.</entry>
 
-              <entry>Member access</entry>
+              <entry>成员访问</entry>
 
-              <entry>Refers to a property of an expression; example: <literal
-              moreinfo="none">foo.bar</literal> selects property <literal
-              moreinfo="none">bar</literal> from expression <literal
-              moreinfo="none">foo</literal></entry>
+              <entry>访问一个成员，例如 <literal
+              moreinfo="none">foo.bar</literal> 选择属性 ，访问
+              <literal
+              moreinfo="none">foo</literal>
+              对象的 <literal
+              moreinfo="none">bar</literal> 属性 </entry>
             </row>
 
             <row>
               <entry class="operator">..</entry>
 
-              <entry>Cascade</entry>
+              <entry>级联操作符</entry>
 
-              <entry>Allows you to perform multiple operations on the members
-              of a single object; described in <xref
+              <entry>可以在同一个对象上执行多个炒作 ，参考  <xref
               linkend="classes" /></entry>
             </row>
           </tbody>
@@ -1907,34 +1906,33 @@ assert((value &gt;&gt; 4)       == 0x02);  // Shift right</programlisting>
   </sect1>
 
   <sect1 id="control-flow-statements">
-    <title>Control Flow Statements</title>
+    <title>控制流程语句</title>
 
-    <para>You can control the flow of your Dart code using any of the
-    following:</para>
+    <para>使用如下控制语句可以控制 Dart 代码的执行流程：</para>
 
     <itemizedlist>
       <listitem>
-        <para><literal moreinfo="none">if</literal> and <literal
+        <para><literal moreinfo="none">if</literal> 和 <literal
         moreinfo="none">else</literal></para>
       </listitem>
 
       <listitem>
-        <para><literal moreinfo="none">for</literal> loops</para>
+        <para><literal moreinfo="none">for</literal> 循环</para>
       </listitem>
 
       <listitem>
-        <para><literal moreinfo="none">while</literal> and <literal
+        <para><literal moreinfo="none">while</literal> 和 <literal
         moreinfo="none">do</literal>-<literal moreinfo="none">while</literal>
-        loops</para>
+        循环</para>
       </listitem>
 
       <listitem>
-        <para><literal moreinfo="none">break</literal> and <literal
+        <para><literal moreinfo="none">break</literal> 和 <literal
         moreinfo="none">continue</literal></para>
       </listitem>
 
       <listitem>
-        <para><literal moreinfo="none">switch</literal> and <literal
+        <para><literal moreinfo="none">switch</literal> 和 <literal
         moreinfo="none">case</literal></para>
       </listitem>
 
@@ -1943,18 +1941,17 @@ assert((value &gt;&gt; 4)       == 0x02);  // Shift right</programlisting>
       </listitem>
     </itemizedlist>
 
-    <para>You can also affect the control flow using <literal
-    moreinfo="none">try-catch</literal> and <literal
-    moreinfo="none">throw</literal>, as explained in <xref
-    linkend="exceptions" />.</para>
+    <para>使用  <literal
+    moreinfo="none">try-catch</literal> 和 <literal
+    moreinfo="none">throw</literal> 也可以影响执行流程，在 <xref
+    linkend="exceptions" /> 中有详细介绍。</para>
 
     <sect2 id="if-else">
-      <title>If and Else</title>
+      <title>If 和 Else</title>
 
-      <para>Dart supports <literal moreinfo="none">if</literal> statements
-      with optional <literal moreinfo="none">else</literal> statements, as the
-      next sample shows. Also see conditional expressions (?:), which are
-      covered in <xref linkend="op-other" />.</para>
+      <para>Dart 支持 <literal moreinfo="none">if</literal> 语句和可选的
+      <literal moreinfo="none">else</literal> 语句。
+      在  <xref linkend="op-other" /> 还介绍了条件表达式 (?:)。</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>if (isRaining()) {
@@ -1965,17 +1962,16 @@ assert((value &gt;&gt; 4)       == 0x02);  // Shift right</programlisting>
   car.putTopDown();
 }</programlisting>
 
-      <para>Remember, unlike JavaScript, Dart treats all values other than
-      <literal moreinfo="none">true</literal> as <literal
-      moreinfo="none">false</literal>. See <xref linkend="booleans" /> for
-      more information.</para>
+      <para>注意： Dart 和 JavaScript 不同， 在 Dart 中只有
+      <literal moreinfo="none">true</literal> 才被当做 true，所有其他对象都是 <literal
+      moreinfo="none">false</literal>。详细信息参考 <xref linkend="booleans" /> 。</para>
     </sect2>
 
     <sect2 id="for-loops">
-      <title>For Loops</title>
+      <title>For 循环</title>
 
-      <para>You can iterate with the standard <literal
-      moreinfo="none">for</literal> loop. For example:</para>
+      <para>如下是标准的 <literal
+      moreinfo="none">for</literal> 循环示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/flow_for_loops.dart
@@ -1984,9 +1980,8 @@ for (var i = 0; i &lt; 5; i++) {
   message.write('!');
 }</programlisting>
 
-      <para>Closures inside of Dart’s <literal moreinfo="none">for</literal>
-      loops capture the value of the index, avoiding a common pitfall found in
-      JavaScript. For example, consider:</para>
+      <para> Dart <literal moreinfo="none">for</literal>循环中的闭包捕获
+          循环的索引，避免 JavaScript 中出现的弊端。例如：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/flow_for_loops.dart
@@ -1996,25 +1991,24 @@ for (var i = 0; i &lt; 2; i++) {
 }
 callbacks.forEach((c) =&gt; c());</programlisting>
 
-      <para>The output is <literal moreinfo="none">0</literal> and then
-      <literal moreinfo="none">1</literal>, as expected. In contrast, the
-      example would print <literal moreinfo="none">2</literal> and then
-      <literal moreinfo="none">2</literal> in JavaScript.</para>
+      <para>打印的结果为  <literal moreinfo="none">0</literal> 然后是 
+      <literal moreinfo="none">1</literal>，和预期的结果一样。
+      而在 JavaScript 中，结果会是  <literal moreinfo="none">2</literal> 和
+      <literal moreinfo="none">2</literal> 。</para>
 
-      <para>If the object that you are iterating over is an Iterable, you can
-      use the <literal><ulink
+      <para>如果循环的对象是一个 Iterable ，则可以用 <literal><ulink
       url="http://api.dartlang.org/dart_core/Iterable.html#forEach">forEach()</ulink></literal>
-      method. Using <literal>forEach()</literal> is a good option if you don’t
-      need to know the current iteration counter:</para>
+      函数。如果无需关心当前的循环索引，则使用 <literal>forEach()</literal>
+      是更好的选择：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/flow_for_loops.dart
 </remark>candidates.forEach((candidate) =&gt; candidate.interview());</programlisting>
 
-      <para>Iterable classes such as List and Set also support the <literal
-      moreinfo="none">for-in</literal> form of iteration, which is described
+      <para>像 List 和 Set 这种 Iterable 对象还支持 <literal
+      moreinfo="none">for-in</literal> 循环，在
       <phrase lang="" role="">in <xref
-      linkend="ch03-iteration" />:</phrase></para>
+      linkend="ch03-iteration" /> 有介绍：</phrase></para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/flow_for_loops.dart
@@ -2025,19 +2019,19 @@ for (var x in collection) {
     </sect2>
 
     <sect2 id="while">
-      <title>While and Do-While</title>
+      <title>While 和 Do-While</title>
 
-      <para>A <literal moreinfo="none">while</literal> loop evaluates the
-      condition before the loop:</para>
+      <para>一个 <literal moreinfo="none">while</literal> 循环会在循环开始之前先
+          计算条件的值：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>while(!isDone()) {
   doSomething();
 }</programlisting>
 
-      <para>A <literal moreinfo="none">do</literal>-<literal
-      moreinfo="none">while</literal> loop evaluates the condition
-      <emphasis>after</emphasis> the loop:</para>
+      <para>而 一个 <literal moreinfo="none">do</literal>-<literal
+      moreinfo="none">while</literal>  循环会先循环后计算
+      条件的值：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>do {
@@ -2046,10 +2040,10 @@ for (var x in collection) {
     </sect2>
 
     <sect2 id="break">
-      <title>Break and Continue</title>
+      <title>Break 和 Continue</title>
 
-      <para>Use <literal moreinfo="none">break</literal> to stop
-      looping:</para>
+      <para>使用 <literal moreinfo="none">break</literal> 来终止
+          循环：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>while (true) {
@@ -2057,8 +2051,8 @@ for (var x in collection) {
   processIncomingRequests();
 }</programlisting>
 
-      <para>Use <literal moreinfo="none">continue</literal> to skip to the
-      next loop iteration:</para>
+      <para>使用 <literal moreinfo="none">continue</literal> 
+	来跳到下一个循环：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>for (int i = 0; i &lt; candidates.length; i++) {
@@ -2069,9 +2063,7 @@ for (var x in collection) {
   candidate.interview();
 }</programlisting>
 
-      <para>You might write that example differently if you’re using a <ulink
-      url="http://api.dartlang.org/dart_core/Iterable.html">Iterable</ulink>
-      such as a list or set:</para>
+      <para>如果使用  list 或者 set 则实现方式可以有所不同：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>candidates.where((c) =&gt; c.yearsExperience &gt;= 5)
@@ -2079,7 +2071,7 @@ for (var x in collection) {
     </sect2>
 
     <sect2 id="switch">
-      <title>Switch and Case</title>
+      <title>Switch 和 Case</title>
 
       <para>Switch statements in Dart compare integer, string, or compile-time
       constants using <literal moreinfo="none">==</literal>. The compared
