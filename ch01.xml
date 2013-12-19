@@ -4,50 +4,45 @@
 <chapter id="ch01">
   <?dbhtml stop-chunking?>
 
-  <title>Quick Start</title>
+  <title>快速起步</title>
 
-  <para>Welcome to Dart, an open-source, batteries-included developer platform
-  for building structured HTML5 web apps. This chapter tells you why Google
-  created Dart, what’s cool about Dart, and how to write and run your first
-  Dart app.</para>
+  <para>Dart 是开源的、用于创建结构化 HTML5 web 应用的开发语言。本章告诉你为啥 Google 发明
+      Dart，Dart 有哪些库的特性，以及如何编写并运行您的第一个 Dart 应用。
+  </para>
 
-  <para>Dart provides not only a new language, but libraries, an editor, a
-  virtual machine (VM), a browser that can run Dart apps natively, and a
-  compiler to JavaScript. Dart aims to be a more productive way to build the
-  high-performance, modern apps that users demand.</para>
+  <para>
+      Dart 不仅仅只是一个新的语言，还包含 各种库、一个编辑器、一个虚拟机（VM）、
+      一个能直接运行 Dart 代码的浏览器、和一个能把 Dart 代码编译为 JavaScript 的编译器。
+      Dart 的目标是用一种更高效的方式来创建满足用户需求的现代化、高性能应用。
+  </para>
 
   <warning>
-    <para>Dart is still changing! This book was produced in March 2013, just
-    after the Milestone 3 release, which means the language is stable, but the
-    libraries are not. Wherever possible, this book tells you what we expect
-    to change.</para>
+    <para>Dart 还在演进中！该书在 2013 年 3 月 开始发布，这个时候里程碑 3 版本刚刚发布，这个时候
+        Dart 语言已经稳定，但是一些库还再开发中。如果可能，本书将告诉你那些我们期望实现的功能。</para>
   </warning>
 
   <sect1 id="ch01-why-dart">
-    <title>Why Google Created Dart</title>
+    <title>为什么 Google 要发明 Dart </title>
 
-    <para>Google cares a lot about helping to make the web great. We write a
-    lot of web apps, many of them quite sophisticated—think Gmail, Google
-    Calendar, Google+, and more. We want web apps to load quickly, run
-    smoothly, and present engaging and fun experiences to users. We want
-    developers of all backgrounds to be able to build great experiences for
-    the browser.</para>
+    <para>Google 非常在意如何让 web 更加帮。 我们白编写了一些 web 应用，
+        有些非常成功 - 例如 Gmail、Google 日历、Google+ 等。
+        我们希望 web 应用能够快速的加载、平滑的运行、并且具有迷人而又不失风趣的体验。
+        我们还希望具有任意背景的开发人员都可以创造很棒的浏览器应用。</para>
 
-    <para>As an example of Google’s commitment to the web, consider the Google
-    Chrome browser. Google created it to spur competition at a time when the
-    web platform seemed to be stagnating. It worked. As <xref
-    linkend="BrowserChart" /> shows, browser speed has increased immensely
-    since Chrome’s introduction in 2008.</para>
+    <para>
+        Google Chrome 浏览器就是Google 对 web 承诺的一个 示例。
+        当 web 平台的发展停滞不前的时候， Google 通过创建 Chrome 浏览器来促进竞争。
+        事实证明结果是非常好的。 如 <xref
+    linkend="BrowserChart" /> 所示，
+    自从 Chrome 浏览器在 2008 年发布以来，浏览器的速度增加了很多。</para>
 
     <note>
-      <para>The JavaScript engine known as <firstterm>V8</firstterm> is
-      responsible for much of Chrome’s speed. Many of the V8 engineers are now
-      working on the Dart project.</para>
+      <para>著名的 <firstterm>V8</firstterm> JavaScript 引擎
+          极大的提高了 Chrome 的速度。大多数的 V8 工程师现在都在参与 Dart 项目。</para>
     </note>
 
     <figure float="0" id="BrowserChart">
-      <title>Browser speed (V8 benchmark suite v7; higher numbers are
-      better)</title>
+      <title>浏览器速度 (V8 benchmark suite v7; 数字越大性能越好)</title>
 
       <mediaobject>
         <imageobject role="web">
@@ -56,45 +51,43 @@
       </mediaobject>
     </figure>
 
-    <para>The number of new features in browsers has also increased, with APIs
-    such as WebGL, FileSystem, Web workers, and WebSockets. Browsers now have
-    automatic update capabilities, frequently delivering new features and
-    fixes directly to the user. Mobile devices such as tablets and phones also
-    have modern browsers with many HTML5 features.</para>
+    <para>
+        浏览器的新功能也得到了发展， 例如 
+      WebGL、 FileSystem、 Web workers、 和 WebSockets。
+      现在浏览器也具有了自动更新能力，可以经常给用户更新新的功能。
+    就连移动设备也具有了支持 HTML5 特性的浏览器了。
+    </para>
 
-    <para>Despite these improvements in the web platform, the developer
-    experience hasn’t improved as much as we’d like. We believe it should be
-    easier to build larger, more complex web apps. It’s taken far too long for
-    productive tools to emerge, and they still don’t match the capabilities
-    offered by other developer platforms. You shouldn’t have to be intimately
-    familiar with web programming to start building great apps for the modern
-    web. And even though JavaScript engines are getting faster, web apps still
-    start up much too slowly.</para>
+    <para>
+        尽管 web 平台有了很多改进，但是用来开发 web 应用的方式还是没有太大的改变。
+        我们认为创建 大型的、复杂的 web 应用应该更加容易。
+        和其他开发平台比起来，web 用于提高开发效率的工具发展的也很慢。
+        在开发现代化的 web 程序之前你还必须熟悉 web 编程。另外，尽管 JavaScript 引擎变得越来越快，但是
+         web 应用的启动速度依然很慢。</para>
 
-    <para>We expect Dart to help in two main ways:</para>
+    <para>我们期待 Dart 能从如下两个方面帮助我们解决这些问题：</para>
 
     <itemizedlist>
       <listitem>
-        <para><emphasis>Better performance:</emphasis> As VM engineers, the
-        designers of Dart know how to build a language for performance. A more
-        structured language is easier to optimize, and a fresh VM enables
-        improvements such as faster startup.</para>
+        <para><emphasis>更好的性能：</emphasis> 
+        作为虚拟机工程师，Dart 设计者知道如何创建一个高性能的语言。
+        更加结构化的语言更容易优化，一个新的 VM 可以更容易提高性能。</para>
       </listitem>
 
       <listitem>
-        <para><emphasis>Better productivity:</emphasis> Support for libraries
-        and packages helps you work with other developers and easily reuse
-        code from other projects. Types can make APIs clearer and easier to
-        use. Tools help you refactor, navigate, and debug code.</para>
+        <para><emphasis>更高的成产率：</emphasis> 
+        支持库和包可以帮助你和其他开发者协同工作，并且重用其他项目的代码更加容易。
+        类型可以让 API 看起来更加清晰和更容易使用。
+        工具帮助你重构、定位和调试代码。    
+        </para>
       </listitem>
     </itemizedlist>
   </sect1>
 
   <sect1 id="ch01-quick-look">
-    <title>A Quick Look at the Dart Language</title>
+    <title>快速瞥一眼 Dart 语言</title>
 
-    <para>It’s hard to talk about a language without seeing it. Here’s a peek
-    at a small Dart program:</para>
+    <para>代码胜过千言万语，下面是一个简单的 Dart 程序示例：</para>
 
     <programlisting format="linespecific" role="keep-together"><remark>lang-dart
 </remark>import 'dart:math';
@@ -115,8 +108,7 @@ main() {
   print('distance from p to q = ${p.distanceTo(q)}');
 }</programlisting>
 
-    <para>Of course, Dart’s main use case is building modern web apps.
-    Programming the browser is easy:</para>
+    <para>当然了，Dart 主要用来编写 web 应用。编写一个 web 应用也是非常容易的：</para>
 
     <programlisting format="linespecific"><remark>lang-dart
 </remark>import 'dart:html';
@@ -130,43 +122,41 @@ main() {
   querySelector('#registration').children.add(button);
 }</programlisting>
 
-    <para>You’ll learn about the Dart language and libraries in Chapters <xref
-    linkend="ch02" xrefstyle="select: labelnumber" /> and <xref linkend="ch03"
-    xrefstyle="select: labelnumber" /> respectively.</para>
+    <para>在 <xref
+    linkend="ch02" xrefstyle="select: labelnumber" /> 和 <xref linkend="ch03"
+    xrefstyle="select: labelnumber" /> 中将分别介绍 Dart  语言特性和主要的库。</para>
   </sect1>
 
   <sect1 id="ch01-whats-cool">
-    <title>What’s Cool About Dart</title>
+    <title>Dart 最酷的地方在哪里</title>
 
-    <para>Dart may look familiar, but don’t let that fool you. Dart has lots
-    of cool features to help give you a productive and fun experience building
-    the next generation of awesome web apps.</para>
+    <para>Dart 可能看起来很熟悉，但是不要被她的外表给迷惑了。
+        Dart 有很多非常酷的特性来帮助你提高开发效率，另外用 Dart 开发下一代
+        超棒 web 应用的过程是非常有趣的。
+    </para>
 
-    <para><emphasis>Dart is easy to learn.</emphasis> A wide range of
-    developers can learn Dart quickly. It’s an object-oriented language with
-    classes, single inheritance, lexical scope, top-level functions, and a
-    familiar syntax. Most developers are up and running with Dart in just a
-    few hours.</para>
+    <para><emphasis>Dart 很容易上手。</emphasis> 
+    很多开发者都可以很容易的学习 Dart。
+    Dart 是一个面向对象语言，支持 类、单继承、词法范围、顶级方法和非常熟悉的语法。
+    大部分的开发者几个小时就可以开始用 Dart 语言了。</para>
 
-    <para><emphasis>Dart compiles to JavaScript.</emphasis> Dart has been
-    designed from the start to compile to JavaScript, so that Dart apps can
-    run across the entire modern web. Every feature considered for the
-    language must somehow be translated to performant and logical JavaScript
-    before it is added. Dart draws a line in the sand and doesn’t support
-    older, legacy browsers.</para>
+    <para><emphasis>Dart 可以编译为 JavaScript。</emphasis> Dart
+        在设计的时候就可以编译为 JavaScript，这样 Dart 应用就可以在不支持 Dart VM 的浏览器中运行了。
+    语言中的每个特性在添加之前都会考虑是否能够移植到 JavaScript。 Dart 
+    划定了一个基准线，并不支持老旧的遗留浏览器。
+    </para>
 
-    <para><emphasis>Dart runs in the client and on the server.</emphasis> The
-    Dart virtual machine (VM) can be integrated into a web browser, but it can
-    also run standalone on the command line. With built-in library support for
-    files, directories, sockets, and even web servers, you can use Dart for
-    full end-to-end apps.</para>
+    <para><emphasis>Dart 可以在客户端和服务器运行。</emphasis> 
+    Dart 虚拟机 (VM) 可以在浏览器中运行，也可以作为
+    独立的命令行应用运行。内置的库支持 文件、目录、socket、和 web 服务器等功能。
+    你完全可以用 Dart 来开发一个独立的应用。
+    </para>
 
-    <para><emphasis>Dart comes with a lightweight editor.</emphasis> You can
-    use Dart Editor to write, launch, and debug Dart apps. The editor can help
-    you with code completion, detecting potential bugs, debugging both
-    command-line and web apps, and even refactoring. Dart Editor isn’t
-    required for writing Dart; it’s just a tool that can help you write better
-    code faster.</para>
+    <para><emphasis>Dart 带有一个轻量级的编辑器。</emphasis> 
+    可以用 Dart 编辑器编写、启动、调试 Dart 应用。
+    编辑器具有 代码完成、提示潜在的 bug、调试命令行和 web 应用、还支持重构。
+    编写 Dart 应用并不一定使用 Dart 编辑器，编辑器只是一个提高你开发效率的工具。    
+    </para>
 
     <para><emphasis>Dart supports types, without requiring them.</emphasis>
     You can omit types when you want to move very quickly, aren’t sure what
