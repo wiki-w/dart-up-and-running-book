@@ -120,7 +120,7 @@ main() {
 
     <note>
       <para>我们的代码遵守 <ulink
-      url="http://www.dartlang.org/articles/style-guide/">Dart 风格指南
+      url="http://www.dartlang.cc/articles/style-guide/">Dart 风格指南
       </ulink> 中介绍的格式。例如，我们用了两个空格的缩进。</para>
     </note>
   </sect1>
@@ -2242,100 +2242,96 @@ assert(urlString.startsWith('https')); // 确保字符串以 https 开头</progr
       <para>
           要处理可能抛出多个类型异常的情况，你可以用多个
           catch 语句。 如果第一个 catch 语句不匹配该异常，则执行下一个。
-          如果一个 catch 语句没有
-          To handle code that can throw more than one type of exception, you
-      can specify multiple catch clauses. The first catch clause that matches
-      the thrown object’s type handles the exception. If the catch clause does
-      not specify a type, that clause can handle any type of thrown
-      object:</para>
+          如果一个 catch 语句没有设置特殊的异常类型，则该 catch 语句可以处理
+          所有 类型的异常：</para>
 
       <programlisting format="linespecific" role="keep-together"><remark>lang-dart
 </remark>try {
   breedMoreLlamas();
-} on OutOfLlamasException {           // A specific exception
+} on OutOfLlamasException {           // 一个具体的异常
   buyMoreLlamas();
-} on Exception catch(e) {             // Anything else that is an exception
+} on Exception catch(e) {             // 任意 Exception 异常
   print('Unknown exception: $e');
-} catch(e) {                          // No specified type, handles all
+} catch(e) {                          // 处理所有异常
   print('Something really unknown: $e');
 }</programlisting>
 
-      <para>As the preceding code shows, you can use either <literal
-      moreinfo="none">on</literal> or <literal moreinfo="none">catch</literal>
-      or both. Use <literal moreinfo="none">on</literal> when you need to
-      specify the exception type. Use <literal moreinfo="none">catch</literal>
-      when your exception handler needs the exception object.</para>
+      <para>
+          如上代码所示， 你可以用
+           <literal
+      moreinfo="none">on</literal> 或者 <literal moreinfo="none">catch</literal>
+      ，也可以同时使用。当需要指定异常类型的时候，用 <literal moreinfo="none">on</literal>。
+      当需要使用 异常 对象的时候，用  <literal moreinfo="none">catch</literal>
+	。      </para>
     </sect2>
 
     <sect2 id="ch02-exceptions-finally">
       <title>Finally</title>
 
-      <para>To ensure that some code runs whether or not an exception is
-      thrown, use a <literal moreinfo="none">finally</literal> clause. If no
-      <literal>catch</literal> clause matches the exception, the exception is
-      propagated after the <literal>finally</literal> clause runs:</para>
+      <para>
+           <literal moreinfo="none">finally</literal> 块中的代码不管是否出现异常
+           都会执行。如果没有 <literal>catch</literal> 捕获异常，则异常会在执行
+           完 <literal>finally</literal> 块之后继续传递下去：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>try {
   breedMoreLlamas();
 } finally {
-  cleanLlamaStalls();  // Always clean up, even if an exception is thrown.
+  cleanLlamaStalls();  // 总是清理现场，不管是否抛出异常
 }</programlisting>
 
-      <para>The <literal>finally</literal> clause runs after any matching
-      <literal>catch</literal> clauses:</para>
+      <para><literal>finally</literal> 块在
+      <literal>catch</literal> 块之后执行：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>try {
   breedMoreLlamas();
 } catch(e) {
-  print('Error: $e');  // Handle the exception first.
+  print('Error: $e');  // 先处理异常
 } finally {
-  cleanLlamaStalls();  // Then clean up.
+  cleanLlamaStalls();  // 再执行清理
 }</programlisting>
 
-      <para>Learn more by reading <xref linkend="ch03-exceptions" />.</para>
+      <para>更多信息请参考 <xref linkend="ch03-exceptions" />。</para>
     </sect2>
   </sect1>
 
   <sect1 id="classes">
     <title>Classes</title>
 
-    <para>Dart is an object-oriented language with classes and single
-    inheritance. Every object is an instance of a class, and all classes
-    descend from <ulink
-    url="http://api.dartlang.org/dart_core/Object.html">Object.</ulink></para>
+    <para>Dart 是面向对象的语言，支持 类和单继承。
+        每个对象都是一个类的实例，所有的类都是 
+    <ulink
+    url="http://api.dartlang.org/dart_core/Object.html">Object</ulink> 的子类。</para>
 
-    <para>To create an object, you can use the <literal
-    moreinfo="none">new</literal> keyword with a
-    <firstterm>constructor</firstterm> for a class. Constructor names can be
-    either <emphasis><replaceable>ClassName</replaceable></emphasis> or
-    <replaceable>ClassName.identifier</replaceable>. For example:</para>
+    <para>可以用 <literal
+    moreinfo="none">new</literal> 关键字和 类的
+    <firstterm>构造函数</firstterm> 创建对象。
+    构造函数的名字可以为
+      <emphasis><replaceable>ClassName</replaceable></emphasis> 或者
+    <replaceable>ClassName.identifier</replaceable>。例如：</para>
 
     <programlisting format="linespecific"><remark>lang-dart
 </remark>var jsonData = JSON.decode('{"x":1, "y":2}');
 
-var p1 = new Point(2,2);               // Create a Point using Point().
-var p2 = new Point.fromJson(jsonData); // Create a Point using Point.fromJson().</programlisting>
+var p1 = new Point(2,2);               // 用 Point() 创建一个 Point 对象。
+var p2 = new Point.fromJson(jsonData); // 用 Point.fromJson() 构造函数创建 Point 对象</programlisting>
 
-    <para>Objects have <firstterm>members</firstterm> consisting of functions
-    and data (<firstterm>methods</firstterm> and <firstterm>instance
-    variables</firstterm>, respectively). When you call a method, you
-    <emphasis>invoke</emphasis> it on an object: the method has access to that
-    object’s functions and data.</para>
+    <para>对象有<firstterm>成员变量</firstterm> 构成的数据和方法 (<firstterm>函数</firstterm> 和 <firstterm> 
+    实例变量</firstterm> )。 当调用一个函数的时候，
+    该函数可以访问对象的数据：</para>
 
-    <para>Use a dot (.) to refer to an instance variable or method:</para>
+    <para>使用一个圆点 (.) 来访问对象的变量或者函数：</para>
 
     <programlisting format="linespecific"><remark>lang-dart
 </remark>var p = new Point(2,2);
 
-p.y = 3;             // Set the value of the instance variable y.
-assert(p.y == 3);    // Get the value of y.
+p.y = 3;             // 设置实例变量 y 的值
+assert(p.y == 3);    // 访问实例变量 y 的值
 
-num distance = p.distanceTo(new Point(4,4)); // Invoke distanceTo() on p.</programlisting>
+num distance = p.distanceTo(new Point(4,4)); // 调用 p 的 distanceTo() 函数</programlisting>
 
-    <para>Use the cascade operator (..) when you want to perform a series of
-    operations on the members of a single object:</para>
+    <para>当想在同一个对象上执行多个操作的时候，可以用级联操作符  (..) ：</para>
 
     <programlisting format="linespecific" role="keep-together"><remark>lang-dart
 </remark>querySelector('#button')
@@ -2343,45 +2339,47 @@ num distance = p.distanceTo(new Point(4,4)); // Invoke distanceTo() on p.</progr
     ..classes.add('important')                         // instance variables
     ..onClick.listen((e) =&gt; window.alert('Confirmed!')); // and methods.</programlisting>
 
-    <para>Some classes provide constant constructors. To create a compile-time
-    constant using a constant constructor, use <literal
-    moreinfo="none">const</literal> instead of <literal
-    moreinfo="none">new</literal>:</para>
+    <para>
+        有些类提供了常量构造函数。可以用来创建编译期常量对象，用
+         <literal
+    moreinfo="none">const</literal> 关键字而不是  <literal
+    moreinfo="none">new</literal> 来调用这种构造函数：</para>
 
     <programlisting format="linespecific"><remark>lang-dart
 </remark>var p = const ImmutablePoint(2,2);</programlisting>
 
-    <para>Constructing two identical compile-time constants results in a
-    single, canonical <phrase role="keep-together">instance:</phrase></para>
+    <para>用常量构造函数创建两个一样的常量，这两个
+        常量是 同一个 <phrase role="keep-together">实例：</phrase></para>
 
     <programlisting format="linespecific"><remark>lang-dart
 </remark>var a = const ImmutablePoint(1, 1);
 var b = const ImmutablePoint(1, 1);
 
-assert(identical(a,b)); // They are the same instance!</programlisting>
+assert(identical(a,b)); // 同一个实例！</programlisting>
 
-    <para>The following sections discuss how to implement classes.</para>
+    <para>下面的小节介绍如何定义类</para>
 
     <sect2 id="ch02-instance-variables">
-      <title>Instance Variables</title>
+      <title>实例变量</title>
 
-      <para>Here’s how you declare instance variables:</para>
+      <para>下面是定义实例变量的示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/instance_variables.dart
 </remark>class Point {
-  num x;      // Declare an instance variable (x), initially null.
-  num y;      // Declare y, initially null.
-  num z = 0;  // Declare z, initially 0.
+  num x;      // 定义一个实例变量 (x)，初始值为 null。
+  num y;      // 定义 y， 初始值为  null。
+  num z = 0;  // 定义 z， 初始值为 0。
 }</programlisting>
 
-      <para>All uninitialized instance variables have the value <literal
-      moreinfo="none">null</literal>.</para>
+      <para>所有没有初始化的实例变量的值都是 <literal
+      moreinfo="none">null</literal>。</para>
 
-      <para>All instance variables generate an implicit
-      <firstterm>getter</firstterm> method. Non-final instance variables also
-      generate an implicit <firstterm>setter</firstterm> method. For details,
-      see <xref linkend="classes-getters-and-setters" />.</para>
+      <para>
+          所有实例变量都自动生成一个隐含的
+      <firstterm>getter</firstterm> 函数。非 final 实例变量也生成了一个隐含的
+      <firstterm>setter</firstterm> 函数。详情请参考
+        <xref linkend="classes-getters-and-setters" />。</para>
 
       <programlisting format="linespecific" role=""><remark>lang-dart
 </remark><remark>ch02/instance_variables.dart
@@ -2392,25 +2390,22 @@ assert(identical(a,b)); // They are the same instance!</programlisting>
 
 main() {
   var point = new Point();
-  point.x = 4;             // Use the setter method for x.
-  assert(point.x == 4);    // Use the getter method for x.
-  assert(point.y == null); // Values default to null.
+  point.x = 4;             // 调用 x 的 setter 函数
+  assert(point.x == 4);    // 调用 x 的 getter 函数
+  assert(point.y == null); // 默认值为 null。
 }</programlisting>
 
-      <para>If you initialize an instance variable where it is declared
-      (instead of in a constructor or method), the value is set when the
-      instance is created, which is before the constructor and its initializer
-      list execute.</para>
+      <para>
+          如果你在定义实例变量的时候就设置她的值，而不是在构造函数或者其他函数中设置，则该实例创建的时候赋值变量的值。
+	赋值操作发生在构造函数和初始化列表执行之前。</para>
     </sect2>
 
     <sect2 id="ch02-constructors">
-      <title>Constructors</title>
+      <title>构造函数</title>
 
-      <para>Declare a constructor by creating a function with the same name as
-      its class (plus, optionally, an additional identifier as described in
-      <xref linkend="ch02-constructors-named" />). The most common form of
-      constructor, the generative constructor, creates a new instance of a
-      class:</para>
+      <para>
+          构造函数的名字和类的名字一样（还可以附加其他关键字，<xref linkend="ch02-constructors-named" />）。
+          常用的构造函数就是用来创建一个类的实例的：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/constructor_long_way.dart
@@ -2419,55 +2414,54 @@ main() {
   num y;
 
   Point(num x, num y) {
-    // There's a better way to do this, stay tuned.
+    // 这种初始化赋值操作还有更好的实现方式，请往下看！
     this.x = x;
     this.y = y;
   }
 }</programlisting>
 
-      <para>The <literal moreinfo="none">this</literal> keyword refers to the
-      current instance.</para>
+      <para>  <literal moreinfo="none">this</literal> 关键字引用当前实例。</para>
 
       <note>
-        <para>Use <literal moreinfo="none">this</literal> only when there is a
-        name conflict. Otherwise, Dart style omits the <literal
-        moreinfo="none">this</literal>.</para>
+        <para>只有在有名字冲突的时候才使用 <literal moreinfo="none">this</literal> 。
+            其他情况， Dart 风格指南建议忽略
+             <literal
+        moreinfo="none">this</literal>。</para>
       </note>
 
-      <para>The pattern of assigning a constructor argument to an instance
-      variable is so common, Dart has syntactic sugar to make it easy:</para>
+      <para>
+          把构造函数参数赋值给实例变量是如此的常见，所以 Dart 提供了一个语法糖让该操作更加便捷：</para>
 
       <programlisting format="linespecific" role="keep-together"><remark>lang-dart
 </remark>class Point {
   num x;
   num y;
 
-  // Syntactic sugar for setting x and y before the constructor body runs.
+  // 在构造函数体执行之前设置实例变量的语法糖
   Point(this.x, this.y);
 }</programlisting>
 
       <sect3 id="ch02-constructors-default">
-        <title>Default constructors</title>
+        <title>默认构造函数</title>
 
-        <para>If you don’t declare a constructor, a default constructor is
-        provided for you. The default constructor has no arguments and invokes
-        the no-argument constructor in the <phrase
-        role="keep-together">superclass</phrase>.</para>
+        <para>如果没有定义构造函数，则会生成一个默认构造函数。
+            默认构造函数没有参数，并调用没有参数的 <phrase
+        role="keep-together">superclass（父类）</phrase> 构造函数。</para>
       </sect3>
 
       <sect3 id="ch02-constructors-not-inherited">
-        <title>Constructors aren’t inherited</title>
+        <title>构造函数不支持继承</title>
 
-        <para>Subclasses don’t inherit constructors from their superclass. A
-        subclass that declares no constructors has only the default (no
-        argument, no name) constructor.</para>
+        <para>
+            子类并没有继承父类的构造函数。
+            一个没有定义构造函数的子类只有无参数无名子的默认构造函数。</para>
       </sect3>
 
       <sect3 id="ch02-constructors-named">
-        <title>Named constructors</title>
+        <title>命名构造函数</title>
 
-        <para>Use a named constructor to implement multiple constructors for a
-        class or to provide extra clarity:</para>
+        <para>
+            用命名构造函数来提供多个构造函数或者提供更加清晰的信息：</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/named_constructor.dart
@@ -2477,29 +2471,27 @@ main() {
 
   Point(this.x, this.y);
 
-  // Named constructor
+  // 命名构造函数
   Point.fromJson(Map json) {
     x = json['x'];
     y = json['y'];
   }
 }</programlisting>
 
-        <para>Remember that constructors are not inherited, which means that a
-        superclass’s named constructor is not inherited by a subclass. If you
-        want a subclass to be created with a named constructor defined in the
-        superclass, you must implement that constructor in the
-        subclass.</para>
+        <para>
+            注意：构造函数不支持继承，所以子类也没有继承父类的命名构造函数。
+            如果你想让子类也能用父类的命名构造函数，则你必需在子类中定义并实现该构造函数。</para>
       </sect3>
 
       <sect3 id="ch02-constructor-non-default-superclass">
-        <title>Invoking a non-default superclass constructor</title>
+        <title>调用不是默认的父类构造函数</title>
 
-        <para>By default, a constructor in a subclass calls the superclass’s
-        unnamed, no-argument constructor. If the superclass doesn’t have such
-        a constructor, then you must manually call one of the constructors in
-        the superclass. Specify the superclass constructor after a colon
-        (<literal>:</literal>), just before the constructor body (if
-        any).</para>
+        <para>
+            默认情况下，子类的构造函数会调用父类的默认构造函数。
+            如果父类没有无名无参数的默认构造函数，则子类必需
+            手工的调用一个父类构造函数。
+           在冒号
+        (<literal>:</literal>) 后面和构造函数体之前指定要调用的父类构造函数。</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/op_as.dart
@@ -2510,8 +2502,8 @@ main() {
 }
 
 class Employee extends Person {
-  // Person does not have a default constructor;
-  // you must call super.fromJson(data).
+  // Person 没有默认构造函数
+  // 所以必需指定 super.fromJson(data) 构造函数
   Employee.fromJson(Map data) : super.fromJson(data) {
     print('in Employee');
   }
@@ -2520,14 +2512,14 @@ class Employee extends Person {
 main() {
   var emp = new Employee.fromJson({});
 
-  // Prints:
+  // 打印结果：
   // in Person
   // in Employee
 }</programlisting>
 
-        <para>Because the arguments to the superclass constructor are
-        evaluated before invoking the constructor, an argument can be an
-        expression such as a function call:</para>
+        <para>
+            由于调用父类构造函数的参数在执行构造函数之前执行，
+            所有可以用表达式作为参数，例如 用一个方法：</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/method_then_constructor.dart
@@ -2537,18 +2529,19 @@ main() {
 }</programlisting>
 
         <warning>
-          <para>Arguments to the superclass constructor do not have access to
-          <literal moreinfo="none">this</literal>. For example, arguments can
-          call static methods but not instance methods.</para>
+          <para>
+              调用父类构造函数的参数无法访问 
+          <literal moreinfo="none">this</literal> 对象。
+          例如，参数可以访问静态函数当时无法访问实例函数。</para>
         </warning>
       </sect3>
 
       <sect3 id="ch02-constructor-initializer-list">
-        <title>Initializer list</title>
+        <title>初始化列表</title>
 
-        <para>Besides invoking a superclass constructor, you can also
-        initialize instance variables before the constructor body runs.
-        Separate initializers with commas.</para>
+        <para>
+            除了调用父类构造函数外，也可以在执行构造函数体之前来初始化实例变量。
+            用逗号分割多少初始化变量。</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/initializer_list.dart
@@ -2558,26 +2551,24 @@ main() {
 
   Point(this.x, this.y);
 
-  // Initializer list sets instance variables before the constructor body runs.
+  // 初始化列表在构造函数体执行之前设置实例变量
   Point.fromJson(Map json) : x = json['x'], y = json['y'] {
     print('In Point.fromJson(): ($x, $y)');
   }
 }</programlisting>
 
         <warning>
-          <para>The right-hand side of an initializer does not have access to
+          <para> 右边的初始化列表无法访问 
           <literal moreinfo="none">this</literal>.</para>
         </warning>
       </sect3>
 
       <sect3 id="ch02-constructor-redirecting">
-        <title>Redirecting constructors</title>
+        <title>重定向构造函数</title>
 
-        <para>Sometimes a constructor’s only purpose is to redirect to another
-        constructor in <phrase role="keep-together">the same class.</phrase> A
-        redirecting constructor’s body is empty, with the constructor call
-        <phrase role="keep-together">appearing after a colon
-        (:).</phrase></para>
+        <para>有些构造函数只是调用
+         <phrase role="keep-together">同一个类</phrase> 的另外一个构造函数。
+         重定向构造函数体是空的，被调用的构造函数放到冒号后面。</phrase></para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/along_x_axis.dart
@@ -2585,19 +2576,20 @@ main() {
   num x;
   num y;
 
-  Point(this.x, this.y);                // The main constructor for this class.
-  Point.alongXAxis(num x) : this(x, 0); // Delegates to the main constructor.
+  Point(this.x, this.y);                // 该类的主要构造函数
+  Point.alongXAxis(num x) : this(x, 0); // 调用主要构造函数
 }</programlisting>
       </sect3>
 
       <sect3 id="ch02-constructor-constant">
-        <title>Constant constructors</title>
+        <title>常量构造函数</title>
 
-        <para>If your class produces objects that never change, you can make
-        these objects compile-time constants. To do this, define a <literal
-        moreinfo="none">const</literal> constructor and make sure that all
-        instance variables are <literal
-        moreinfo="none">final</literal>.</para>
+        <para>
+            如果你的类生成从来不改变的对象，则可以把这些对象定义为编译期常量。
+            用一个 <literal
+        moreinfo="none">const</literal> 
+        构造函数并把实例变量设置为  <literal
+        moreinfo="none">final</literal> 来实现该功能。</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/immutable_point.dart
@@ -2610,16 +2602,13 @@ main() {
       </sect3>
 
       <sect3 id="ch02-constructor-factory">
-        <title>Factory constructors</title>
+        <title>工厂构造函数</title>
 
-        <para>Use the <literal moreinfo="none">factory</literal> keyword when
-        implementing a constructor that doesn’t always create a new instance
-        of its class. For example, a factory constructor might return an
-        instance from a cache, or it might return an instance of a
-        subtype.</para>
+        <para>如果一个构造函数并不总是创建一个新的对象，则可以用
+            <literal moreinfo="none">factory</literal> 关键字来实现构造函数。
+            例如，一个工厂构造函数可以从缓存中返回一个实例，也可以返回一个子类型的实例。</para>
 
-        <para>The following example demonstrates a factory constructor
-        returning objects from a cache:</para>
+        <para>下面演示了从缓存返回实例的工厂构造函数：</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/factory_constructor.dart
@@ -2650,12 +2639,12 @@ main() {
 }</programlisting>
 
         <note>
-          <para>Factory constructors have no access to <literal
-          moreinfo="none">this</literal>.</para>
+          <para>工厂构造函数无法访问  <literal
+          moreinfo="none">this</literal>。</para>
         </note>
 
-        <para>To invoke a factory constructor, you use the <literal
-        moreinfo="none">new</literal> keyword:</para>
+        <para>用 <literal
+        moreinfo="none">new</literal> 关键字调用工厂构造函数：</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/factory_constructor.dart
@@ -2665,17 +2654,19 @@ logger.log('Button clicked');</programlisting>
     </sect2>
 
     <sect2 id="ch02-methods">
-      <title>Methods</title>
+      <title>函数</title>
 
-      <para>Methods are functions that provide behavior for an object.</para>
+      <para>
+          函数定义了一个对象的行为。</para>
 
       <sect3 id="ch02-methods-instance">
-        <title>Instance methods</title>
+        <title>实例函数</title>
 
-        <para>Instance methods on objects can access instance variables and
-        <literal moreinfo="none">this</literal>. The
-        <literal>distanceTo()</literal> method in the following sample is an
-        example of an instance method:</para>
+        <para>对象的实例函数可以访问实例变量和 
+        <literal moreinfo="none">this</literal>。
+        下面示例的 
+        <literal>distanceTo()</literal> 函数就是一个
+        实例函数：</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/distance_to.dart
@@ -2695,14 +2686,15 @@ class Point {
       </sect3>
 
       <sect3 id="classes-getters-and-setters">
-        <title>Getters and setters</title>
+        <title>Getters 和 setters</title>
 
-        <para>Getters and setters are special methods that provide read and
-        write access to an object’s properties. Recall that each instance
-        variable has an implicit getter, plus a setter if appropriate. You can
-        create additional properties by implementing getters and setters,
-        using the <literal moreinfo="none">get</literal> and <literal
-        moreinfo="none">set</literal> keywords:</para>
+        <para>Getters 和 setters 
+            是特殊的用来设置和访问实例变量的函数。
+            每个实例变量都有一个隐含的 getter，非 final 变量还有一个 setter 函数。
+            通过显式的实现 getter 和 setter 可以附件额外的功能。
+            用
+        <literal moreinfo="none">get</literal> 和 <literal
+        moreinfo="none">set</literal> 关键字实现 getter 和 setter：</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/rectangle.dart
@@ -2714,7 +2706,7 @@ class Point {
 
   Rectangle(this.left, this.top, this.width, this.height);
 
-  // Define two calculated properties: right and bottom.
+  // 定义两个计算出来的属性：right 和 bottom.
   num get right             =&gt; left + width;
       set right(num value)  =&gt; left = value - width;
   num get bottom            =&gt; top + height;
@@ -2728,32 +2720,31 @@ main() {
   assert(rect.left == -8);
 }</programlisting>
 
-        <para>With getters and setters, you can start with instance variables,
-        later wrapping them with methods, all without changing client
-        code.</para>
+        <para>有了 getters 和 setters，你可以先直接用实例变量，
+            当发现需要添加额外操作了再用 getter 和 setter 包起来，
+            这样调用代码无需做任何修改。</para>
 
         <para><note>
-            <para>Operators such as increment (++) work in the expected way,
-            whether or not a getter is explicitly defined. To avoid any
-            unexpected side effects, the operator calls the getter exactly
-            once, saving its value in a temporary variable.</para>
+            <para>
+                对于 ++ 这种操作符而言，不管是否显式定义 getter 情况都有点特殊。
+                为了避免其他副作用，操作符只调用一次 getter 并缓存该返回值。</para>
           </note></para>
       </sect3>
 
       <sect3 id="ch02-method-abstract">
-        <title>Abstract methods</title>
+        <title>抽象函数</title>
 
-        <para>Instance, getter, and setter methods can be abstract, defining
-        an interface but leaving its implementation up to other classes. To
-        make a method abstract, use a semicolon (;) instead of a method
-        body:</para>
+        <para>实例函数、 getter、 和 setter 都可以为抽象函数，
+            只定义接口，由子类来实现该函数。
+            用分号
+           (;) 结尾 没有函数体的函数就是抽象函数：</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/doer.dart
 </remark>abstract class Doer {
   // ...Define instance variables and methods...
  
-  void doSomething(); // Define an abstract method.
+  void doSomething(); // 定义一个抽象函数
 }
 
 class EffectiveDoer extends Doer {
@@ -2762,21 +2753,21 @@ class EffectiveDoer extends Doer {
   }
 }</programlisting>
 
-        <para>Calling an abstract method results in a run-time error.</para>
+        <para>调用一个抽象函数在运行的时候会出现异常。</para>
 
-        <para>Also see <xref linkend="ch02-class-abstract" />.</para>
+        <para>参考 <xref linkend="ch02-class-abstract" />。</para>
       </sect3>
 
       <sect3 id="classes-operators">
-        <title>Overridable Operators</title>
+        <title>重写操作符</title>
 
-        <para>You can override the operators shown in <xref
-        linkend="overridden_operator_table" />. For example, if you define a
-        Vector class, you might define a <literal>+</literal> method to add
-        two vectors.</para>
+        <para>可以重新  <xref
+        linkend="overridden_operator_table" /> 表中的操作符。例如，
+        如果你定义一个
+        Vector 类，则可以重写 <literal>+</literal> 函数来实现 vector 相加操作。</para>
 
         <table id="overridden_operator_table" role="keep-together">
-          <title>Operators that can be overridden</title>
+          <title>可被重写的操作符</title>
 
           <tgroup cols="4">
             <tbody>
@@ -2831,9 +2822,9 @@ class EffectiveDoer extends Doer {
           </tgroup>
         </table>
 
-        <para>Here’s an example of a class that overrides the <literal
-        moreinfo="none">+</literal> and <literal moreinfo="none">-</literal>
-        operators:</para>
+        <para>下面是一个重写  <literal
+        moreinfo="none">+</literal> 和 <literal moreinfo="none">-</literal>
+        操作符的示例：</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/vector.dart
@@ -2860,40 +2851,37 @@ main() {
   assert((v-w).x == 0 &amp;&amp; (v-w).y == 1); // v-w == (0,1)
 }</programlisting>
 
-        <para>For an example of overriding <literal
-        moreinfo="none">==</literal>, see <xref
-        linkend="ch03-implementing-map-keys" />. For more information on
-        overriding, in general, see <xref
-        linkend="ch02-class-extend" />.</para>
+        <para>重写  <literal
+        moreinfo="none">==</literal> 的示例在  <xref
+        linkend="ch03-implementing-map-keys" /> 有介绍。
+        关于重写的更多信息，参考 <xref
+        linkend="ch02-class-extend" />。</para>
       </sect3>
     </sect2>
 
     <sect2 id="ch02-class-abstract">
-      <title>Abstract Classes</title>
+      <title>抽象类</title>
 
-      <para>Use the <literal moreinfo="none">abstract</literal> modifier to
-      define an <firstterm>abstract class</firstterm>—a class that can’t be
-      instantiated. Abstract classes are useful for defining interfaces, often
-      with some implementation. If you want your abstract class to appear to
-      be instantiable, define a <link
-      linkend="ch02-constructor-factory">factory constructor</link>.</para>
+      <para>使用 <literal moreinfo="none">abstract</literal>
+          修饰符来定义一个  <firstterm>抽象类</firstterm>，抽象类无法被实例化。
+          抽象类通常用于定义接口并具有一些基本行为实现。如果你想让你的抽象类看起来是可被实例化的，则可以提供一个
+      <link
+      linkend="ch02-constructor-factory">工厂构造函数</link>。</para>
 
-      <para>Abstract classes often have <link
-      linkend="ch02-method-abstract">abstract methods</link>. Here’s an
-      example of declaring an abstract class that has an abstract
-      method:</para>
+      <para>抽象类一般都有 <link
+      linkend="ch02-method-abstract">抽象函数</link>。
+      下面是一个定义抽象类和抽象方法的示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/abstract.dart
-</remark>// This class is declared abstract and thus can't be instantiated.
+</remark>// 该类为 abstract 的，所以无法实例化
 abstract class AbstractContainer {
   // ...Define constructors, fields, methods...
 
-  void updateChildren(); // Abstract method.
+  void updateChildren(); // 抽象函数
 }</programlisting>
 
-      <para>The following class isn’t abstract, and thus can be instantiated
-      even though it defines an abstract method:</para>
+      <para>下面的类虽然有抽象函数，但是并不是抽象类，所以可以实例化：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/abstract.dart
@@ -2909,28 +2897,28 @@ abstract class AbstractContainer {
     </sect2>
 
     <sect2 id="ch02-implicit-interfaces">
-      <title>Implicit Interfaces</title>
+      <title>隐式接口（Implicit Interfaces）</title>
 
-      <para>Every class implicitly defines an interface containing all the
-      instance members of the class and of any interfaces it implements. If
-      you want to create a class A that supports class B’s API without
-      inheriting B’s implementation, class A should implement the B
-      interface.</para>
+      <para>
+          每个类都隐式的定义了一个包含所有实例变量和所实现所有接口的接口。
+          如果你想创建一个类 A 支持 类 B 的 API，但是又不想继承类 B 的实现，则类 A 可以实现
+          类 B 的隐式接口。</para>
 
-      <para>A class implements one or more interfaces by declaring them in an
-      <literal moreinfo="none">implements</literal> clause and then providing
-      the APIs required by the interfaces. For example:</para>
+      <para>
+          类通过
+      <literal moreinfo="none">implements</literal> 语句来定义其实现的其他类的接口，
+      并实现需要的 API。 例如：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/imposter.dart
-</remark>// A person. The implicit interface contains greet().
+</remark>// 一个  person 类， 隐式接口包含  greet().
 class Person {
-  final _name;          // In the interface, but visible only in this library,
-  Person(this._name);   // Not in the interface, since this is a constructor.
-  String greet(who) =&gt; 'Hello, $who. I am $_name.'; // In the interface.
+  final _name;          // 该变量在隐式接口中，但是是库返回可见的
+  Person(this._name);   // 这是个构造函数，不在隐式接口中
+  String greet(who) =&gt; 'Hello, $who. I am $_name.'; // 在隐式接口中
 }
 
-// An implementation of the Person interface.
+// 实现 Person 的隐式接口。
 class Imposter implements Person {
   final _name = "";      // We have to define this, but we don't use it.
   String greet(who) =&gt; 'Hi $who. Do you know who I am?';
@@ -2943,8 +2931,7 @@ main() {
   print(greetBob(new Imposter()));
 }</programlisting>
 
-      <para>Here’s an example of specifying that a class implements multiple
-      interfaces:</para>
+      <para>下面是实现多个接口的示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/point_interfaces.dart
@@ -2954,11 +2941,11 @@ main() {
     </sect2>
 
     <sect2 id="ch02-class-extend">
-      <title>Extending a Class</title>
+      <title>继承一个类</title>
 
-      <para>Use <literal moreinfo="none">extends</literal> to create a
-      subclass, and <literal moreinfo="none">super</literal> to refer to the
-      superclass:</para>
+      <para>用 <literal moreinfo="none">extends</literal> 
+      来继承类，在子类中用 <literal moreinfo="none">super</literal> 
+      访问父类：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>smart_tv.dart
@@ -2980,10 +2967,11 @@ class SmartTelevision extends Television {
   ...
 }</programlisting>
 
-      <para>Subclasses can override instance methods, getters, and setters.
-      Here’s an example of overriding the Object class’s
-      <literal>noSuchMethod()</literal> method, which is called whenever code
-      attempts to use a non-existent method or instance variable:</para>
+      <para>
+          子类可以重写实例函数、getter 、和 setter。
+          下面是一个重写 Object 类
+      <literal>noSuchMethod()</literal> 函数的示例，该函数在
+      调用一个不存在的函数或者实例变量时触发：</para>
 
       <programlisting><remark>lang-dart
 </remark><remark>ch02/no_such_method.dart
@@ -2995,8 +2983,8 @@ class SmartTelevision extends Television {
   }
 }</programlisting>
 
-      <para>You can use the <literal>@override</literal> annotation to
-      indicate that you are intentionally overriding a member:</para>
+      <para>可以用 <literal>@override</literal> 注解来表明你需要
+          重写该函数或者变量：</para>
 
       <programlisting><remark>lang-dart
 </remark><remark>ch02/ch02_meta/bin/ch02_override.dart
@@ -3007,9 +2995,9 @@ class SmartTelevision extends Television {
   }
 }</programlisting>
 
-      <para>If you use <literal>noSuchMethod()</literal> to implement every
-      possible getter, setter, and method for a class, then you can use the
-      <literal>@proxy</literal> annotation to avoid warnings:</para>
+      <para>如果用 <literal>noSuchMethod()</literal> 实现了所有可能的
+        getter、 setter、 和一个类的函数，则可以用
+      <literal>@proxy</literal> 注解来避免警告信息：</para>
 
       <programlisting><remark>lang-dart
 </remark><remark>ch02/ch02_meta/bin/ch02_proxy.dart
@@ -3020,19 +3008,19 @@ class A {
   }
 }</programlisting>
 
-      <para>For more information on annotations, see <xref
-      linkend="ch02-metadata" />.</para>
+      <para>关于注解的详细信息，参考 <xref
+      linkend="ch02-metadata" />。</para>
     </sect2>
 
     <sect2 id="ch02-mixins">
-      <title>Adding Features to a Class: Mixins</title>
+      <title>在类中添加功能： Mixins（混入）</title>
 
-      <para>Mixins are a way to inject behavior into classes without relying
-      on inheritance.</para>
+      <para>Mixins 是一种不用继承就可以在一个类中
+          添加功能的方法。</para>
 
-      <para>To use a mixin, use the <literal>with</literal> keyword followed
-      by one or more mixin names. The following example shows two classes that
-      use mixins:</para>
+      <para>用  <literal>with</literal> 关键字后跟
+          一个或者多个 mixin 名字来实现 mixin。
+     下面的代码演示了 mixin 的两个示例：</para>
 
       <programlisting><remark>lang-dart
 </remark><remark>ch02/mixins.dart
@@ -3047,9 +3035,9 @@ class Maestro extends Person with Musical, Aggressive, Demented {
   }
 }</programlisting>
 
-      <para>To implement a mixin, create a class that extends Object, declares
-      no constructors, and has no calls to <literal>super</literal>. For
-      example:</para>
+      <para>
+          如何创建 mixin：定义一个继承 Object 的类，不定义构造函数也不调用
+          <literal>super</literal> 即可。例如：</para>
 
       <programlisting><remark>lang-dart
 </remark><remark>ch02/mixins.dart
@@ -3069,44 +3057,43 @@ class Maestro extends Person with Musical, Aggressive, Demented {
   }
 }</programlisting>
 
-      <para>For more information, see the article <ulink
-      url="http://www.dartlang.org/articles/mixins/">Mixins in
-      Dart.</ulink></para>
+      <para>详细信息请参考  <ulink
+      url="http://www.dartlang.cc/articles/mixins/">Mixins in
+      Dart</ulink> 文章。</para>
     </sect2>
 
     <sect2 id="ch02-class-vars-and-methods">
-      <title>Class Variables and Methods</title>
+      <title>类（静态）变量和函数</title>
 
-      <para>Use the <literal moreinfo="none">static</literal> keyword to
-      implement class-wide variables and methods.</para>
+      <para>用 <literal moreinfo="none">static</literal> 关键字实现类
+          变量和函数。</para>
 
       <sect3 id="ch02-static-variables">
-        <title>Static variables</title>
+        <title>静态变量</title>
 
-        <para>Static variables (class variables) are useful for class-wide
-        state and constants:</para>
+        <para>静态变量 (类变量) 用于类范围的状态和常量：</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/color.dart
 </remark>class Color {
-  static const RED = const Color('red'); // A constant static variable.
-  final String name;                     // An instance variable.
-  const Color(this.name);                // A constant constructor.
+  static const RED = const Color('red'); // 一个静态常量
+  final String name;                     // 一个实例变量
+  const Color(this.name);                // 一个常量构造函数
 }
 
 main() {
   assert(Color.RED.name == 'red');
 }</programlisting>
 
-        <para>Static variables aren’t initialized until they’re used.</para>
+        <para>静态变量在使用的时候才初始化。</para>
       </sect3>
 
       <sect3 id="ch02-static-methods">
-        <title>Static methods</title>
+        <title>静态函数</title>
 
-        <para>Static methods (class methods) do not operate on an instance,
-        and thus do not have access to <literal
-        moreinfo="none">this</literal>. For example:</para>
+        <para>静态函数 (类函数) 没有在实例上操作，也无法访问
+         <literal
+        moreinfo="none">this</literal>。例如：</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/point.dart
@@ -3132,57 +3119,55 @@ main() {
 }</programlisting>
 
         <note>
-          <para>Consider using top-level functions, instead of static methods,
-          for common or widely used utilities and functionality.</para>
+          <para>
+              对于常用的工具类函数，可以用顶级函数来替代静态函数。</para>
         </note>
 
-        <para>You can use static methods as compile-time constants. For
-        example, you can pass a static method as a parameter to a constant
-        constructor.</para>
+        <para>
+            可以把静态函数当做编译期常量。
+            例如，你可以把静态函数当做参数传递给常量构造函数。</para>
       </sect3>
     </sect2>
   </sect1>
 
   <sect1 id="generics">
-    <title>Generics</title>
+    <title>Generics（泛型）</title>
 
-    <para>If you look at the API documentation for the basic array type,
-    <ulink url="http://api.dartlang.org/dart_core/List.html">List,</ulink>
-    you’ll see that the type is actually <literal
-    moreinfo="none">List&lt;E&gt;</literal>. The &lt;...&gt; notation marks
-    List as a <emphasis>generic</emphasis> (or
-    <emphasis>parameterized</emphasis>) type—a type that has formal type
-    parameters. By convention, type variables have single-letter names, such
-    as E, T, S, K, and V.</para>
+    <para>如果你查看 
+    <ulink url="http://api.dartlang.org/dart_core/List.html">List </ulink>
+    的 API 文档，你会发现其类型定义为
+    <literal
+    moreinfo="none">List&lt;E&gt;</literal>。  &lt;...&gt; 说明
+    List 是一个 <emphasis>generic（泛型）</emphasis> (或者
+    <emphasis>parameterized（可参数化的）</emphasis>) 类型 。
+    习惯上用一个字母来表达类型定义，例如  E、 T、 S、 K、和 V。</para>
 
     <sect2 id="ch02-generics-why">
-      <title>Why Use Generics?</title>
+      <title>为何使用泛型？</title>
 
-      <para>Because types are optional in Dart, you never
-      <emphasis>have</emphasis> to use generics. You might
-      <emphasis>want</emphasis> to, though, for the same reason you might want
-      to use other types in your code: types (generic or not) let you document
-      and annotate your code, making your intent clearer.</para>
+      <para>
+          由于 Dart 的类型是可选的，所以你可以从来不用泛型。
+          泛型可以帮助你注释你的代码，让你的意图表达的更清晰。</para>
 
-      <para>For example, if you intend for a list to contain only strings, you
-      can declare it as <literal moreinfo="none">List&lt;String&gt;</literal>
-      (read that as <quote>list of string</quote>). That way you, your fellow
-      programmers, and your tools (such as Dart Editor and the Dart VM in
-      checked mode) can detect that assigning a non-string to the list is
-      probably a mistake. Here’s an example:</para>
+      <para>例如，如果你想让一个 list 里面只包含 string，
+          你可以通过  <literal moreinfo="none">List&lt;String&gt;</literal>
+      (读作 <quote>string 类型的列表 </quote>) 来表达你的意图。
+      这样，你的同事或者 IDE 以及运行在检测模式下的 Dart VM 可以检测是否保存该
+      list 中的对象为 string。如果不是，则会提醒你可能出错了。
+      下面是一个示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart</remark><remark>
 ch02/generics.dart
 </remark>var names = new List&lt;String&gt;();
 names.addAll(['Seth', 'Kathy', 'Lars']);
 // ...
-names.add(42); // Fails in checked mode (succeeds in production mode).</programlisting>
+names.add(42); // 在检测模式会出错 (生产模式可以运行).</programlisting>
 
-      <para>Another reason for using generics is to reduce code duplication.
-      Generics let you share a single interface and implementation between
-      many types, while still taking advantage of checked mode and static
-      analysis early warnings. For example, say you create an interface for
-      caching an object:</para>
+      <para>
+          另外用泛型也可以减少重复代码。
+          泛型可以让你实现在多个类型之间公用的操作，
+          同时还没丧失代码静态分析和检测模式提醒的优势。
+          例如，你想创建一个缓存对象的接口：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>abstract class ObjectCache {
@@ -3190,8 +3175,7 @@ names.add(42); // Fails in checked mode (succeeds in production mode).</programl
   setByKey(String key, Object value);
 }</programlisting>
 
-      <para>You discover that you want a string-specific version of this
-      interface, so you create another interface:</para>
+      <para>后来你又需要一个 String 类型的缓存，所以你又创建一个：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>abstract class StringCache {
@@ -3199,12 +3183,10 @@ names.add(42); // Fails in checked mode (succeeds in production mode).</programl
   setByKey(String key, String value);
 }</programlisting>
 
-      <para>Later, you decide you want a number-specific version of this
-      interface... You get the idea.</para>
+      <para>后来，你又需要一个其他类型的缓存，所以你想到一个办法。</para>
 
-      <para>Generic types can save you the trouble of creating all these
-      interfaces. Instead, you can create a single interface that takes a type
-      parameter:</para>
+      <para>
+          泛型可以完美的解决该问题。</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>abstract class Cache&lt;T&gt; {
@@ -3212,23 +3194,23 @@ names.add(42); // Fails in checked mode (succeeds in production mode).</programl
   setByKey(String key, T value);
 }</programlisting>
 
-      <para>In this code, T is the stand-in type. It’s a placeholder that you
-      can think of as a type that a developer will define later.</para>
+      <para>
+          在上面的代码中，T 是一个占位符类型。 
+          你可以认为这是一个调用者在使用的时候会设置的类型。</para>
     </sect2>
 
     <sect2 id="generics-literals">
-      <title>Using Collection Literals</title>
+      <title>使用集合字面量</title>
 
-      <para>List and map literals can be parameterized. Parameterized literals
-      are just like the literals you’ve already seen, except that you add
+      <para>List 和 map 的字面量定义也可以泛型化。
+          只需要在字面量前面添加一个 
       <literal
-      moreinfo="none">&lt;<replaceable>type</replaceable>&gt;</literal> (for
-      lists) or <literal
+      moreinfo="none">&lt;<replaceable>泛型类型</replaceable>&gt;</literal> (
+      用于 lists ) 或者 <literal
       moreinfo="none">&lt;<replaceable>keyType</replaceable>,
-      <replaceable>valueType</replaceable>&gt;</literal> (for maps) before the
-      opening bracket. You might use parameterized literals when you want type
-      warnings in checked mode. Here is example of using typed
-      literals:</para>
+      <replaceable>valueType</replaceable>&gt;</literal> (用于 maps) 即可。
+      如果你想在检测模式使用类型警告提示，则可以使用泛型字面量来定义集合。
+      下面是一个示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>var names = &lt;String&gt;['Seth', 'Kathy', 'Lars'];
@@ -3239,98 +3221,95 @@ var pages = &lt;String, String&gt;{
     </sect2>
 
     <sect2 id="generics-constructors">
-      <title>Using Parameterized Types with Constructors</title>
+      <title>使用泛型构造函数</title>
 
-      <para>To specify one or more types when using a constructor, put the
-      types in angle brackets (<literal moreinfo="none">&lt;...&gt;</literal>)
-      just after the class name. For example:</para>
+      <para>
+          在构造函数类名后面放一个尖括号和类型（<literal moreinfo="none">&lt;...&gt;</literal>）
+          可以使用泛型构造函数。例如：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>var names = new List&lt;String&gt;();
 names.addAll(['Seth', 'Kathy', 'Lars']);
 var nameSet = new Set&lt;String&gt;.from(names);</programlisting>
 
-      <para>The following code creates a map that has integer keys and values
-      of type View:</para>
+      <para>下面的代码创建了一个 key 为 int，value 为 View 对象的 map：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>var views = new Map&lt;int, View&gt;();</programlisting>
     </sect2>
 
     <sect2 id="generics-collections">
-      <title>Generic Collections and the Types they Contain</title>
+      <title>泛型集合和类型</title>
 
-      <para>Dart generic types are <emphasis>reified</emphasis>, which means
-      that they carry their type information around at runtime. For example,
-      you can test the type of a collection, even in production mode:</para>
+      <para>Dart 的泛型类型被 <emphasis>固化了</emphasis>，
+          这表明在运行时也带有类型信息。
+          例如，你可以在生产模式下测试集合类型：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>var names = new List&lt;String&gt;();
 names.addAll(['Seth', 'Kathy', 'Lars']);
 print(names is List&lt;String&gt;); // true</programlisting>
 
-      <para>However, the <literal moreinfo="none">is</literal> expression
-      checks the type of the <emphasis>collection</emphasis> only—not of the
-      objects inside it. In production mode, a
-      <literal>List&lt;String&gt;</literal> might have some non-string items
-      in it. The solution is to either check each item’s type or wrap
-      item-manipulation code in an exception handler (see <xref
-      linkend="exceptions" />).</para>
+      <para><literal moreinfo="none">is</literal> 表达式只检查
+       <emphasis>集合</emphasis> 的类型而不检查里面的对象类型。
+       在生产模式下，一个
+      <literal>List&lt;String&gt;</literal> 集合可能包含非 stirng 对象。
+      可以通过检查每个集合里面的对象类型或者在一个异常处理器中处理每个集合元素
+      (参考 <xref
+      linkend="exceptions" />)。</para>
 
       <note>
-        <para>In contrast, generics in Java use <emphasis>erasure</emphasis>,
-        which means that generic type parameters are removed at runtime. In
-        Java, you can test whether an object is a List, but you can’t test
-        whether it’s a <literal>List&lt;String&gt;</literal>.</para>
+        <para>和 Java 不同， Java 中的泛型信息被 <emphasis>清除了</emphasis>，
+            所以在运行时是没有类型参数的。
+            在 Java 中 你可以测试一个 对象是否为 List，但是没法测试一个对象是否为
+         <literal>List&lt;String&gt;</literal>。</para>
       </note>
 
-      <para>For more information about generics, see <ulink
-      url="http://www.dartlang.org/articles/optional-types/">Optional Types in
-      Dart.</ulink></para>
+      <para>关于泛型的更多信息，请参考 <ulink
+      url="http://www.dartlang.cc/articles/optional-types/">Optional Types in
+      Dart</ulink> 文章。</para>
     </sect2>
   </sect1>
 
   <sect1 id="libraries">
-    <title>Libraries and Visibility</title>
+    <title>库和可见性</title>
 
-    <para>The <literal moreinfo="none">import</literal>, <literal
-    moreinfo="none">part</literal>, and <literal
-    moreinfo="none">library</literal> directives can help you create a modular
-    and shareable code base. Libraries not only provide APIs, but are a unit
-    of privacy: identifiers that start with an underscore (_) are visible only
-    inside the library. <emphasis>Every Dart app is a library</emphasis>, even
-    if it doesn’t use a library directive.</para>
+    <para>使用 <literal moreinfo="none">import</literal>、 <literal
+    moreinfo="none">part</literal>、 和 <literal
+    moreinfo="none">library</literal> 指令可以帮助创建模块化和可共享的代码库。
+    库不仅仅只包含 API，还包含可见性：以下划线(_)开头的标识符只能在库内访问。
+     <emphasis>每一个 Dart 应用都是一个库</emphasis>。</para>
 
-    <para>Libraries can be distributed using packages. See <xref
-    linkend="ch04-tools-pub" /> for information about pub, a package manager
-    included in the SDK.</para>
+    <para>库可以用 package（包） 来发布。参考  <xref
+    linkend="ch04-tools-pub" /> 了解  pub 的信息。</para>
 
     <sect2 id="libraries-import">
-      <title>Using Libraries</title>
+      <title>使用库</title>
 
-      <para>Use <literal moreinfo="none">import</literal> to specify how a
-      namespace from one library is used in the scope of another
-      library.</para>
+      <para>用 <literal moreinfo="none">import</literal> 
+      来定义一个库的命名空间并使用一个库。    
+      </para>
 
-      <para>For example, Dart web apps generally use the <ulink
-      url="http://api.dartlang.org/html.html">dart:html</ulink> library, which
-      they can import like this:</para>
+      <para>例如， Dart web 应用通常都使用  <ulink
+      url="http://api.dartlang.org/html.html">dart:html</ulink> 库，可以这样导入该库：
+      </para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/libraries/using_libraries.dart
 </remark>import 'dart:html';</programlisting>
 
-      <para>The only required argument to <literal
-      moreinfo="none">import</literal> is a URI<footnote id="ch02-footnote-1">
-          <para>URI stands for <firstterm>uniform resource
-          identifier</firstterm>. URLs (<firstterm>uniform resource
-          locators</firstterm>) are a common kind of URI.</para>
-        </footnote> specifying the library. For built-in libraries, the URI
-      has the special <literal moreinfo="none">dart:</literal> scheme. For
-      other libraries, you can use a file system path or the <literal
-      moreinfo="none">package:</literal> scheme. The <literal
-      moreinfo="none">package:</literal> scheme specifies libraries provided
-      by a package manager such as the pub tool. For example:</para>
+      <para>  <literal
+      moreinfo="none">import</literal> 必需的一个参数为库的  URI<footnote id="ch02-footnote-1">
+          <para>URI 代表 <firstterm>uniform resource
+          identifier（统一资源标识符）</firstterm>。 URLs (<firstterm>uniform resource
+          locators（统一资源定位符）</firstterm>) 是一种常见的 URI。</para>
+        </footnote>。对于 内置的库， URI 用
+      特殊的 <literal moreinfo="none">dart:</literal> 协议。
+      其他库，可以用文件路径或者
+       <literal
+      moreinfo="none">package:</literal> 协议。 <literal
+      moreinfo="none">package:</literal> 
+      协议的库由包管理器管理，例如 pub 工具。示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/libraries/using_schemes.dart, mylib, utils
@@ -3339,27 +3318,25 @@ import 'package:mylib/mylib.dart';
 import 'package:utils/utils.dart';</programlisting>
 
       <sect3 id="libraries-prefix">
-        <title>Specifying a library prefix</title>
+        <title>设置库的前缀</title>
 
-        <para>If you import two libraries that have conflicting identifiers,
-        then you can specify a prefix for one or both libraries. For example,
-        if library1 and library2 both have an Element class, then you might
-        have code like this:</para>
+        <para>
+            如果两个库具有同样的标识符，则会出现命名冲突，可以用库前缀解决命名冲突。
+        </para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/libraries/library_prefix.dart, lib1, lib2
 </remark>import 'package:lib1/lib1.dart';
 import 'package:lib2/lib2.dart' as lib2;
 // ...
-var element1 = new Element();      // Uses Element from lib1.
-var element2 = new lib2.Element(); // Uses Element from lib2.</programlisting>
+var element1 = new Element();      // 用 lib1 的 Element
+var element2 = new lib2.Element(); // 用 lib2 的 Element</programlisting>
       </sect3>
 
       <sect3 id="ch02-library-import-part">
-        <title>Importing only part of a library</title>
+        <title>只导入库的一部分</title>
 
-        <para>If you want to use only part of a library, you can selectively
-        import the library. For example:</para>
+        <para>如果你只使用库的一部分，可以导入只使用的功能。</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/libraries/library_partil.dart, lib1, lib2
@@ -3369,51 +3346,48 @@ import 'package:lib2/lib2.dart' hide foo; // Import all names EXCEPT foo.</progr
     </sect2>
 
     <sect2 id="libraries-implementing">
-      <title>Implementing Libraries</title>
+      <title>实现一个库</title>
 
-      <para>Use <literal moreinfo="none">library</literal> to name a library,
-      and <literal moreinfo="none">part</literal> to specify additional files
-      in the library.</para>
+      <para>用 <literal moreinfo="none">library</literal> 指令来命名一个库，
+      用 <literal moreinfo="none">part</literal> 来设置库中的其他文件。</para>
 
       <note>
-        <para>You don’t have to use <literal>library</literal> in an app (a
-        file that has a top-level main() function), but doing so lets you
-        implement the app in multiple files.</para>
+        <para>在一个应用（包含 顶级 main() 方法的文件 ）中无需用 <literal>library</literal> 
+            ，但是使用 library 可以在多个文件中实现你的应用。</para>
       </note>
 
       <sect3 id="libraries-library">
-        <title>Declaring a library</title>
+        <title>定义一个库</title>
 
-        <para>Use <literal moreinfo="none">library
-        <replaceable>identifier</replaceable></literal> to specify the name of
-        the current library:</para>
+        <para>用  <literal moreinfo="none">library
+        <replaceable>标识符</replaceable></literal> 指定当前库的名字：</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/ballgame.dart
-</remark>library ballgame;   // Declare that this is a library named ballgame.
+</remark>library ballgame;   // 定义这是一个名字为 ballgame 的库
 
-import 'dart:html'; // This app uses the HTML library.
+import 'dart:html'; // 该应用使用 html 库
 // ...Code goes here...
 </programlisting>
       </sect3>
 
       <sect3 id="libraries-source">
-        <title>Associating a file with a library</title>
+        <title>关联库中的文件</title>
 
-        <para>To add an implementation file, put <literal>part
-        <replaceable>fileUri</replaceable></literal> in the file that has the
-        <literal>library</literal> statement, where
-        <emphasis>fileUri</emphasis> is the path to the implementation file.
-        Then in the implementation file, put <literal>part of
-        <replaceable>identifier</replaceable></literal>, where
-        <emphasis>identifier</emphasis> is the name of the library. The
-        following example uses <literal>part</literal> and <literal>part
-        of</literal> to implement a library in three files.</para>
+        <para>在往库中添加文件，在带有  <literal>library</literal> 指令的文件中用  <literal>part
+        <replaceable>fileUri</replaceable></literal>
+        ，
+        <emphasis>fileUri</emphasis> 是要包含的文件路径。
+        然后在该文件的实现中用 
+     <literal>part of
+        <replaceable>identifier</replaceable></literal> 语句定义（ <emphasis>identifier</emphasis> 是
+        库的名字）。
+        下面的示例中，用 <literal>part</literal> 和 <literal>part
+        of</literal> 实现一个包含三个文件的库。</para>
 
-        <para>The first file, <literal>ballgame.dart</literal>, declares the
-        ballgame library, imports other libraries it needs, and specifies that
-        <literal>ball.dart</literal> and <literal>util.dart</literal> are
-        parts of this library:</para>
+        <para>第一个文件  <literal>ballgame.dart</literal> 定义了 
+        ballgame 库，导入其他需要的库并指定
+        <literal>ball.dart</literal> 和 <literal>util.dart</literal> 文件也属于该库：</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/ballgame.dart
@@ -3427,8 +3401,8 @@ part 'util.dart';
 
 // ...Code might go here...</programlisting>
 
-        <para>The second file, <literal>ball.dart</literal>, implements part
-        of the ballgame library:</para>
+        <para>第二个文件  <literal>ball.dart</literal> 定义了 part of ballgame 语句，
+            并实现了 ballgame 的一部分代码:</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/ball.dart
@@ -3436,8 +3410,8 @@ part 'util.dart';
 
 // ...Code goes here...</programlisting>
 
-        <para>The third file, <literal>util.dart</literal>, implements the
-        rest of the ballgame library:</para>
+        <para>第三个文件 <literal>util.dart</literal> 同样
+            实现了 ballgame 的其他代码：</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/util.dart
@@ -3447,12 +3421,11 @@ part 'util.dart';
       </sect3>
 
       <sect3 id="ch02-library-reexport">
-        <title>Re-exporting libraries</title>
+        <title>重新定义库（export）</title>
 
-        <para>You can combine or repackage libraries by re-exporting part or
-        all of them. For example, you might have a huge library that you
-        implement as a set of smaller libraries. Or you might create a library
-        that provides a subset of methods from another library.</para>
+        <para>
+            使用从重新定义库功能（export 指令） 可以组合和重新打包库（可以包含所有代码也可以只包含部分代码）。
+            例如，你有一个非常大的库，里面包含了一堆小库。或者你想创建一个只包含其他库中一部分功能的库。</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/french.dart, togo.dart, french_togo.dart
@@ -3480,27 +3453,26 @@ void main() {
   <sect1 id="isolates">
     <title>Isolates</title>
 
-    <para>Modern web browsers, even on mobile platforms, run on multi-core
-    CPUs. To take advantage of all those cores, developers traditionally use
-    shared-memory threads running concurrently. However, shared-state
-    concurrency is error prone and can lead to complicated code.</para>
+    <para>
+        很多流行的浏览器，甚至是移动平台的浏览器，都运行在多核 CPU 上。
+        为了使用多核优势，开发者通常都使用共享内存的方式来运行多个线程。
+        但是，共享状态并发编程是非常容易出错的，并且导致代码更加复杂。</para>
 
-    <para>Instead of threads, all Dart code runs inside of
-    <emphasis>isolates</emphasis>. Each isolate has its own memory heap,
-    ensuring that no isolate’s state is accessible from any other
-    isolate.</para>
+    <para>而 Dart 的代码都是运行在 
+    <emphasis>isolates</emphasis> 中而不是线程中。
+    每个 isolate 具有自己的内存堆，确保每个 isolate 堆之
+    无法共享状态。</para>
   </sect1>
 
   <sect1 id="typedefs">
     <title>Typedefs</title>
 
-    <para>In Dart, functions are objects, just like strings and numbers are
-    objects. A <emphasis>typedef</emphasis>, or <emphasis>function-type
-    alias</emphasis>, gives a function type a name that you can use when
-    declaring fields and return types. A typedef retains type information when
-    a function type is assigned to a variable.</para>
+    <para>在 Dart 中， 方法也是对象。
+    用  <emphasis>typedef</emphasis> 或者 <emphasis>function-type
+    alias</emphasis> 可以给一个方法类型设置一个名字，并定义参数和返回值。
+    当方法类型赋值到一个变量时， typedef 保留类型信息。</para>
 
-    <para>Consider the following code, which does not use a typedef:</para>
+    <para>如下是一个没有用 typedef 的示例：</para>
 
     <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/sorted_collection.dart
@@ -3517,20 +3489,22 @@ int sort(Object a, Object b) =&gt; ... ; // Initial, broken implementation.
 main() {
   SortedCollection collection = new SortedCollection(sort);
 
-  // All we know is that compare is a function, but what type of function?
+  // 我们只知道 compare 是一个方法，但是不知道是什么类型的方法
   assert(collection.compare is Function);
 }</programlisting>
 
-    <para>Type information is lost when assigning <literal
-    moreinfo="none">f</literal> to <literal moreinfo="none">compare</literal>.
-    The type of <literal moreinfo="none">f</literal> is <literal
+    <para>当把 <literal
+    moreinfo="none">f</literal> 赋值给  <literal moreinfo="none">compare</literal>
+    时类型信息丢失了。
+    
+     <literal moreinfo="none">f</literal> 的类型是 <literal
     moreinfo="none">(Object, </literal><phrase role="keep-together"><literal
     moreinfo="none">Object)</literal> <phrase role="unicode">→</phrase>
-    <literal moreinfo="none">int</literal></phrase> (where <phrase
-    role="unicode">→</phrase> means returns), yet the type of <literal
-    moreinfo="none">compare</literal> is Function. If we change the code to
-    use explicit names and retain type information, both developers and tools
-    can use that information.</para>
+    <literal moreinfo="none">int</literal></phrase> (这里的 <phrase
+    role="unicode">→</phrase> 代表返回值类型)，当然 
+     <literal
+    moreinfo="none">compare</literal> 也是  Function 类型。
+    如果用显式的名字和返回值来定义该方法，则开发者和工具都可以使用该信息。</para>
 
     <programlisting format="linespecific"><remark>lang-dart
 </remark><emphasis role="">typedef int Compare(Object a, Object b);</emphasis>
@@ -3550,12 +3524,13 @@ main() {
 }</programlisting>
 
     <note>
-      <para>Currently, typedefs are restricted to function types. We expect
-      this to change.</para>
+      <para>
+          当前，typedef 只能定义方法类型。
+          我们希望能够增强该功能。</para>
     </note>
 
-    <para>Because typedefs are simply aliases, they offer a way to check the
-    type of any function. For example:</para>
+    <para>由于 typedef 只是简单的别名，并提供了一种检测方法类型的方式。
+ 例如：</para>
 
     <programlisting format="linespecific"><remark>lang-dart
 </remark>typedef int Compare(int a, int b);
@@ -3568,19 +3543,22 @@ main() {
   </sect1>
 
   <sect1 id="ch02-metadata">
-    <title>Metadata</title>
+    <title>Metadata（元数据）</title>
 
-    <para>Use metadata to give additional information about your code. A
-    metadata annotation begins with the character <literal>@</literal>,
-    followed by either a reference to a compile-time constant (such as
-    <literal>deprecated</literal>) or a call to a constant constructor.</para>
+    <para>
+        用元数据给你的代码提供额外的信息。元数据注解
+        使用 <literal>@</literal> 字符开头，后面跟着一个引用合作
+        编译期常量（例如 <literal>deprecated</literal>）或者调用一个
+        常量构造函数。
+    </para>
 
-    <para>Three annotations are available to all Dart code:
-    <literal>@deprecated</literal>, <literal>@override</literal>, and
-    <literal>@proxy</literal>. For examples of using
-    <literal>@override</literal> and <literal>@proxy</literal>, see <xref
-    linkend="ch02-class-extend" />. Here’s an example of using the
-    <literal>@deprecated</literal> annotation:</para>
+    <para>下面三个注解，所有的 Dart 代码都可以使用：
+    <literal>@deprecated</literal>、 <literal>@override</literal>、 和
+    <literal>@proxy</literal>。参考
+   <xref
+    linkend="ch02-class-extend" /> 查看使用 <literal>@override</literal> 和 <literal>@proxy</literal>
+    的示例。下面是一个使用 
+    <literal>@deprecated</literal> 注解的示例：</para>
 
     <programlisting format="linespecific"><remark>lang-dart
 ch02/ch02_meta/bin/ch02_meta.dart
@@ -3597,8 +3575,7 @@ ch02/ch02_meta/bin/ch02_meta.dart
   }
 }</programlisting>
 
-    <para>You can define your own metadata annotations. Here’s an example of
-    defining a @todo annotation that takes two arguments:</para>
+    <para>可以定义自己的注解，下面是定义一个带有两个参数的  @todo 注解：</para>
 
     <programlisting><remark>lang-dart
 </remark><remark>ch02/ch02_meta_create/todo.dart
@@ -3611,7 +3588,7 @@ class todo {
   const todo(this.who, this.what);
 }</programlisting>
 
-    <para>And here’s an example of using that @todo annotation:</para>
+    <para>下面是使用  @todo 的示例：</para>
 
     <programlisting><remark>lang-dart</remark><remark>
 ch02/ch02_meta_create/metadata_user.dart
@@ -3622,9 +3599,9 @@ void doSomething() {
   print('do something');
 }</programlisting>
 
-    <para>Metadata can appear before a library, class, typedef, type
-    parameter, constructor, factory, function, field, parameter, or variable
-    declaration and before an import or export directive. In the future,
+    <para>Metadata 可以出现在 library、 class、 typedef、 type
+    parameter、 constructor、factory、 function、 field、 parameter、或者 variable
+    declaration 、import 或者 export 之前。 In the future,
     you’ll be able to retrieve metadata at runtime using reflection.<remark>
     Status: <ulink
     url="https://code.google.com/p/dart/issues/detail?id=6614">issue
@@ -3730,7 +3707,7 @@ class Llama {
       example of generated documentation, see the <ulink
       url="http://api.dartlang.org">Dart API documentation.</ulink> For advice
       on how to structure your comments, see <ulink
-      url="http://www.dartlang.org/articles/doc-comment-guidelines/">Guidelines
+      url="http://www.dartlang.cc/articles/doc-comment-guidelines/">Guidelines
       for Dart Doc Comments.</ulink></para>
     </sect2>
   </sect1>
@@ -3740,12 +3717,12 @@ class Llama {
 
     <para>This chapter summarized the commonly used features in the Dart
     language. More features are being implemented<ulink
-    url="http://www.dartlang.org/articles/mixins/">,</ulink> but we expect
+    url="http://www.dartlang.cc/articles/mixins/">,</ulink> but we expect
     that they won’t break existing code. For more information, see the <ulink
-    url="http://www.dartlang.org/docs/spec/">Dart Language
+    url="http://www.dartlang.cc/docs/spec/">Dart Language
     Specification</ulink> and <ulink
-    url="http://www.dartlang.org/articles/">articles</ulink> such as <ulink
-    url="http://www.dartlang.org/articles/idiomatic-dart/"
+    url="http://www.dartlang.cc/articles/">articles</ulink> such as <ulink
+    url="http://www.dartlang.cc/articles/idiomatic-dart/"
     userlevel="">Idiomatic Dart.</ulink></para>
   </sect1>
 </chapter>
