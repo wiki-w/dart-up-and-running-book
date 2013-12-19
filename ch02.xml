@@ -2142,94 +2142,86 @@ switch (command) {
     break;
 }</programlisting>
 
-      <para>If you really want fall-through, you can use a <literal
-      moreinfo="none">continue</literal> statement and a label:</para>
+      <para>如果你真的需要执行下一个 case 块中的代码，则可以用一个  <literal
+      moreinfo="none">continue</literal> 语句和一个 label 组合：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>var command = 'CLOSED';
 switch (command) {
   case 'CLOSED':
     executeClosed();
-    continue nowClosed; // Continues executing at the nowClosed label.
+    continue nowClosed; // 继续执行 nowClosed label
 
 nowClosed:
   case 'NOW_CLOSED':
-    // Runs for both CLOSED and NOW_CLOSED.
+    // CLOSED 和 NOW_CLOSED 都会执行该代码
     executeNowClosed();
     break;
 }</programlisting>
 
-      <para>A <literal moreinfo="none">case</literal> clause can have local
-      variables, which are visible only inside the scope of that
-      clause.</para>
+      <para> <literal moreinfo="none">case</literal> 块可以有本地变量，
+          该变量只在该 case 块中可见。</para>
     </sect2>
 
     <sect2 id="assert">
-      <title>Assert</title>
+      <title>Assert（断言）</title>
 
-      <para>Use an <literal moreinfo="none">assert</literal> statement to
-      disrupt normal execution if a boolean condition is false. You can find
-      examples of assert statements throughout this tour. Here are some
-      more:</para>
+      <para>使用 <literal moreinfo="none">assert</literal> 
+      语句来检测执行条件，如果提供的条件是 false 则中断执行并抛出异常。下面是一个
+      assert 示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
-</remark>assert(text != null);  // Make sure the variable has a non-null value.
-assert(number &lt; 100);  // Make sure the value is less than 100.
-assert(urlString.startsWith('https')); // Make sure this is an HTTPS URL.</programlisting>
+</remark>assert(text != null);  // 确保 text 不为 null
+assert(number &lt; 100);  // 确保该值小于 100.
+assert(urlString.startsWith('https')); // 确保字符串以 https 开头</programlisting>
 
       <note>
-        <para>Assert statements work only in checked mode. They have no effect
-        in production mode.</para>
+        <para>Assert 语句只在检测模式下有效。
+            在生产模式下无任何效果。</para>
       </note>
 
-      <para>Inside the parentheses after <literal
-      moreinfo="none">assert</literal>, you can put any expression that
-      resolves to a boolean value or to a function. If the expression’s value
-      or function’s return value is true, the assertion succeeds and execution
-      continues. Otherwise, the assertion fails and an exception (an <ulink
-      url="http://api.dartlang.org/dart_core/AssertionError.html">AssertionError</ulink>)
-      is thrown.</para>
+      <para> <literal
+      moreinfo="none">assert</literal> 的参数可以是任何结果为 布尔 值的表达式或者方法。
+      如果表达式或者方法的返回值为 true， 则通过断言检测代码继续执行。否则，断言将抛出一个异常  (是一个 <ulink
+      url="http://api.dartlang.org/dart_core/AssertionError.html">AssertionError</ulink>)。
+      </para>
     </sect2>
   </sect1>
 
   <sect1 id="exceptions">
-    <title>Exceptions</title>
+    <title>Exceptions（异常）</title>
 
-    <para>Your Dart code can throw and catch exceptions. Exceptions are errors
-    indicating that something unexpected happened. If the exception isn’t
-    caught, the isolate that raised the exception is suspended, and typically
-    the isolate and its program are terminated.</para>
+    <para>
+        Dart 代码可以抛出和捕获异常。异常代表不可预期的错误情况。如果没有捕获异常，
+        则抛出该异常的 isolate 将被挂起，通常该 isolate 就退出执行了。</para>
 
-    <para>In contrast to Java, all of Dart’s exceptions are unchecked
-    exceptions. Methods do not declare which exceptions they might throw, and
-    you are not required to catch any <phrase
-    role="keep-together">exceptions</phrase>.</para>
+    <para>和 Java 语言不同， Dart 的所有异常都是 非检查异常（unchecked exceptions）。
+        函数不用声明其可能抛出的异常，并且你也无捕获任何 <phrase
+    role="keep-together">exceptions（异常）</phrase>。</para>
 
-    <para>Dart provides <ulink
+    <para>Dart 提供了 <ulink
     url="http://api.dartlang.org/dart_core/Exception.html">Exception</ulink>
-    and <ulink
+    和 <ulink
     url="http://api.dartlang.org/docs/continuous/dart_core/Error.html">Error</ulink>
-    types, as well as numerous predefined subtypes. You can, of course, define
-    your own exceptions. However, Dart programs can throw any non-null
-    object—not just Exception and Error objects—as an exception.</para>
+    类型，和很多预定义的子类。你也可以定义自己的异常类型。
+    然而，Dart 程序可以把任意非 null 对象当做异常抛出，而不仅仅是  Exception 和 Error 对象。</para>
 
     <sect2 id="ch02-exceptions-throw">
       <title>Throw</title>
 
-      <para>Here’s an example of throwing, or <emphasis>raising</emphasis>, an
-      exception:</para>
+      <para>下面是 <emphasis>抛出</emphasis> 异常的示例：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>throw new ExpectException('Value must be greater than zero');</programlisting>
 
-      <para>You can also throw arbitrary objects:</para>
+      <para>还可以抛出其他任意对象：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>throw 'Out of llamas!';</programlisting>
 
-      <para>Because throwing an exception is an expression, you can throw
-      exceptions in =&gt; statements, as well as anywhere else that allows
-      expressions:</para>
+      <para>
+          由于抛出异常是一个表达式，所有在任意可以用表达式的地方都可以抛出异常，
+          例如  =&gt; 语句。</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>distanceTo(Point other) =&gt; throw new UnimplementedError();</programlisting>
@@ -2238,9 +2230,7 @@ assert(urlString.startsWith('https')); // Make sure this is an HTTPS URL.</progr
     <sect2 id="ch02-exceptions-catch">
       <title>Catch</title>
 
-      <para>Catching, or capturing, an exception stops the exception from
-      propagating. Catching an exception gives you a chance to handle
-      it:</para>
+      <para>捕获异常可以阻止异常继续传递下去。捕获异常提供了一个处理该异常的机会：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>try {
@@ -2249,7 +2239,11 @@ assert(urlString.startsWith('https')); // Make sure this is an HTTPS URL.</progr
   buyMoreLlamas();
 }</programlisting>
 
-      <para>To handle code that can throw more than one type of exception, you
+      <para>
+          要处理可能抛出多个类型异常的情况，你可以用多个
+          catch 语句。 如果第一个 catch 语句不匹配该异常，则执行下一个。
+          如果一个 catch 语句没有
+          To handle code that can throw more than one type of exception, you
       can specify multiple catch clauses. The first catch clause that matches
       the thrown object’s type handles the exception. If the catch clause does
       not specify a type, that clause can handle any type of thrown
