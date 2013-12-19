@@ -3601,26 +3601,27 @@ void doSomething() {
 
     <para>Metadata 可以出现在 library、 class、 typedef、 type
     parameter、 constructor、factory、 function、 field、 parameter、或者 variable
-    declaration 、import 或者 export 之前。 In the future,
-    you’ll be able to retrieve metadata at runtime using reflection.<remark>
-    Status: <ulink
+    declaration 、import 或者 export 之前。 
+    以后，可以通过反射来获取元数据信息。
+    <remark>
+    状态跟踪： <ulink
     url="https://code.google.com/p/dart/issues/detail?id=6614">issue
-    #6614</ulink>.</remark></para>
+    #6614</ulink>。</remark></para>
   </sect1>
 
   <sect1 id="comments">
-    <title>Comments</title>
+    <title>注释</title>
 
-    <para>Dart supports single-line comments, multi-line comments, and
-    documentation <phrase role="keep-together">comments.</phrase></para>
+    <para>Dart 支持单行注释、多行注释和文档注释。
+        </para>
 
     <sect2 id="ch02-comments-single-line">
-      <title>Single-Line Comments</title>
+      <title>单行注释</title>
 
-      <para>A single-line comment begins with <literal
-      moreinfo="none">//</literal>. Everything between <literal
-      moreinfo="none">//</literal> and the end of line is ignored by the Dart
-      compiler.</para>
+      <para>单行注释以 <literal
+      moreinfo="none">//</literal> 开头。位于  <literal
+      moreinfo="none">//</literal> 之后的字符都会被 Dart 编译器
+      忽略掉。</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>main() {
@@ -3630,14 +3631,13 @@ void doSomething() {
     </sect2>
 
     <sect2 id="ch02-comments-multi-line">
-      <title>Multi-Line Comments</title>
+      <title>多行注释</title>
 
-      <para>A multi-line comment begins with <literal
-      moreinfo="none">/*</literal> and ends with <literal
-      moreinfo="none">*/</literal>. Everything between <literal
-      moreinfo="none">/*</literal> and <literal moreinfo="none">*/</literal>
-      is ignored by the Dart compiler (unless the comment is a documentation
-      comment; see the next section). Multi-line comments can nest.</para>
+      <para>多行注释以 <literal
+      moreinfo="none">/*</literal> 开头，以  <literal
+      moreinfo="none">*/</literal>结尾。位于 <literal
+      moreinfo="none">/*</literal> 和 <literal moreinfo="none">*/</literal>
+      之间的 内容被编译器忽略（文档注释除外）。</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/multi_line_comments.dart
@@ -3654,22 +3654,18 @@ void doSomething() {
     </sect2>
 
     <sect2 id="comments-doc">
-      <title>Documentation Comments</title>
+      <title>文档注释</title>
 
-      <para>Documentation comments are multi-line or single-line comments that
-      begin with <literal moreinfo="none">/**</literal> or <literal
-      moreinfo="none">///</literal>. Using <literal
-      moreinfo="none">///</literal> on consecutive lines has the same effect
-      as a multi-line doc comment.</para>
+      <para>文档注释是以  <literal moreinfo="none">/**</literal> 或者 <literal
+      moreinfo="none">///</literal> 开头的多行或者单行注释。 连续多行使用 <literal
+      moreinfo="none">///</literal> 和多行文档注释效果一样。</para>
 
-      <para>Inside a documentation comment, the Dart compiler ignores all text
-      unless it is enclosed in brackets. Using brackets, you can refer to
-      classes, methods, fields, top-level variables, functions, and
-      parameters. The names in brackets are resolved in the lexical scope of
-      the documented program element.</para>
+      <para>
+          在文档注释中，Dart 编译器只处理位于方括号之间的内容。
+          可以用方括号引用 类、函数、变量、顶级变量、方法、和参数。
+          方括号内的参数在词法范围内查找代码中对于的标示符。</para>
 
-      <para>Here is an example of documentation comments with references to
-      other classes and arguments:</para>
+      <para>下面是一个引用其他类的文档注释。</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/doc_comments.dart
@@ -3698,31 +3694,30 @@ class Llama {
   }
 }</programlisting>
 
-      <para>In the generated documentation, <literal
-      moreinfo="none">[Food]</literal> becomes a link to the API docs for the
-      Food class.</para>
+      <para>在生成的文档中， <literal
+      moreinfo="none">[Food]</literal> 变成链接到 
+      Food 类 API 文档的超级链接。</para>
 
-      <para>To parse Dart code and generate HTML documentation, you can use
-      Dart Editor, which in turn uses the SDK’s dartdoc package. For an
-      example of generated documentation, see the <ulink
-      url="http://api.dartlang.org">Dart API documentation.</ulink> For advice
-      on how to structure your comments, see <ulink
-      url="http://www.dartlang.cc/articles/doc-comment-guidelines/">Guidelines
-      for Dart Doc Comments.</ulink></para>
+      <para>
+          可以用 Dart 编辑器来解析 Dart 代码并生成 HTML 文档，编辑器使用的是 SDK 中的 dartdoc 工具。
+          生成的文档请参考 <ulink
+      url="http://api.dartlang.org">Dart API 文档</ulink>。
+      关于如何组织注释结构的建议，请参考  <ulink
+      url="http://www.dartlang.cc/articles/doc-comment-guidelines/">Dart 文档注释指南。</ulink></para>
     </sect2>
   </sect1>
 
   <sect1 id="ch02-summary">
-    <title>Summary</title>
+    <title>总结</title>
 
-    <para>This chapter summarized the commonly used features in the Dart
-    language. More features are being implemented<ulink
-    url="http://www.dartlang.cc/articles/mixins/">,</ulink> but we expect
-    that they won’t break existing code. For more information, see the <ulink
-    url="http://www.dartlang.cc/docs/spec/">Dart Language
-    Specification</ulink> and <ulink
-    url="http://www.dartlang.cc/articles/">articles</ulink> such as <ulink
+    <para>本章总结了 Dart 语言常用的特性。
+         为了避免打破现有代码，更多的特性作为 minxin 实现 <ulink
+    url="http://www.dartlang.cc/articles/mixins/"></ulink>。详细信息
+    参考 <ulink
+    url="http://www.dartlang.cc/docs/spec/">Dart 语言
+    规范</ulink> 和 <ulink
+    url="http://www.dartlang.cc/articles/">相关文章</ulink> 例如 <ulink
     url="http://www.dartlang.cc/articles/idiomatic-dart/"
-    userlevel="">Idiomatic Dart.</ulink></para>
+    userlevel=""> Dart 习惯用法。</ulink></para>
   </sect1>
 </chapter>
