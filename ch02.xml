@@ -2073,23 +2073,22 @@ for (var x in collection) {
     <sect2 id="switch">
       <title>Switch 和 Case</title>
 
-      <para>Switch statements in Dart compare integer, string, or compile-time
-      constants using <literal moreinfo="none">==</literal>. The compared
-      objects must all be instances of the same class (and not of any of its
-      subtypes), and the class must not override <literal
-      moreinfo="none">==</literal>.</para>
+      <para>Dart 中的 Switch 语句用 <literal moreinfo="none">==</literal> 来比较 integer、 string、或者编译期常量
+           。被比较的对象必须为同一个类的实例（子类型不可以），并且类必须没有重写 <literal
+      moreinfo="none">==</literal> 操作符。</para>
 
-      <para>Each non-empty <literal moreinfo="none">case</literal> clause ends
-      with a <literal moreinfo="none">break</literal> statement, as a rule.
-      Other valid ways to end a non-empty <literal
-      moreinfo="none">case</literal> clause are a <literal
-      moreinfo="none">continue</literal>, <literal
-      moreinfo="none">throw</literal>, or <literal
-      moreinfo="none">return</literal> statement.</para>
+      <para>规则需要每个非空 <literal moreinfo="none">case</literal> 块以
+       <literal moreinfo="none">break</literal> 语句结尾。
+      其他非空
+      <literal
+      moreinfo="none">case</literal> 块可以是一个
+      <literal
+      moreinfo="none">continue</literal>、 <literal
+      moreinfo="none">throw</literal>、或者 <literal
+      moreinfo="none">return</literal> 语句。</para>
 
-      <para>Use a <literal moreinfo="none">default</literal> clause to execute
-      code when no <literal moreinfo="none">case</literal> clause
-      matches:</para>
+      <para>使用一个 <literal moreinfo="none">default</literal> 语句来执行
+          不匹配任何 <literal moreinfo="none">case</literal> 语句的情况：</para>
 
       <programlisting format="linespecific" role="keep-together"><remark>lang-dart
 </remark>var command = 'OPEN';
@@ -2113,32 +2112,32 @@ switch (command) {
     executeUnknown();
 }</programlisting>
 
-      <para>The following example omits the <literal
-      moreinfo="none">break</literal> statement in the <literal
-      moreinfo="none">case</literal> clause, thus generating an error:</para>
+      <para>下面的示例代码在 <literal
+      moreinfo="none">case</literal> 块中忘记添加
+       <literal
+      moreinfo="none">break</literal> 语句了， 这样会产生一个错误：</para>
 
       <programlisting format="linespecific"><remark>lang-dart
 </remark>var command = 'OPEN';
 switch (command) {
   case 'OPEN':
     executeOpen();
-    // ERROR: Missing break causes an exception to be thrown!!
+    // ERROR: 丢掉 break 语句会抛出一个异常！！
 
   case 'CLOSED':
     executeClosed();
     break;
 }</programlisting>
 
-      <para>However, Dart does support empty <literal
-      moreinfo="none">case</literal> clauses, allowing a form of
-      fall-through:</para>
+      <para>然而， Dart 支持空 <literal
+      moreinfo="none">case</literal> 块，空快可以允许执行后面一个 case 块的功能：</para>
 
       <programlisting format="linespecific" role=""><remark>lang-dart
 </remark>var command = 'CLOSED';
 switch (command) {
-  case 'CLOSED':     // Empty case falls through.
+  case 'CLOSED':     // 空块会漏到下个块执行
   case 'NOW_CLOSED':
-    // Runs for both CLOSED and NOW_CLOSED.
+    //  CLOSED 和 NOW_CLOSED 都会执行该代码
     executeNowClosed();
     break;
 }</programlisting>
