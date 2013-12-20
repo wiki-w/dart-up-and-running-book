@@ -4,34 +4,37 @@
 <preface id="preface">
   <?dbhtml stop-chunking?>
 
-  <title>Preface</title>
+  <title>序</title>
 
-  <para>你并不需要成为编程高手才能开发 WEB 应用。使用 Dart ,当你为当今的互联网开
-  发高性能应用时，你将会非常富有创造力。</para>
+  <para>你并不需要成为编程高手就能开发 Web 应用。使用 Dart ,你可以
+      有非常高的生产效率来为当今的互联网开
+  发高性能应用。</para>
 
   <para>这本书的目标是成为一本实用的Dart语言入门书，包含语言介绍、类库介绍、
   工具介绍。由于本书很短，而且 Dart 也很年轻，你同样需要查阅 Dart 官方网站
-  <ulink url="http://dartlang.org"></ulink>—获取更多的细节以及后续更新。 
-  关注 Google+ <ulink url="http://google.com/+dartlang">Dart 网页</ulink> 
+  <ulink url="http://www.dartlang.org"></ulink> 和 Dart 中文网站 <ulink url="http://www.dartlang.cc"></ulink>
+  —获取更多的细节以及后续更新。 
+  关注 Google+ <ulink url="http://google.com/+dartlang">Dart 网页</ulink> 和
+  <ulink url="http://weibo.com/cndart">Dart 中文微博</ulink>来
   获取最新的新闻。</para>
 
   <para>另外一个重要的网站是本书的 <ulink
   url="https://github.com/dart-lang/dart-up-and-running-book">GitHub
-  仓库</ulink> 本文在 <ulink
+  代码库</ulink>， 本书使用 <ulink
   url="http://creativecommons.org/licenses/by-nc-nd/3.0/us/">Creative Commons
   Attribution-Noncommercial-No Derivative Works 3.0 United States
-  License</ulink> 的许可下使用该书的内容。这本书中例子的源代码文件 <ulink
+  License</ulink> 许可发布。这本书中例子的源代码文件在 <ulink
   url="https://github.com/dart-lang/dart-up-and-running-book/tree/master/code"><literal>code/</literal>
-  subdirectory.</ulink> 直接下载源代码文件进行学习将会取得更好的效果</para>
+  子目录中。</ulink> 直接下载源代码比从书中复制代码更加方便。</para>
 
   <para>如果你发现本书内容或例子代码有错误，请在这里 <ulink
   url="https://github.com/dart-lang/dart-up-and-running-book/issues/new">创建一个
   问题</ulink>反馈</para>
 
   <sect1 id="preface-conventions">
-    <title>本书中的一些习俗</title>
+    <title>本书中的一些约定用法</title>
 
-    <para>下面是本书印刷上的一些习俗:</para>
+    <para>下面是本书印刷上的一些约定:</para>
 
     <variablelist>
       <varlistentry>
@@ -43,7 +46,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term><literal moreinfo="none">固定宽度的文字</literal></term>
+        <term><literal moreinfo="none">等宽字体</literal></term>
 
         <listitem>
           <para>程序列表，或者是在段落中出现的变量名、方法名、数据库、数据
@@ -52,7 +55,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term><userinput moreinfo="none">粗体固定宽度的文字</userinput></term>
+        <term><userinput moreinfo="none">等宽粗体字</userinput></term>
 
         <listitem>
           <para>指命令或者其他需要被用户逐字敲入的文本</para>
@@ -60,7 +63,7 @@
       </varlistentry>
 
       <varlistentry>
-        <term><replaceable>斜体固定宽度的文字</replaceable></term>
+        <term><replaceable>等宽斜体字</replaceable></term>
 
         <listitem>
           <para>指那些需要用户提供值来替换的值或者由运行环境决定的值。</para>
@@ -73,7 +76,7 @@
     </tip>
 
     <caution>
-      <para>这个图标标示一个警告或劝告。</para>
+      <para>这个图标标示一个警告或警示。</para>
     </caution>
   </sect1>
 
@@ -178,21 +181,20 @@
 
       <itemizedlist>
         <listitem>
-          <para>实例变量不能再变成 <literal>常量</literal>。
-          取而代之的是使用 <literal>静态常量</literal> 。</para>
+          <para>实例变量不能是 <literal>const</literal> 的了。
+          取而代之的是  <literal>static const</literal> 。</para>
         </listitem>
 
         <listitem>
-          <para> <literal>?</literal> 操作符用来测试是否是一个可选的参数的
-          功能被取消了。</para>
+          <para> <literal>?</literal> 操作符用来测试是否设置了一个可选参数的功能取消了。</para>
         </listitem>
 
         <listitem>
-          <para>Map 的字面值键值不再强制是字符串类型的了。</para>
+          <para>Map 的字面量定义中的 key 值不再强制是字符串类型的了。</para>
         </listitem>
 
         <listitem>
-          <para>Dart 现在拥有符号和符号字面值
+          <para>Dart 现在拥有符号（Symbol）和符号字面量
           (<literal>#<replaceable>标识符</replaceable></literal>): <xref
           linkend="ch02-symbols" />。</para>
         </listitem>
@@ -221,18 +223,19 @@
         </listitem>
 
         <listitem>
-          <para>先前的 dart:ure 类库中的功能现在被整合到了 dart:核心类库的 
-          Uri 类中。 最高级别的功能
+          <para>先前的 dart:uri 类库中的功能现在被整合到了 dart:核心类库的 
+          Uri 类中。 顶级函数
           <literal>encodeUri()</literal>,
           <literal>encodeUriComponent()</literal>,
           <literal>decodeUri()</literal>, 
           <literal>decodeUriComponent()</literal> 现在变成了各自对应的 Uri 类
-          的静态方法命名为：
+          的静态方法为：
           <literal>encodeFull()</literal>,
           <literal>encodeComponent()</literal>,
           <literal>decodeFull()</literal>, 
-          <literal>decodeComponent()</literal>. 要从字符串中创建 Urt，你需要使用静态的 <literal>parse()</literal> 方法。 Uri 类现在只有一个构造器，它依然拥有原来 
-          <literal>Uri.fromComponents()</literal> 构造器同样的参数。
+          <literal>decodeComponent()</literal>. 要从字符串中创建 Uri，你需要使用静态的 <literal>parse()</literal> 方法。 Uri 类现在只有一个构造函数，
+          它依然拥有原来 
+          <literal>Uri.fromComponents()</literal> 构造函数同样的参数。
           最后,  <literal>domain</literal> 域现在改名为<literal>host</literal>。</para>
         </listitem>
 
@@ -272,20 +275,20 @@
         </listitem>
 
         <listitem>
-          <para>取代了 LineTransformer, 现在使用  LineSplitter 对象将一个字符串输入流分拆成每一行。</para>
+          <para>取消了 LineTransformer, 现在使用  LineSplitter 对象将一个字符串输入流分拆成每一行。</para>
         </listitem>
 
         <listitem>
-          <para>过去使用的 dart:json 顶层 
+          <para>过去使用的 dart:json 顶级函数
           <literal>parse()</literal> 和 <literal>stringify()</literal>
           功能废弃了, 现在分别使用 <literal>JSON.decode()</literal> 和
           <literal>JSON.encode()</literal>。</para>
         </listitem>
 
         <listitem>
-          <para>过去使用的 dart:uri 顶层
+          <para>过去使用的 dart:uri 顶级函数
           <literal>decodeUri()</literal> 和 <literal>encodeUri()</literal>
-          功能肺气了, 现在分别使用 <literal>UTF8.decode()</literal> 和
+          功能废弃了, 现在分别使用 <literal>UTF8.decode()</literal> 和
           <literal>UTF8.encode()</literal>。</para>
         </listitem>
       </itemizedlist>
@@ -358,7 +361,7 @@
         </listitem>
 
         <listitem>
-          <para>论述了使用表达式（例如 function calls）作为非默认构造器参
+          <para>论述了使用表达式（例如 function calls）作为非默认构造函数参
           数的相关问题。</para>
         </listitem>
 
@@ -368,7 +371,7 @@
 
         <listitem>
           <para>修改了文档注释的例子，使他们符合最新的规则,并且指向了 <ulink
-          url="https://www.dartlang.org/articles/doc-comment-guidelines/">Dart 文档注释准测。</ulink></para>
+          url="https://www.dartlang.cc/articles/doc-comment-guidelines/">Dart 文档注释指南。</ulink></para>
         </listitem>
       </itemizedlist>
 
@@ -388,7 +391,7 @@
         </listitem>
 
         <listitem>
-          <para>移除完成符的范围，它不再被推荐了。</para>
+          <para>移除完成符（Completer）的章节，它不再被推荐了。</para>
         </listitem>
 
         <listitem>
@@ -434,7 +437,7 @@
             </listitem>
 
             <listitem>
-              <para>Date 类的构造器做了调整。</para>
+              <para>Date 类的构造函数做了调整。</para>
             </listitem>
 
             <listitem>
@@ -442,12 +445,12 @@
             </listitem>
 
             <listitem>
-              <para>删除了 RegExp 的静态构造器</para>
+              <para>删除了 RegExp 的常量构造函数</para>
             </listitem>
 
             <listitem>
               <para>StringBuffer 的 <literal>add()</literal> 方法的返回值类型修改为 void。
-              做链式调用的代码现在可以使用 cascades 方法代替。</para>
+              现在连续调用 add() 的代码现在可以使用 级联方式了。</para>
             </listitem>
           </itemizedlist>
         </listitem>
@@ -463,7 +466,7 @@
 
         <listitem>
           <para>我们增加了<ulink
-          url="http://www.dartlang.org/articles/web-ui/">Web UI
+          url="http://www.dartlang.cc/articles/web-ui/">Web UI
           包</ulink> 的参考，这个包为创建 web 应用的 UI 界面提供
           了一个高级的，可升级的方法。
           </para>
@@ -478,7 +481,7 @@
 
           <itemizedlist>
             <listitem>
-              <para>一些方法被修改为域或者getters。这意味着我们应该在<literal>hashCode</literal>,<literal>isEmpty</literal>, 和
+              <para>一些方法被修改为域或者 getters。这意味着我们应该在<literal>hashCode</literal>,<literal>isEmpty</literal>, 和
               <literal>isNan</literal>后面移除<literal>()</literal> 。我们同样将
               <literal>getKeys()</literal> 改为 <literal>keys</literal>, 将
               <literal>getValues()</literal> 改为
@@ -486,8 +489,8 @@
             </listitem>
 
             <listitem>
-              <para>Iterable 类得到了增强，所有的Collections 都收到了影响，例如 
-              Lists 和 Sets。Collection以前的方法<literal>filter()</literal> 和 <literal>map()</literal> 移到了 Iterable 中，并且<literal>filter()</literal>的名字改为<literal>where()</literal>.
+              <para>Iterable 类得到了增强，所有的 Collections 都收到了影响，例如 
+              Lists 和 Sets。以前 Collection 中的方法<literal>filter()</literal> 和 <literal>map()</literal> 移到了 Iterable 中，并且<literal>filter()</literal>的名字改为<literal>where()</literal>.
                 (<literal>map()</literal>
               暂时改为 <literal>mappedBy()</literal>,是由于社区反馈这个决定是对其是倒退发展。) 
               <literal>some()</literal> 方法改为
