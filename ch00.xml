@@ -499,221 +499,189 @@
             </listitem>
 
             <listitem>
-              <para>The Iterator interface changed from
-              <literal>next()</literal> and <literal>hasNext()</literal> to
-              <literal>current</literal> and
-              <literal>moveNext()</literal>.</para>
+              <para>Iterator 接口的
+              <literal>next()</literal> 和 <literal>hasNext()</literal> 改为
+              <literal>current</literal> 和
+              <literal>moveNext()</literal>。</para>
             </listitem>
 
             <listitem>
-              <para>The dart:json library no longer has a JSON class. Former
-              JSON static methods such as <literal>parse()</literal> and
-              <literal>stringify()</literal> are now top-level
-              functions.</para>
+              <para>JSON 类不再放在 dart:json 库中了。以前的
+              JSON 静态方法如 <literal>parse()</literal> 和
+              <literal>stringify()</literal> 现在便趁个了最顶层功能。</para>
             </listitem>
 
             <listitem>
-              <para>Date is now named DateTime, and the
-              <literal>fromString()</literal> constructor is now a static
-              method named <literal>parse()</literal>.</para>
+              <para>Date 类更名为 DateTime, 并且
+              <literal>fromString()</literal> 构造器现在变成了一个静态方法，命名为 <literal>parse()</literal>。</para>
             </listitem>
 
             <listitem>
-              <para>Event-handler registration used to be
+              <para>Event-handler 过去的注册形式是
               <literal>.on.<replaceable>event</replaceable>.add()</literal>;
-              now it’s
+              现在改为
               <literal>.on<replaceable>Event</replaceable>.</literal><literal
-              role="keep-together">listen</literal>.</para>
+              role="keep-together">listen</literal>。</para>
             </listitem>
 
             <listitem>
-              <para>The dart:html HttpRequest <literal>get()</literal> method
-              was replaced by <literal>getString()</literal> and
-              <literal>request()</literal>, which return Future&lt;String&gt;
-              and Future&lt;HttpRequest&gt;, respectively.</para>
+              <para> dart:html 类库中 HttpRequest 类的 <literal>get()</literal> 方法
+              被 <literal>getString()</literal> 和
+              <literal>request()</literal> 取代了, 相应分别返回 Future&lt;String&gt;
+              和 Future&lt;HttpRequest&gt。</para>
             </listitem>
 
             <listitem>
-              <para>The dart:html Window <literal>setTimeout()</literal>
-              method is gone; instead, use <literal>Future.delayed()</literal>
-              or, if you know what you’re doing, a Timer.</para>
+              <para> dart:html Window  的<literal>setTimeout()</literal>
+              方法过时了; 对应的, 使用 <literal>Future.delayed()</literal>
+              或者如果你知道你正在做什么，使用一个 Timer。</para>
             </listitem>
 
             <listitem>
-              <para>Timer and Completer moved from dart:isolate to a new
-              library called dart:async. The Timer constructors now take a
-              Duration instead of an int.</para>
+              <para>Timer and Completer 从 dart:isolate 库中转移到一个新的名字叫做 dart:async 的库中。  Timer 构造器现在使用一个 Duration 做参数，取代了 int.</para>
             </listitem>
 
             <listitem>
-              <para>The Future <literal>chain()</literal> and
-              <literal>handleException()</literal> methods are gone, replaced
-              by <literal>then()</literal> and
-              <literal>catchError()</literal>.</para>
+              <para>Future类的 <literal>chain()</literal> 和
+              <literal>handleException()</literal> 方法过时了, 现在使用 <literal>then()</literal> 和
+              <literal>catchError()</literal>。</para>
             </listitem>
 
             <listitem>
-              <para>The String <literal>splitChars()</literal> method is gone;
-              instead, use <literal>split()</literal> with an empty string
-              argument. String’s <literal>charCodes</literal> getter and
-              <literal>charCodeAt()</literal> method are gone; to get UTF-16
-              code units, use String’s <literal>codeUnits</literal> or
-              <literal>codeUnitAt()</literal> instead.</para>
+              <para> String 类的 <literal>splitChars()</literal> 方法过时了;
+              相应的, 使用一个空字符串参数的 <literal>split()</literal> 方法。 String 的<literal>charCodes</literal> getter 和
+              <literal>charCodeAt()</literal> 方法过时了; 如果要获取 UTF-16
+              code 单元, 现在使用 String 的 <literal>codeUnits</literal> 或者
+              <literal>codeUnitAt()</literal> 。</para>
             </listitem>
 
             <listitem>
-              <para>The StringBuffer <literal>add()</literal> and
-              <literal>addAll()</literal> methods were replaced by
-              <literal>write()</literal> and <literal>writeAll()</literal>,
-              respectively.</para>
+              <para> StringBuffer 类的<literal>add()</literal> 和
+              <literal>addAll()</literal> 方法分别被
+              <literal>write()</literal> 和 <literal>writeAll()</literal>取代了。</para>
             </listitem>
 
             <listitem>
-              <para>The dart:io library changed significantly after M3, as did
-              all I/O in Dart. I/O now centers around the dart:async library’s
-              Stream and Future classes, instead of callbacks. The InputStream
-              and OutputStream classes were replaced with classes implementing
+              <para> dart:io 库在 M3 后改变很大, 现在 Dart 所有的 I/O 功能都集中
+              在这个库中。 I/O 现在以 dart:async 库的
+              Stream 和 Future 类为核心, 取代了 callbacks。 InputStream
+              和 OutputStream 类被实现了
               <ulink
               url="http://api.dartlang.org/docs/releases/latest/dart_async/Stream.html">Stream</ulink>
-              and <ulink
-              url="http://api.dartlang.org/dart_io/IOSink.html">IOSink.</ulink>
-              A new <ulink
+              和 <ulink
+              url="http://api.dartlang.org/dart_io/IOSink.html">IOSink 的类所取代。</ulink>
+              一个新的 <ulink
               url="http://api.dartlang.org/dart_io/FileSystemEntity.html">FileSystemEntity</ulink>
-              class is the superclass of File and Directory. To create a new
-              HttpServer, you now use the static <literal>bind()</literal>
-              method. For more information, see the <ulink
-              url="http://news.dartlang.org/2013/02/io-library-now-uses-streams.html">announcement.</ulink></para>
+              类是 File 和 Directory 的父类。 如果要创建一个
+              HttpServer, 你现在需要使用 <literal>bind()</literal>
+              方法。更多相关信息请查看 <ulink
+              url="http://news.dartlang.org/2013/02/io-library-now-uses-streams.html">相关通告。</ulink></para>
             </listitem>
 
             <listitem>
-              <para>The most used dart:crypto methods for hashes changed from
-              <literal>update()</literal> and <literal>digest()</literal> to
-              <literal>add()</literal> and <literal>close()</literal>.</para>
+              <para> dart:crypto 库中许多关于 hashes 的方法都由
+              <literal>update()</literal> 和 <literal>digest()</literal> 改为了
+              <literal>add()</literal> 和 <literal>close()</literal>。</para>
             </listitem>
           </itemizedlist>
         </listitem>
       </itemizedlist>
 
-      <para>We corrected or clarified some text, such as:</para>
+      <para>我们修正或者改写了一些内容，例如:</para>
 
       <itemizedlist>
         <listitem>
-          <para>Bitwise operators are implemented in <emphasis
-          role="bold">int</emphasis>, not num.</para>
+          <para>按位操作符是用 <emphasis
+          role="bold">int</emphasis> 实现的, 而不是 num 。</para>
         </listitem>
 
         <listitem>
-          <para>The <literal>is</literal> and <literal>as</literal> examples
-          (in <xref linkend="ch02-op-type-test" />) aren’t completely
-          equivalent.</para>
+          <para> <literal>is</literal> 和 <literal>as</literal> 例子examples
+          (在 <xref linkend="ch02-op-type-test" /> 中) 并不是完全等价的。</para>
         </listitem>
       </itemizedlist>
 
-      <para>We also added sections for some pre-existing features:</para>
+      <para>我们添加了一些关于预先浏览的特性的内容：</para>
 
       <itemizedlist>
         <listitem>
-          <para>Keywords (see <xref linkend="ch02-keywords" />)</para>
+          <para>关键字 (请见 <xref linkend="ch02-keywords" />)</para>
         </listitem>
 
         <listitem>
-          <para>Lexical scope (see <xref
+          <para>Lexical scope (请见 <xref
           linkend="ch02-lexical-scope" />)</para>
         </listitem>
 
         <listitem>
-          <para>Function equality (see <xref
+          <para>Function equality (请见 <xref
           linkend="ch02-function-equality" />)</para>
         </listitem>
 
         <listitem>
-          <para>The dart_analyzer tool (see <xref
+          <para> dart_analyzer 工具 (请见 <xref
           linkend="ch04-tools-dart_analyzer" />)</para>
         </listitem>
 
         <listitem>
-          <para>The dartdoc tool (see <xref
+          <para> dartdoc 工具 (请见 <xref
           linkend="ch04-tools-dartdoc" />)</para>
         </listitem>
       </itemizedlist>
 
-      <para>Finally, <xref linkend="BrowserChart" /> now uses a more recent
-      benchmark and has the latest numbers.</para>
+      <para>最后, <xref linkend="BrowserChart" /> 现在使用一个最新的基准，并且用最新的数字。</para>
     </sect2>
   </sect1>
 
   <sect1 id="preface-acknowledgments">
-    <title>Acknowledgments</title>
+    <title>鸣谢</title>
 
-    <para>We’d like to thank the many people who contributed to this book. We
-    hope we haven’t forgotten anyone, but we probably have.</para>
+    <para>我们想要感谢所有为这本书做过贡献的人。尽管我们希望下面没有遗漏，但是那很可能会发生。</para>
 
-    <para>The following Dart engineers and managers gave us prompt, helpful
-    reviews and information for the sections corresponding to their areas of
-    responsibility: Mads Ager, Peter von der Ahé, Justin Fagnani, Dan Grove,
+    <para>以下 Dart 工程师和管理者给了我们很多指点及有用的反馈信息：
+    Mads Ager, Peter von der Ahé, Justin Fagnani, Dan Grove,
     Florian Loitsch, Sam McCall, Vijay Menon, John Messerly, Anton Muhin,
     Lasse R.H. Nielsen, Bob Nystrom, Ivan Posva, Jaime Wren, Matthias Hausner,
-    Keerti Parthasarathy, and Konstantin Scheglov.</para>
+    Keerti Parthasarathy, 和 Konstantin Scheglov.</para>
 
-    <para>We’d especially like to thank the people who reviewed even bigger
-    swaths of the book or contributed in other, large ways:</para>
+    <para>我们特别感谢那些反馈本书中很多错误信息及作出重大贡献的人：</para>
 
     <itemizedlist>
       <listitem>
-        <para>JJ Behrens, whose careful look at the first draft of the book
-        helped us catch errors and inconsistencies, as well as rework Chapter
-        5 to be more interesting, and less of a laundry list. He also created
-        a system for testing our samples.</para>
+        <para>JJ Behrens, 他细心审阅这本书的初稿，帮助我们修改了很多错误和矛盾，同时重新组织了第五章以使内容更有趣，并缩减了类目清单。另外他创建了一个系统来测试我们的例子。</para>
       </listitem>
 
       <listitem>
-        <para>Shailen Tuli, who helped test our examples although he didn’t
-        even work for Google.</para>
+        <para>Shailen Tuli, 尽管他不再谷歌，他却帮我们测试了很多例子。</para>
       </listitem>
 
       <listitem>
-        <para>Mary Campione, whose stream-of-consciousness review of the
-        entire book, performed while she was first learning the language,
-        helped us find and fix many confusing spots, as well as some errors.
-        Later she reviewed and updated our samples, and she implemented
-        continuous build testing for our samples on drone.io.</para>
+        <para>Mary Campione, 她以第一次学习这门语言的角度检查全书，帮助
+        我们发现并修正了许多混乱点和错误。后来她检查并更新了我们的例子,并且她持续的测试关于 drone.io. 中的例子。</para>
       </listitem>
 
       <listitem>
-        <para>Phil Quitslund, who did a big-picture review of the book and
-        gave us guidance and encouragement.</para>
+        <para>Phil Quitslund, 他对书中内容做了一个全面的检查,并给与我们指导和鼓励。</para>
       </listitem>
 
       <listitem>
-        <para>Kasper Lund, whose review caught issues that only someone with
-        his expert, comprehensive knowledge of the Dart language and libraries
-        could have found.</para>
+        <para>Kasper Lund, 他利用他的专业广泛的 Dart 语言知识帮助我们检查出了一些很难检查出的问题。</para>
       </listitem>
 
       <listitem>
-        <para>Gilad Bracha, the language spec writer whose reviews of the
-        language chapter were invaluable for getting language details right.
-        We couldn’t cover everything, so we look forward to his future work on
-        making all the corners of the language understandable to all Dart
-        programmers.</para>
+        <para>Gilad Bracha, 他是语言的特邀作者，他对每章的检查使得每个细节都
+        尽量准确无误，这是非常宝贵的，我们不可能关注到每个细节，因此我们继续
+        关注他的后期工作，使得这本书对于所有 Dart 学习者都更容易理解。</para>
       </listitem>
     </itemizedlist>
 
-    <para>Other Googlers helped, as well. Vivian Li, the head of Chrome
-    Developer Relations, supported our work on this book. Andres Ferrate, the
-    Google Press liaison to O’Reilly, helped simplify the process of getting
-    the book published. Myisha Harris gave us excellent legal advice.</para>
+    <para>其他的谷歌人也给与了很多帮助. Vivian Li, 首席 Chrome 发展关系设计师给了我们关于这本书的支持帮助。 Andres Ferrate, 谷歌与 O’Reilly 的联系人, 帮助我们简化了书的初版过程。 Myisha Harris 给了我们法律相关的咨询建议</para>
 
-    <para>The people at O’Reilly were extremely helpful. Meghan Blanchette,
-    our editor, kept everything going smoothly, monitoring our progress in the
-    nicest possible way. Christopher Hearse and Marisa LaFleur checked our
-    work and helped us make some last-minute fixes that improved the final
-    result. We’d also like to thank the good people who manage the author
-    workflow and make working on an O’Reilly book such a pleasure. We
-    personally worked with Sarah Schneider, Jessica Hosman, and Rachel
-    James.</para>
+    <para>O’Reilly 的工作人员也给予我们极大的帮助。Meghan Blanchette,
+    我们的编辑, 使得所有事情都进展的很顺利，监督我们的进度，使其最快最好的进行。 Christopher Hearse and Marisa LaFleur 检查了我们的工作，并帮助我们做了最后的修正，这提升了最终的效果。同时也要感谢那些帮助我们减少创作初版工作量，并使得创作一本 O’Reilly 书如此愉快的人们。 Sarah Schneider, Jessica Hosman, 和 Rachel
+    James 用了很多业余时间来帮助我们。</para>
 
-    <para>Finally, we thank Lars Bak and Kasper Lund for writing the foreword,
-    and most of all for creating Dart.</para>
+    <para>最后，我们感谢 Lars Bak 和 Kasper Lund 为本书写了序言, 
+    感谢那些创造 Dart 并支持 Dart发展的人们。特别鸣谢本书中文翻译啊轰、王总</para>
   </sect1>
 </preface>
