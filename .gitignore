@@ -12,3 +12,5 @@ out
 /code/ch02/libraries/mylib/pubspec.lock
 /code/ch02/libraries/pubspec.lock
 /code/ch02/libraries/utils/pubspec.lock
+/.project
+/_bookhtml
