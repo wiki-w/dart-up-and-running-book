@@ -661,7 +661,7 @@ code/ch03/encodeUri.dart
         URI 组件中的特殊字符（例如 <literal
         moreinfo="none">/</literal>, <literal moreinfo="none">&amp;</literal>,
         and <literal moreinfo="none">:</literal>）会被
-        正确的编码。
+        正确的编码。</para>
         <screen format="linespecific"><remark>lang-dart
 code/ch03/encodeUriComponents.dart
 </remark>main() {
@@ -1499,7 +1499,7 @@ elem.text = 'Creating is easy!';</screen>
         <title>添加、替换、删除节点（ node ）</title>
 
         <para>还记得 element 是 node 的子类型吗。使用 Node 的
-        moreinfo="none">nodes</literal> 属性可以获取该 node 的所有子节点，
+        <literal moreinfo="none">nodes</literal> 属性可以获取该 node 的所有子节点，
         返回值为
         List&lt;Node&gt;。 获取到该 list 后，就可以用
         List 的函数和操作符来操作 node 的子节点了。</para>

@@ -2568,7 +2568,7 @@ main() {
 
         <para>有些构造函数只是调用
          <phrase role="keep-together">同一个类</phrase> 的另外一个构造函数。
-         重定向构造函数体是空的，被调用的构造函数放到冒号后面。</phrase></para>
+         重定向构造函数体是空的，被调用的构造函数放到冒号后面。</para>
 
         <programlisting format="linespecific"><remark>lang-dart
 </remark><remark>ch02/along_x_axis.dart

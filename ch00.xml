@@ -528,7 +528,7 @@
               <para> dart:html 类库中 HttpRequest 类的 <literal>get()</literal> 方法
               被 <literal>getString()</literal> 和
               <literal>request()</literal> 取代了, 相应分别返回 Future&lt;String&gt;
-              和 Future&lt;HttpRequest&gt。</para>
+              和 Future&lt;HttpRequest&gt;。 </para>
             </listitem>
 
             <listitem>
