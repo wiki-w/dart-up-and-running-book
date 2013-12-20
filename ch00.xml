@@ -513,7 +513,7 @@
 
             <listitem>
               <para>Date 类更名为 DateTime, 并且
-              <literal>fromString()</literal> 构造器现在变成了一个静态方法，命名为 <literal>parse()</literal>。</para>
+              <literal>fromString()</literal> 构造函数现在变成了一个静态方法，命名为 <literal>parse()</literal>。</para>
             </listitem>
 
             <listitem>
@@ -538,7 +538,7 @@
             </listitem>
 
             <listitem>
-              <para>Timer and Completer 从 dart:isolate 库中转移到一个新的名字叫做 dart:async 的库中。  Timer 构造器现在使用一个 Duration 做参数，取代了 int.</para>
+              <para>Timer and Completer 从 dart:isolate 库中转移到一个新的名字叫做 dart:async 的库中。  Timer 构造函数现在使用一个 Duration 做参数，取代了 int.</para>
             </listitem>
 
             <listitem>
@@ -682,6 +682,11 @@
     James 用了很多业余时间来帮助我们。</para>
 
     <para>最后，我们感谢 Lars Bak 和 Kasper Lund 为本书写了序言, 
-    感谢那些创造 Dart 并支持 Dart发展的人们。特别鸣谢本书中文翻译啊轰、王总</para>
+    感谢那些创造 Dart 并支持 Dart发展的人们。</para>
+     <para>
+         本书中文版由 
+     <ulink  url="http://blog.chengyunfeng.com">云在千峰</ulink> 和 
+     <ulink  url="https://github.com/wiki-w/">wiki-w</ulink> 完成。
+         </para>
   </sect1>
 </preface>
