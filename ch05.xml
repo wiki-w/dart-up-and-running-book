@@ -4,93 +4,87 @@
 <chapter id="ch05">
   <?dbhtml stop-chunking?>
 
-  <title>Walkthrough: Dart Chat</title>
+  <title>Walkthrough: Dartiverse Search</title>
 
-  <para>This chapter points out some of the useful and fun features of Dart
-  that we used to build Dart Chat, a client-server app. If you’d like
-  step-by-step instructions on building Dart Chat, you might be interested in
-  our <ulink url="http://bit.ly/code-lab">code lab.</ulink></para>
+  <para>This chapter points out some of the useful and fun features of the
+  Dart language and libraries that are used in Dartiverse Search, a
+  client-server app. As <xref linkend="DartiverseScreenshot" /> shows,
+  Dartiverse Search looks for a user-entered string in GitHub and
+  StackOverflow. The app is asynchronous, adding results as they're found, so
+  the UI is always responsive.</para>
 
-  <para><xref linkend="DartChat-screenshot" /> shows the chat client executing
-  in a Dartium window. Each copy of the chat client can send messages to the
-  chat server, which forwards those messages to the other chat clients.</para>
+  <figure float="0" id="DartiverseScreenshot">
+    <title>The client app UI</title>
+
+    <mediaobject>
+      <imageobject role="web">
+        <imagedata fileref="figs/web/daur_0501.png" format="PNG" scale="70%"
+                   scalefit="" security="" width="" />
+      </imageobject>
+    </mediaobject>
+  </figure>
 
   <sect1 id="ch05-how-to-run">
-    <title>How to Run Dart Chat</title>
+    <title>How to Run Dartiverse Search</title>
 
-    <para>The easiest way to run the Dart Chat client and server apps is to
-    open them in Dart Editor.</para>
+    <para>You can use Dart Editor to get and run Dartiverse Search.</para>
 
-    <orderedlist continuation="restarts" inheritnum="ignore">
+    <orderedlist>
       <listitem>
-        <para>Download the <ulink
-        url="https://github.com/dart-lang/io-2012-dart-code-lab">Dart Chat
-        source</ulink> code from GitHub.</para>
+        <para>In Dart Editor, go to the Welcome page. (If you don't see it,
+        choose <emphasis role="bold">Tools &gt; Welcome
+        Page</emphasis>.)</para>
       </listitem>
 
       <listitem>
-        <para>In Dart Editor, use <emphasis role="bold">File &gt; Open
-        Folder...</emphasis>, to open the <emphasis
-        role="bold">finished</emphasis> directory of the Dart Chat source
-        code.</para>
+        <para>In the demo section, click <emphasis role="bold">Dartiverse
+        Search</emphasis> to create a copy of the dartiverse_search
+        package.</para>
       </listitem>
 
       <listitem>
-        <para>Select <literal moreinfo="none">chat-server.dart</literal>, and
-        then click the Run button <inlinemediaobject>
-            <imageobject>
-              <imagedata fileref="figs/web/run.png" width="0.12in" />
-            </imageobject>
-          </inlinemediaobject>. A view named chat-server appears in Dart
-        Editor, displaying debugging output for the server.</para>
+        <para>Use <emphasis role="bold">Tools &gt; Pub Build</emphasis> to
+        build the package.</para>
       </listitem>
 
       <listitem>
-        <para>Select <literal
-        moreinfo="none">client/chat-client.dart</literal>, and then click the
-        Run button <inlinemediaobject>
-            <imageobject>
-              <imagedata fileref="figs/web/run.png" width="0.12in" />
-            </imageobject>
-          </inlinemediaobject>. Dartium launches, if necessary, and displays a
-        Dart Chat tab.</para>
+        <para>Select <literal>bin/server.dart</literal> and click the
+        <emphasis role="bold">Run</emphasis> button. You should see a message
+        that the search server is running at http://127.0.0.1:9223/.</para>
       </listitem>
 
       <listitem>
-        <para>To create another copy of the chat client, go to the Dart Chat
-        tab in Dartium. Right-click the tab, and choose <emphasis
-        role="bold">Duplicate</emphasis>.</para>
+        <para>Click that URL or enter it into any modern browser. The search
+        client UI should appear in your default browser.</para>
       </listitem>
     </orderedlist>
-
-    <figure float="none" id="DartChat-screenshot">
-      <title>Multiple chat clients can use the chat server to talk</title>
-
-      <mediaobject>
-        <imageobject role="web">
-          <imagedata fileref="figs/web/daur_0501.png" format="PNG" />
-        </imageobject>
-      </mediaobject>
-    </figure>
   </sect1>
 
   <sect1 id="ch05-how-it-works">
-    <title>How Dart Chat Works</title>
+    <title>How Dartiverse Search Works</title>
 
-    <para>The chat server and client are simple. The chat server is an HTTP
-    server that provides a WebSocket. The chat client uses that WebSocket for
-    a bi-directional communication channel with the server. The client sends
-    chat messages to the server over the WebSocket, and the server relays
-    those messages to all other connected clients.</para>
+    <para>The search server is an HTTP server that provides a WebSocket
+    interface. The search client uses that WebSocket interface as a
+    bi-directional communication channel with the server. The client sends
+    search requests to the server over the WebSocket, and the server replies
+    with any results and then a final, "search done" message.</para>
 
-    <para>As <xref linkend="web-socket-connections" /> shows, the server
-    starts things off by listening for requests to <literal
-    moreinfo="none">ws://127.0.0.1:1337/ws</literal>. Chat clients then
-    connect to that URL.</para>
+    <para>The server starts things off by binding to localhost, port 9223, and
+    listening for requests to the WebSocket:
+    <literal>ws://127.0.0.1:9223/ws</literal>. Search clients can connect
+    using that URL.</para>
 
-    <figure float="0" id="web-socket-connections">
-      <title>Chat clients connect to a web socket created by the chat
-      server</title>
+    <para>The real communication between client and server happens when the
+    user enters a search string. As <xref linkend="DartiverseCommunication" />
+    shows, the client sends a JSON-encoded search request to the server. The
+    server extracts the search string from the request and sends it to a
+    series of search engines. Each search engine searches a specific site—for
+    example, GitHub—using whatever API that site supports. Whenever a search
+    engine finds a result, the server forwards that result to the client,
+    again using a JSON-encoded message.</para>
+
+    <figure float="0" id="DartiverseCommunication">
+      <title>Communication in Dartiverse Search</title>
 
       <mediaobject>
         <imageobject role="web">
@@ -99,28 +93,8 @@
       </mediaobject>
     </figure>
 
-    <para>The real communication between client and server happens when the
-    user enters a message. As <xref linkend="web-socket-messages" /> shows,
-    the chat client sends a JSON-encoded version of the message to the server.
-    The server then forwards the message to every client except the one that
-    sent it.</para>
-
-    <figure float="0" id="web-socket-messages">
-      <title>A chat client uses the server to send a message to other chat
-      clients</title>
-
-      <mediaobject>
-        <imageobject role="web">
-          <imagedata fileref="figs/web/daur_0503.png" format="PNG" />
-        </imageobject>
-      </mediaobject>
-    </figure>
-
-    <para>The chat server implements an HTTP server to listen for WebSocket
-    requests. The HTTP server can also serve static files from the client
-    directory—for example,
-    <emphasis>http://127.0.0.1:1337/chat-log.txt</emphasis> shows the file
-    that’s at <emphasis>client/chat-log.txt</emphasis>.</para>
+    <para>The search server implements an HTTP server that both provides
+    content for the client UI and listens for WebSocket requests.</para>
 
     <para>The client code is split between HTML (page structure), CSS (page
     look), and JavaScript (logic and behavior). That’s typical of web
@@ -128,500 +102,574 @@
 
     <para>The twist is that this client’s JavaScript code is produced from
     Dart code, thanks to the dart2js compiler. Any modern browser can run this
-    JavaScript code. Dartium (and any other browsers that support Dart) can
-    run either the JavaScript code or the original Dart code.</para>
+    JavaScript code.</para>
   </sect1>
 
-  <sect1 id="ch05-client-html-code">
-    <title>The Client’s HTML Code</title>
+  <sect1 id="ch05-client-html">
+    <title>The Client's HTML Code</title>
 
-    <para>The main elements in the client UI are two text fields (with the IDs
-    “chat-username” and “chat-message”) and a status area (ID:
-    “chat-display”):</para>
+    <para>The client's UI is simple. It has a search field, implemented as an
+    &lt;input&gt; element named "q". It displays output in two &lt;div&gt;s
+    named "status" and "results".</para>
 
-    <programlisting format="linespecific"><remark>lang-html
-</remark>&lt;!-- In client/index.html: --&gt;
-&lt;textarea id="chat-display" rows="10" disabled&gt;&lt;/textarea&gt;
+    <programlisting>&lt;!-- In web/index.html: --&gt;
+
+&lt;input type="search" placeholder="Search" value="" id="q" disabled /&gt;
+&lt;div id="status"&gt;&lt;/div&gt;
 ...
-&lt;input id="chat-username" name="chat-username" type="text"&gt;
-...
-&lt;input id="chat-message" name="chat-message" type="text" disabled 
-    value="enter message..."&gt;</programlisting>
+&lt;div id="results"&gt;&lt;/div&gt;</programlisting>
 
-    <para>Near the bottom of <emphasis>client/index.html</emphasis>, a couple
-    of &lt;script&gt; tags tell the browser to execute the client’s Dart or
-    JavaScript code:</para>
+    <para>A couple of &lt;script&gt; tags tell the browser to execute the
+    client’s Dart or JavaScript code:</para>
 
-    <programlisting format="linespecific"><remark>lang-html
-</remark>&lt;script type="application/dart" src="chat-client.dart"&gt;&lt;/script&gt;
+    <programlisting>&lt;script type="application/dart" src="client.dart"&gt;&lt;/script&gt;
 &lt;script src="packages/browser/dart.js"&gt;&lt;/script&gt;</programlisting>
 
     <para>The first line works in browsers that have an embedded Dart VM and
-    so can execute Dart code; currently, only Dartium qualifies. The second
-    line is important for every other browser. It executes
-    <emphasis>dart.js</emphasis>, which is a standard script that converts all
-    Dart &lt;script&gt; tags to use <emphasis>foo.dart.js</emphasis> instead
-    of <emphasis>foo.dart</emphasis>, with the assumption that
-    <emphasis>foo.dart.js</emphasis> is a JavaScript version of
-    <emphasis>foo.dart</emphasis>. For non-Dartium browsers,
-    <emphasis>dart.js</emphasis> changes the first &lt;script&gt; tag to the
-    following:</para>
+    so can execute Dart code; currently, only Dartium qualifies.</para>
 
-    <programlisting format="linespecific"><remark>lang-html
-</remark>&lt;!-- Inserted by dart.js for non-Dartium browsers --&gt;
-&lt;script src="chat-client.dart.js"&gt;&lt;/script&gt;</programlisting>
+    <para>The second line is important for every other browser. It executes
+    dart.js, which is a standard script that converts all Dart &lt;script&gt;
+    tags to use foo.dart.js instead of foo.dart, with the assumption that
+    foo.dart.js is a JavaScript version of foo.dart. For non-Dartium browsers,
+    dart.js changes the first &lt;script&gt; tag to the following:</para>
 
-    <para>The script contents run when the browser has loaded the HTML and
-    constructed its DOM (document object model).</para>
+    <programlisting>&lt;script src="client.dart.js"&gt;&lt;/script&gt;</programlisting>
 
-    <para>You can get dart.js with the <ulink
-    url="http://pub.dartlang.org/packages/browser">browser package from
-    pub.</ulink> See <xref linkend="ch04-tools-dart2js" /> for more
-    information about compiling Dart code into its JavaScript
-    equivalent.</para>
+    <para>You can get dart.js with the browser package from pub. See <xref
+    linkend="ch04-tools-dart2js" /> for more information about compiling Dart
+    code into its JavaScript equivalent.</para>
   </sect1>
 
-  <sect1 id="ch05-client-dart-code">
-    <title>The Client’s Dart Code</title>
+  <sect1 id="ch05-client-dart">
+    <title>The Client's Dart Code</title>
 
-    <para>Dart code (<emphasis>client/chat-client.dart</emphasis>) provides
-    the client’s logic, using the DOM to interact with UI elements. For
-    example, the client’s Dart code uses the DOM to find the text area where
-    the client displays messages.</para>
+    <para>Dart code (<literal>web/client.dart</literal>) provides the client’s
+    logic, using the DOM to interact with UI elements. For example, the
+    client’s Dart code uses the DOM to find the div where the client displays
+    messages.</para>
 
-    <sect2 id="ch05-find-element">
+    <sect2 id="ch05-client-dart-find-elements">
       <title>Finding DOM Elements</title>
 
       <para>The client app uses dart:html’s top-level
-      <literal>query()</literal> method to get the client’s UI elements from
-      the DOM:</para>
+      <literal>querySelector()</literal> function to get the client’s UI
+      elements from the DOM:</para>
 
-      <programlisting format="linespecific"><remark>lang-dart
-</remark>// In client/chat-client.dart:
-import 'dart:html';
-//...
-TextAreaElement chatElem = query('#chat-display');
-InputElement usernameElem = query('#chat-username');
-InputElement messageElem = query('#chat-message');</programlisting>
+      <programlisting><remark>web/client.dart
+</remark>SearchInputElement searchElement = querySelector('#q');
+DivElement statusElement = querySelector('#status');
+DivElement resultsElement = querySelector('#results');</programlisting>
 
-      <para>The <literal>query()</literal> method uses a selector string that
-      identifies an element in the DOM. See <xref
+      <para>The <literal>querySelector()</literal> method uses a selector
+      string that identifies an element in the DOM. See <xref
       linkend="ch03-finding-elements" /> for more about selectors.</para>
+
+      <note>
+        <para>This code could just use <literal>var</literal> instead of
+        specifying types (<ulink
+        url="https://api.dartlang.org/dart_html/SearchInputElement.html">SearchInputElement</ulink>
+        and <ulink
+        url="https://api.dartlang.org/dart_html/DivElement.html">DivElement</ulink>)
+        for the elements. Whoever writes the code gets to choose whether to
+        specify types.</para>
+      </note>
     </sect2>
 
-    <sect2 id="ch05-wrap-element">
-      <title>Wrapping DOM Elements</title>
+    <sect2 id="ch05-client-dart-handle-events">
+      <title>Handling Events</title>
 
-      <para>Rather than always dealing with DOM APIs, the chat client wraps
-      the elements in Dart objects:</para>
+      <para>The client app uses <literal>onChange.listen()</literal> to
+      register a handler that reacts to user input. Whenever the user presses
+      Enter, the search field fires a change event, and the handler kicks off
+      a search.</para>
 
-      <programlisting format="linespecific"><remark>lang-dart
-</remark>new ChatWindow(chatElem);
-usernameInput = new UsernameInput(usernameElem);
-messageInput = new MessageInput(messageElem);</programlisting>
+      <programlisting>searchElement.onChange.listen((e) {
+  //...Start the search...
+});</programlisting>
+    </sect2>
 
-      <para>ChatWindow, UsernameInput, and MessageInput are custom classes
-      that extend another custom class called View. These Views effectively
-      separate the DOM manipulation from the application logic.</para>
+    <sect2 id="ch05-client-dart-properties">
+      <title>Getting and Setting Properties</title>
 
-      <para>Because Dart has real classes and inheritance, it’s simple to
-      express the relationship that ChatWindow is-a View. Here’s the complete
-      code for UsernameInput:</para>
+      <para>The change event handler gets and sets the text in the search
+      field using the <literal>value</literal> property.</para>
 
-      <programlisting format="linespecific"><remark>lang-dart
-</remark>class UsernameInput extends View&lt;InputElement&gt; {
-  UsernameInput(InputElement elem) : super(elem);
+      <programlisting>search(searchElement.value);
+searchElement.value = '';</programlisting>
+    </sect2>
 
-  bind() { // Called by the View constructor.
-    elem.onChange.listen((e) =&gt; _onUsernameChange());
-  }
+    <sect2 id="ch05-client-dart-add-elements">
+      <title>Adding DOM Elements</title>
 
-  _onUsernameChange() {
-    if (!elem.value.isEmpty) {
-      messageInput.enable();
-    } else {
-      messageInput.disable();
-    }
-  }
+      <para>Every time the search client receives a result on the WebSocket,
+      the client creates a new div (<literal>result</literal>) to display it.
+      The client then adds that new div to the "results" div
+      (<literal>resultsElement</literal>).</para>
 
-  String get username =&gt; elem.value;
+      <programlisting>void addResult(String source, String title, String link) {
+  var result = new DivElement();
+  result.children.add(new HeadingElement.h2()..innerHtml = source);
+  result.children.add(
+      new AnchorElement(href: link)
+      ..innerHtml = title
+      ..target = '_blank');
+  result.classes.add('result');
+  resultsElement.children.add(result);
 }</programlisting>
 
-      <para>To get the string that’s in the chat-username field, the client
-      app uses the <literal moreinfo="none">username</literal> getter of a
-      UsernameInput object. For example:</para>
-
-      <programlisting format="linespecific"><remark>lang-dart
-</remark>chatWindow.displayMessage(message, usernameInput.username);</programlisting>
-
-      <para>Notice how the code uses generics (View&lt;InputElement&gt;) to
-      specify what kind of element the View class can encapsulate. In the
-      preceding example, the UsernameInput wraps an <ulink
-      url="http://api.dartlang.org/dart_html/InputElement.html">InputElement.</ulink>
-      Expressing this gives tools information that they can use to identify
-      bugs or improve code completion.</para>
-
-      <para>Wrapping elements is a technique you can use as you develop a
-      simple app that might evolve into a larger app. As the app grows, you
-      might change it to use <ulink
-      url="http://www.dartlang.org/articles/web-ui/">Web UI,</ulink> a library
-      for declarative widgets and dynamic, data-driven views.</para>
+      <para>This code uses method cascades to avoid creating variables to
+      temporarily hold the new HeadingElement and AnchorElement.</para>
     </sect2>
 
-    <sect2 id="ch05-update-element">
-      <title>Updating DOM Elements</title>
-
-      <para>The <literal>bind()</literal> method sets up the event handlers,
-      which bind events from the DOM to logic in the Dart objects. For
-      example, in UsernameInput, the <literal>_onUsernameChange()</literal>
-      method is called any time the text in the input element changes.</para>
-
-      <para>To display messages in the chat window, the ChatWindow class adds
-      the message to the text node of the text area:</para>
-
-      <programlisting format="linespecific"><remark>lang-dart
-</remark>class ChatWindow extends View&lt;TextAreaElement&gt; {
-  ChatWindow(TextAreaElement elem) : super(elem);
-  
-  displayMessage(String msg, String from) {
-    _display('$from: $msg\n');
-  }
-  
-  displayNotice(String notice) {
-    _display('[system]: $notice\n');
-  }
-  
-  _display(String str) {
-    elem.addText(str);
-  }
-}</programlisting>
-
-      <para>In both examples, the View objects expose an application-specific
-      API—for example, <literal>displayMessage()</literal> or
-      <literal>_onUsernameChange()</literal>—and encapsulate the manipulation
-      of DOM elements.</para>
-    </sect2>
-
-    <sect2 id="ch05-dart-json">
+    <sect2 id="ch05-client-dart-json">
       <title>Encoding and Decoding Messages</title>
 
-      <para>The dart:json library encodes and decodes JSON-formatted messages.
-      JSON is an easy way to provide string message data to WebSockets. Using
-      JSON also gives a bit of structure to the messages and leaves the door
-      open to creating more detailed messages in the future.</para>
+      <para>The dart:convert library's global <literal>JSON</literal> object
+      lets you encode and decode JSON-formatted messages. JSON is an easy way
+      to provide string message data to WebSockets. Using JSON also gives a
+      bit of structure to the messages and leaves the door open to creating
+      more detailed messages in the future.</para>
 
-      <para>The <literal>stringify()</literal> method converts a Dart object
-      to a JSON-encoded string, and the <literal>parse()</literal> method
-      converts a JSON string back into a Dart object. Here’s the JSON-related
-      code from the chat client:</para>
+      <para>The <literal>JSON.encode()</literal> method converts a Dart object
+      to a JSON-encoded string, and the <literal>JSON.decode()</literal>
+      method converts a JSON string back into a Dart object.</para>
 
-      <programlisting format="linespecific" role="keep-together"><remark>lang-dart
-</remark>import 'dart:json' as json;
-var encoded = json.stringify({'f': from, 'm': message});
-Map message = json.parse(encodedMessage);</programlisting>
+      <para>Here's the code that creates a JSON-encoded search request:</para>
 
-      <para>See <xref linkend="ch03-json" /> for more information.</para>
+      <programlisting>var request = {
+  'request': 'search',
+  'input': input
+};
+webSocket.send(JSON.encode(request));</programlisting>
+
+      <para>Here’s how the client decodes and processes a JSON response from
+      the server:</para>
+
+      <programlisting>var json = JSON.decode(data);
+var response = json['response'];
+switch (response) {
+  case 'searchResult':
+    addResult(json['source'], json['title'], json['link']);
+    break;
+  ...
+}</programlisting>
+
+      <para>For more information, see <xref
+      linkend="ch03-dart-convert" />.</para>
     </sect2>
 
-    <sect2 id="ch05-web-sockets">
+    <sect2 id="ch05-client-dart-web-sockets">
       <title>Communicating with WebSockets</title>
 
-      <para>The custom class ChatConnection takes care of the chat client’s
-      WebSocket communication. First it connects to the WebSocket by calling
-      the WebSocket constructor with the argument <literal
-      moreinfo="none">'ws://127.0.0.1:1337/ws'</literal>. Then ChatConnection
-      adds event handlers for open, close, error, and message events. For
-      example, here’s the code that responds to message events:</para>
+      <para>The search client connects to the WebSocket by calling the
+      WebSocket constructor with the argument 'ws://127.0.0.1:9223/ws'. Then
+      it adds event handlers for open and error events. The open event
+      handler, in turn, registers handlers for message and close events.
+      Here's the relevant code:</para>
 
-      <programlisting format="linespecific"><remark>lang-dart
-</remark>webSocket.onMessage.listen((MessageEvent e) {
-  print('received message ${e.data}');
-  _receivedEncodedMessage(e.data);
-});</programlisting>
+      <programlisting>class Client {
+  ...
+  WebSocket webSocket;
+  ...
 
-      <para>The <literal>_receivedEncodedMessage()</literal> method just
-      parses the JSON data and displays it in the status area:</para>
-
-      <programlisting format="linespecific"><remark>lang-dart
-</remark>_receivedEncodedMessage(String encodedMessage) {
-  Map message = json.parse(encodedMessage);
-  if (message['f'] != null) {
-    chatWindow.displayMessage(message['m'], message['f']);
+  Client() {
+    ...
+    connect();
   }
+
+  void connect() {
+    ...
+    webSocket = new WebSocket('ws://${Uri.base.host}:${Uri.base.port}/ws');
+    webSocket.onOpen.first.then((_) {
+      onConnected();
+      webSocket.onClose.first.then((_) {
+        print("Connection disconnected to ${webSocket.url}");
+        onDisconnected();
+      });
+    webSocket.onError.first.then((_) {...});
+  }
+
+  void onConnected() {
+    ...
+    webSocket.onMessage.listen((e) {
+      handleMessage(e.data);
+    });
+  }
+  ...
 }</programlisting>
 
-      <para>To send a message on the WebSocket connection,
-      <literal>_sendEncodedMessage()</literal> ensures the WebSocket
-      connection is ready and then sends the JSON-encoded message:</para>
+      <para>To send a message on the WebSocket connection, the client invokes
+      WebSocket's <literal>send()</literal> method:</para>
 
-      <programlisting format="linespecific"><remark>lang-dart
-</remark>// In the ChatConnection class:
-send(String from, String message) {
-  var encoded = json.stringify({'f': from, 'm': message});
-  _sendEncodedMessage(encoded);
-}
+      <programlisting>webSocket.send(JSON.encode(request));</programlisting>
 
-_sendEncodedMessage(String encodedMessage) {
-  if (webSocket != null &amp;&amp; webSocket.readyState == WebSocket.OPEN) {
-    webSocket.send(encodedMessage);
-  } else {
-    print('WebSocket not connected, message $encodedMessage not sent');
-  }
-}</programlisting>
+      <para>When the client receives a message, it decodes the JSON data (as
+      you saw before) and updates the UI to match:</para>
 
-      <para>In the event of a connection problem, the client code attempts to
-      reconnect to the WebSocket server. The following code takes advantage of
-      Dart’s nested functions, nesting the
-      <literal>scheduleReconnect()</literal> function inside of
-      <literal>_init()</literal>. Dart’s lexical scoping ensures that
-      <literal>scheduleReconnect()</literal> can see variables from
-      <literal>_init()</literal>.</para>
+      <programlisting>void handleMessage(data) {
+  var json = JSON.decode(data);
+  var response = json['response'];
+  switch (response) {
+    case 'searchResult':
+      addResult(json['source'], json['title'], json['link']);
+      break;
 
-      <programlisting format="linespecific"><remark>lang-dart
-</remark>_init([int retrySeconds = 2]) {
-  bool encounteredError = false;
-  chatWindow.displayNotice('Connecting to Web socket');
-  webSocket = new WebSocket(url);
-  
-  scheduleReconnect() {
-    chatWindow.displayNotice('socket closed, retrying in $retrySeconds seconds');
-    if (!encounteredError) {
-      new Timer(new Duration(seconds:retrySeconds),
-          () =&gt; _init(retrySeconds*2));
-    }
-    encounteredError = true;
+    case 'searchDone':
+      setStatus(resultsElement.children.isEmpty
+          ? "$mostRecentSearch: No results found"
+          : "$mostRecentSearch: ${resultsElement.children.length} results found");
+      break;
+
+    default:
+      print("Invalid response: '$response'");
   } 
-  //...
-  webSocket.onClose.listen((e) =&gt; scheduleReconnect());
-  webSocket.onError.listen((e) =&gt; scheduleReconnect());</programlisting>
-
-      <para>The reconnect logic uses <literal>new Timer()</literal> to
-      schedule a retry using an exponential backoff algorithm.</para>
+}</programlisting>
     </sect2>
   </sect1>
 
   <sect1 id="ch05-server">
-    <title>The Server’s Code</title>
+    <title>The Server's Code</title>
 
-    <para>The chat-server.dart file contains most of the code used in the chat
-    server. It is responsible for serving static files and managing WebSocket
-    connections. The chat server also logs the chat messages to a file.</para>
+    <para>The main code for the search server is under the
+    <literal>bin</literal> directory, in a file named
+    <literal>server.dart</literal>. It's responsible for serving static files,
+    managing WebSocket connections, and starting searches.</para>
 
-    <sect2 id="ch05-server-static-files">
+    <para>The code for performing the searches is in a custom library, called
+    search_engine, that's implemented in files under the
+    <literal>lib</literal> directory.</para>
+
+    <sect2 id="ch05-server-static">
       <title>Serving Static Files</title>
 
-      <para>The chat server uses dart:io’s HttpServer to implement a web
-      server. The default request handler is configured to serve static files
-      from a specific directory on the file system.</para>
+      <para>The search server uses HttpServer (from dart:io), Platform (also
+      from dart:io), and VirtualDirectory (from the http_server package) to
+      implement a basic web server. Here's the code that initializes the web
+      server and serves static files:</para>
 
-      <programlisting format="linespecific"><remark>lang-dart
-</remark>runServer(String basePath, int port) {
-  ChatHandler chatHandler = new ChatHandler(basePath);
-  StaticFileHandler fileHandler = new StaticFileHandler(basePath);
-  
-  HttpServer.bind('127.0.0.1', port)
-    .then((HttpServer server) {
-      print('listening for connections on $port');
-      
-      var sc = new StreamController();
-      sc.stream.transform(new WebSocketTransformer()).listen(chatHandler.onConnection);
+      <programlisting>var buildPath = Platform.script.resolve('../build').toFilePath();
+...
+int port = 9223;
 
-      server.listen((HttpRequest request) {
-        if (request.uri.path == '/ws') {
-          sc.add(request);
-        } else {
-          fileHandler.onRequest(request);
-        }
-      });
-    },
-    onError: (error) =&gt; print("Error starting HTTP server: $error"));
-}</programlisting>
+HttpServer.bind(InternetAddress.LOOPBACK_IP_V4, port).then((server) {
+  ...
+  var router = new Router(server);
+  ...
+  var virDir = new http_server.VirtualDirectory(buildPath);
+  virDir.jailRoot = false;
+  virDir.allowDirectoryListing = true;
+  virDir.directoryHandler = (dir, request) {
+    var indexUri = new Uri.file(dir.path).resolve('index.html');
+    virDir.serveFile(new File(indexUri.toFilePath()), request);
+  };
+  ...
+  virDir.serve(router.defaultStream);
+  ...
+});</programlisting>
 
-      <para>The StaticFileHandler first gets the file contents using File and
-      Stream. It then sends those contents using the HttpResponse object from
-      the request.</para>
+      <para>The call to <literal>HttpServer.bind()</literal> creates a web
+      server that handles HTTP requests to the address 127.0.0.1:9223 (also
+      known as localhost:9223).</para>
 
-      <para>Because I/O can cause delays, due to variable network or disk
-      bandwidth conditions, the chat server uses asynchronous I/O to handle
-      HTTP requests while still being responsive to other requests. Each I/O
-      request returns a Future, allowing the server to continue executing
-      without waiting for the I/O to complete.</para>
+      <para>Once the future returned by <literal>bind()</literal> completes,
+      the code creates a Router (more about that later) and a VirtualDirectory
+      (<literal>virDir</literal>). Because packages used by the client are set
+      up using symbolic links pointing outside the root directory,
+      <literal>../build</literal>, the <literal>jailRoot</literal> property of
+      <literal>virDir</literal> must be false. (By default, symbolic links
+      aren't allowed outside the root directory.) The next line sets
+      <literal>allowDirectoryListing</literal> to true, allowing the web
+      server to respond to paths that don't include a filename. Next, a custom
+      directory handler overrides the default directory listing code, so that
+      directories display <literal>index.html</literal> instead of a list of
+      files.</para>
 
-      <para>For example, in the following snippet the
-      <literal>exists()</literal> method returns a Future. When the Future
-      completes (with a value of true if the file exists, or false if it
-      doesn’t), the function specified to <literal>then()</literal>
-      executes.</para>
-
-      <programlisting format="linespecific"><remark>lang-dart
-</remark>// Respond to HTTP requests for static files.
-onRequest(HttpRequest request) {
-  final String path =
-      request.uri.path == '/' ? '/index.html' : request.uri.path;
-  final File file = new File('${basePath}${path}');
-  file.exists().then((bool found) {
-    if (found) {
-      file.fullPath().then((String fullPath) {
-        if (!fullPath.startsWith(basePath)) {
-          _send404(request.response);
-        } else {
-          file.openRead().pipe(request.response)
-            .catchError((e) =&gt; print(e));
-        }
-      });
-    } else {
-      _send404(request.response);
-    }
-  });
-}</programlisting>
-
-      <para>See <xref linkend="ch03-asynchronous-programming" /> for more
-      information about using Future, and <xref
-      linkend="ch03-files-and-directories" /> for details on file and <phrase
-      role="">directory </phrase><phrase role="keep-together"><phrase
-      role="">I/O</phrase>.</phrase></para>
+      <para>Once the VirtualDirectory is all set up, invoking the
+      <literal>serve()</literal> method connects <literal>virDir</literal> to
+      a stream of HTTP requests. This stream consists of every HTTP request
+      that the router doesn't handle specially—for example, the stream doesn't
+      include WebSocket connection requests.</para>
     </sect2>
 
-    <sect2 id="ch05-server-web-sockets">
+    <sect2 id="ch05-server-web-socket">
       <title>Managing WebSocket Connections</title>
 
-      <para>In addition to serving static files, the chat server manages
-      WebSocket connections, routing chat messages between clients. The
-      dart:io WebSocketTransformer class accepts HTTP connections, converts
-      them into WebSocket connections, and then passes them to
-      ChatHandler.</para>
+      <para>The search server uses the Router class from the <ulink
+      url="http://pub.dartlang.org/packages/route">route package</ulink> to
+      serve dynamic content. In this app, the main purpose of the router is to
+      filter out upgrade HTTP requests for /ws and to handle them as WebSocket
+      connections. The code uses dart:io's WebSocketTransformer class to
+      perform the conversion:</para>
 
-      <programlisting format="linespecific"><remark>lang-dart
-</remark>runServer(String basePath, int port) {
-  //...
-  var sc = new StreamController();
-  sc.stream.transform(new WebSocketTransformer())
-      .listen(chatHandler.onConnection);
+      <programlisting>router.serve('/ws')
+  .transform(new WebSocketTransformer())
+  .listen(handleWebSocket);</programlisting>
+
+      <para>Here's the custom <literal>handleWebSocket()</literal> method,
+      which handles events on the WebSocket:</para>
+
+      <programlisting>void handleWebSocket(WebSocket webSocket) {
+  webSocket
+    .map((string) =&gt; JSON.decode(string))
+    .listen((json) {
+      var request = json['request'];
+      switch (request) {
+        case 'search':
+          // ...Kick off searches, and register handlers for results...
+          break;
+        ...
+      }
+    }, onError: (error) {...});
 }</programlisting>
 
-      <para>ChatHandler is a custom class that takes care of all WebSocket
-      communication for the chat server. Here is its implementation:</para>
+      <para>The call to <literal>webSocket.map()</literal> parses all the
+      messages that the client sends over the WebSocket, converting each
+      JSON-formatted message into an object. Then, after checking the message
+      format, the handler initiates searches on GitHub and
+      StackOverflow.</para>
 
-      <programlisting format="linespecific"><remark>lang-dart
-</remark>class ChatHandler {
-  Set&lt;WebSocketConnection&gt; connections;
-  //...
-  onConnection(WebSocket conn) {
-    void onMessage(message) {
-      print('new ws msg: $message');
-      webSocketConnections.forEach((connection) {
-        if (conn != connection) {
-          print('queued msg to be sent');
-          queue(() =&gt; connection.send(message));
-        }
-      });
-      time('send to isolate', () =&gt; log.log(message));
-    }
-    
-    print('new ws conn');
-    webSocketConnections.add(conn);
-    conn.listen(onMessage,
-      onDone: () =&gt; webSocketConnections.remove(conn),
-      onError: (e) =&gt; webSocketConnections.remove(conn)
-    );
-  }
-}</programlisting>
+      <para>Here's the code from the 'search' case that starts the searches
+      and handles results as they come in:</para>
 
-      <para>When a client connects, the server adds the client’s WebSocket
-      connection to a collection. When the client disconnects (either through
-      an error or on purpose), the server removes that client’s connection
-      from the collection. When a new message arrives, the server sends the
-      message to all connected clients except the original source.</para>
+      <programlisting>for (var engine in searchEngines) {
+  engine.search(input)
+    .listen((result) {
+      var response = {
+        'response': 'searchResult',
+        'source': engine.name,
+        'title': result.title,
+        'link': result.link
+      };
+      webSocket.add(JSON.encode(response));
+    }, onError: (error) {
+      ...
+    }, onDone: () {
+      done++;
+      if (done == searchEngines.length) {
+        webSocket.add(JSON.encode({ 'response': 'searchDone' }));
+      }
+    });</programlisting>
+
+      <para>Each engine can return up to 3 results, but the WebSocket handler
+      doesn't wait around for those results. Instead, a listener handles each
+      result as it arrives, constructing a JSON-formatted message and using
+      <literal>webSocket.add()</literal> to forward the result to the client.
+      Once both engines have finished sending any results, the search server
+      sends a 'searchDone' message to the client.</para>
     </sect2>
 
-    <sect2 id="ch05-server-log">
-      <title>Logging Messages to a File</title>
+    <sect2 id="ch05-server-web-apis">
+      <title>Using Web APIs</title>
 
-      <para>The chat server logs data to a file, client/chat-log.txt, using a
-      custom library implemented in file-logger.dart. This library uses an
-      isolate to handle file <phrase role="keep-together">I/O</phrase> without
-      tying up the root isolate. Here’s the code that creates and starts this
-      isolate:</para>
+      <para>The GitHub and StackOverflow searches are implemented in
+      <literal>search()</literal> methods that take an input string and return
+      a stream of SearchResult objects. Here's an example from the GitHub
+      <literal>search()</literal> method:</para>
 
-      <programlisting format="linespecific"><remark>lang-dart
-</remark>SendPort _loggingPort = spawnFunction(startLogging);</programlisting>
+      <programlisting>import 'package:http/http.dart' as http_client;
+...
+Stream&lt;SearchResult&gt; search(String input) {
+  var query = {
+    'q': 'language:dart $input'
+  };
+  var searchUri = new Uri.https(
+      'api.github.com',
+      '/search/repositories',
+      query);
+  var controller = new StreamController();
+  http_client.get(searchUri)
+    .then((http_client.Response response) {
+      if (response.statusCode != HttpStatus.OK) {
+        throw "Bad status code: ${response.statusCode}, "
+              "message: ${response.reasonPhrase}";
+      }
+      var json = JSON.decode(response.body);
+      json.putIfAbsent('items', () =&gt; []);
+      json['items']
+        .expand(/* Delete items with empty descriptions. */)
+        .take(3)
+        .forEach((item) {
+          controller.add(new SearchResult(
+              item['description'], item['html_url']));
+        });
+    })
+    .catchError(controller.addError)
+    .whenComplete(controller.close);
+  return controller.stream;
+}</programlisting>
 
-      <para>The value returned by dart:isolate’s
-      <literal>spawnFunction()</literal> is a SendPort object. Because
-      isolates share no data, messages sent to ports are the only way for the
-      root isolate to communicate with the spawned isolate.</para>
+      <para>This method first constructs a search URI, using the
+      <literal>Uri.https()</literal> constructor from dart:core's Uri class.
+      The third argument is a Map&lt;String, String&gt; that specifies the
+      Uri's query parameters. For example, if the input string is 'polymer',
+      then the URI is this:</para>
 
-      <para>The argument to <literal>spawnFunction()</literal> points to the
-      <literal>startLogging()</literal> function, which implements the logging
-      isolate. The logic for the logging isolate is simple: the first message
-      specifies the log file location, and subsequent messages provide data to
-      write to the log file.</para>
+      <simpara><literal>https://api.github.com/search/repositories?q=language%3Adart+polymer</literal></simpara>
 
-      <programlisting format="linespecific"><remark>lang-dart
-</remark>startLogging() {
-  print('started logger');
-  File logFile;
-  IOSink out;
-  port.receive((msg, replyTo) {
-    if (logFile == null) {
-      print('Opening file $msg');
-      logFile = new File(msg);
-      out = logFile.openWrite(mode: FileMode.APPEND);
-    } else {
-      time('write to file', () {
-        out.write('${new DateTime.now()} : $msg\n');
-      });
-    }
+      <para>Next, the method creates an instance of StreamController (a class
+      from dart:async) to create and manage the stream of results.</para>
+
+      <para>Next comes the search request, using the http package's
+      <literal>get()</literal> function to send an HTTP GET request to the
+      search URI. The <literal>get()</literal> function returns a
+      Future&lt;Response&gt;. The <literal>then()</literal> method registers a
+      handler for the response, <literal>catchError()</literal> registers an
+      error handler, and <literal>whenComplete()</literal> registers a cleanup
+      function. At this point, the <literal>search()</literal> method returns
+      the stream created by StreamController.</para>
+
+      <para>Once the response arrives, the response handler decodes it and
+      adds the first three reasonable results to the result stream. If an
+      error occurs, then an error goes in the result stream, causing the
+      search client's onError handler to execute. After either a successful
+      completion or an error, the stream closes and the search client's onDone
+      handler executes.</para>
+    </sect2>
+
+    <sect2 id="ch05-server-library">
+      <title>Implementing a Library</title>
+
+      <para>The search server implements a library, named search_engine, that
+      contains all the code for performing searches. The search_engine library
+      is declared in <literal>search_engine.dart</literal>, with additional
+      implementation in <literal>github_search_engine.dart</literal> and
+      <literal>stack_overflow_search_engine.dart</literal>. Here's the code
+      that sets up the library:</para>
+
+      <programlisting>// In search_engine.dart:
+
+library search_engine;
+
+import 'dart:async';
+import 'dart:convert' show JSON;
+import 'dart:io' show HttpStatus;
+import 'package:http/http.dart' as http_client;
+
+part 'github_search_engine.dart';
+part 'stack_overflow_search_engine.dart';
+
+...</programlisting>
+
+      <para>The other files in the library don't have imports. They do,
+      however, have <literal>part of</literal> statements, which let tools and
+      programmers know which library relies on these files:</para>
+
+      <programlisting>// In github_search_engine.dart and stack_overflow_search_engine.dart:
+
+part of search_engine;
+
+...</programlisting>
+
+      <para>The implementation of the search_engine library is split as
+      follows:</para>
+
+      <variablelist>
+        <varlistentry>
+          <term>search_engine.dart</term>
+
+          <listitem>
+            <para>Contains two basic classes, SearchResult and SearchEngine. A
+            SearchResult contains a title and a link. SearchEngine is an
+            abstract class that defines a common API for all search engines: a
+            <literal>name</literal> property and a <literal>search()</literal>
+            method that takes a string argument and returns a
+            Stream&lt;SearchResult&gt;.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>github_search_engine.dart</term>
+
+          <listitem>
+            <para>Implements GithubSearchEngine, a SearchEngine subclass that
+            searches GitHub for Dart projects that include the search
+            string.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>stack_overflow_search_engine.dart</term>
+
+          <listitem>
+            <para>Implements StackOverflowSearchEngine, a SearchEngine
+            subclass that searches StackOverflow for Dart questions with the
+            search string in the title.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>The bulk of the code is in the SearchEngine subclasses.</para>
+    </sect2>
+
+    <sect2 id="ch05-server-logging">
+      <title>Logging Messages</title>
+
+      <para>The search server uses the <ulink
+      url="http://pub.dartlang.org/packages/logging">logging package</ulink>
+      to log messages at varying levels of severity. Here's the code from
+      <literal>bin/server.dart</literal> that imports API from the logging
+      package and creates a log:</para>
+
+      <programlisting>import 'package:logging/logging.dart' show Logger, Level, LogRecord;
+...
+final Logger log = new Logger('DartiverseSearch');</programlisting>
+
+      <para>The Logger class has many methods for logging messages at
+      pre-defined levels. Here's an example of logging an informational
+      message, which you might use for debugging:</para>
+
+      <programlisting>log.info('New WebSocket connection');</programlisting>
+
+      <para>Here's an example of logging a warning:</para>
+
+      <programlisting>log.warning("Invalid request: '$request'");</programlisting>
+
+      <para>By default, the logging package doesn't do anything useful with
+      the log messages. You must configure the logging level and add a handler
+      for the log messages. Here's the code from
+      <literal>bin/server.dart</literal> that creates and configures the
+      Logger object:</para>
+
+      <programlisting>final Logger log = new Logger('DartiverseSearch');
+...
+
+void main() {
+  // Set up logger.
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((LogRecord rec) {
+    print('${rec.level.name}: ${rec.time}: ${rec.message}');
   });
+  ...
 }</programlisting>
 
-      <para>In the preceding code, the port property used by
-      <literal>startLogging()</literal> refers to a ReceivePort provided by
-      dart:isolate. The port is how this isolate gets data from the root
-      isolate. If this isolate needed to send messages back to the root
-      isolate, it could use the replyTo argument (a SendPort) to do so.</para>
+      <para>Setting the level to <literal>Level.ALL</literal> makes all
+      logging messages appear in the onRecord stream. If you want only
+      warnings to appear, you can set the level to
+      <literal>Level.WARNING</literal>.</para>
 
-      <para>Recall that in the root isolate, the _loggingPort variable holds a
-      SendPort that the root isolate uses to send messages to the logging
-      isolate. Every time the chat server calls the <literal>log()</literal>
-      method, the root isolate sends the log data:</para>
-
-      <programlisting format="linespecific"><remark>lang-dart
-</remark>void log(String message) {
-  _loggingPort.send(message);
-}</programlisting>
-
-      <para>See <xref
-      linkend="ch03-dartisolate---concurrency-with-isolates" /> for more
-      information about using isolates.</para>
+      <para>For a list of all the levels and what they mean, see the <ulink
+      url="https://api.dartlang.org/logging/Level.html">Level API
+      documentation.</ulink> See the <ulink
+      url="https://api.dartlang.org/logging/Logger.html">Logger API
+      documentation</ulink> for a list of methods that log messages.</para>
     </sect2>
   </sect1>
 
   <sect1 id="ch05-what-next">
     <title>What Next?</title>
 
-    <para>You’ve seen how the Dart Chat sample uses both server-side and
-    client-side Dart code to implement a web app. Here are some other samples
-    you might want to look at:</para>
+    <para>You’ve seen how the Dartiverse Search sample uses both server-side
+    and client-side Dart code to implement a web app. It makes use of both
+    built-in libraries and libraries from packages published on
+    pub.dartlang.org.</para>
 
-    <itemizedlist>
-      <listitem>
-        <para><ulink url="http://bit.ly/ZOz3h1"> Solar,</ulink> which
-        simulates the solar system with animations in a canvas, using
-        <phrase><literal
-        role="keep-together">requestAnimationFrame()</literal></phrase>.</para>
-      </listitem>
+    <para>If you'd like to continue exploring Dartiverse Search, consider
+    improving its user interface or adding another search engine. If you'd
+    like to look at other samples, you can find them in Dart Editor and at
+    <ulink url="http://dartlang.org/samples"></ulink>.</para>
 
-      <listitem>
-        <para><ulink url="http://bit.ly/14eTsBz"> Spirodraw,</ulink> a fun,
-        interactive tool to build colorful works of art.</para>
-      </listitem>
-    </itemizedlist>
-
-    <para>Finally, please <ulink url="http://www.dartlang.org">visit our
-    website</ulink> and <ulink url="http://www.dartlang.org/mailing-list">join
-    the discussion.</ulink> We look forward to hearing from you and <ulink
-    url="http://stackoverflow.com/tags/dart">answering your
-    questions!</ulink></para>
+    <para>Our website has lots more information, including guides and
+    tutorials. It's all at <ulink url="http://dartlang.org"></ulink>.</para>
   </sect1>
 </chapter>

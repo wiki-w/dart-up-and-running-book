@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:convert';
 import 'dart:async';
 
 main() {
@@ -6,11 +7,11 @@ main() {
   Stream<List<int>> inputStream = config.openRead();
 
   inputStream
-    .transform(new StringDecoder())
-    .transform(new LineTransformer())
+    .transform(UTF8.decoder)
+    .transform(new LineSplitter())
     .listen(
       (String line) { 
-        print('Read ${line.length} bytes from stream');
+        print('Got ${line.length} characters from stream');
       },
       onDone: () { print('file is now closed'); },
       onError: (e) { print(e.toString()); });
